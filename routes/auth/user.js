@@ -9,22 +9,21 @@ router.get("/signup", (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-    console.log(req.body)
     const user = req.body;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(user.password, salt);
     delete user.password;
     user.password = hashedPassword;
+
     if (user.image === "") {
         user.image = undefined;
     }
 
     try {
         const userdata = await User.create(user);
-        console.log(userdata)
         res.redirect('/user/login')
     } catch (error) {
-        
+        console.log(req.session.user)
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
@@ -83,7 +82,6 @@ router.get("/profile", async (req, res) => {
 router.get("/edit", async (req, res) => {
     try {
         const user = await User.findById(req.session.userId)
-        console.log(user)
         res.render('user/edit', { user })
     } catch(error) {
         console.error(error);
@@ -91,7 +89,6 @@ router.get("/edit", async (req, res) => {
 })
 
 router.post('/edit', async (req, res) => {
-    console.log(req.body)
     const user = req.body;
 
     if (user.image === "") {
@@ -100,19 +97,17 @@ router.post('/edit', async (req, res) => {
 
     try {
         const updatedUser = await User.findByIdAndUpdate(req.session.userId, user, { new: true });
-        console.log(updatedUser)
         res.redirect('/user/profile')
     } catch (error) {
-        
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
             res.render('user/edit', {errorMessage, key, user})
         } else {
-        const key = Object.keys(error.errors)[0];
-        let errorMessage = error.errors[key].message
-        console.error(errorMessage);
-        res.render('user/edit', {errorMessage, key, user})
+            const key = Object.keys(error.errors)[0];
+            let errorMessage = error.errors[key].message
+            console.error(errorMessage);
+            res.render('user/edit', {errorMessage, key, user})
         }
     }
 })
