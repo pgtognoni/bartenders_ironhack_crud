@@ -1,0 +1,45 @@
+<h1> <% if (update) { %>
+    Modify the recipe
+  <% } else { %>
+    Create a new cocktail recipe
+  <% } %></h1>
+<form method="POST" action="<% if (update) { %>
+    /auth/<%- cocktail._id %>/modify
+   <% } else { %>
+    /auth/create
+  <% } %>" class="vstack gap-3">
+    <label>Name : <input type="text" name="name" value="<% if (update) { %><%= cocktail.name %><% } %>"/></label>
+    <label>Ingredients : <input type="text" name="ingredients" value="<% if (update) { %><%= cocktail.ingredients.join(' ') %><% } %>" /></label>
+    <label>Method : <input type="text" name="method" value="<% if (update) { %><%= cocktail.method %><% } %>" /></label>
+    <label>Serving glass : <input type="text" name="servingGlass" value="<% if (update) { %><%= cocktail.servingGlass %><% } %>" /></label>
+    <label>Garnish : <input type="text" name="garnish" value="<% if (update) { %><%= cocktail.garnish %><% } %>" /></label>
+    <label>Description : <input type="text" name="description" value="<% if (update) { %><%= cocktail.description %><% } %>" /></label>
+    <label for="image">Upload a picture of your drink:</label>
+        <input type="file"
+             name="image"
+             accept="image/png, image/jpeg">
+    <label>Make your recipe available to public:</label>
+        <select name="shared">
+            <% if (update) { %>
+                <option value="true" <% if (cocktail.shared === 'true') { %>
+               selected
+              <% } %>>Yes</option>
+              <option value="medium" <% if (cocktail.shared === 'false') { %>
+                selected
+               <% } %>>No</option>
+               <% } else { %>
+            <option value="true">Yes</option>
+            <option value='false'">No</option>
+            <% } %>
+          </select>
+          <button type="submit">
+            <% if (update) { %>
+              Modify recipe
+            <% } else { %>
+              Submit your creation
+            <% } %>
+          </button>       
+</form>
+
+
+  
