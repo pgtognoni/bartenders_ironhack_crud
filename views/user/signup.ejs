@@ -1,0 +1,41 @@
+<h1>SignUp</h1>
+<form action="/user/signup" method="POST" class="signup-form">
+    <label for="username">Username: 
+        <input type="text" name="username" id="username" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.username %>"<% } %>>
+        <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'username') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+    </label>
+    <label for="email">Email 
+        <input type="email" name="email" id="email" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.email %>"<% } %> >
+        <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'email') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+    </label>
+    <label for="age">Age:
+        <input type="number" name="age" id="age" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.age %>"<% } %>>
+        <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'age') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+    </label>
+    <label for="occupation">Occupation:
+        <select name="occupation" id="occupation">
+            <option name="occupation" id="bartender" value="bartender"> bartender
+            <option name="occupation" id="bartender" value="barmanager"> barmanager
+            <option name="occupation" id="bartender" value="barback"> barback
+            <option name="occupation" id="bartender" value="owner"> owner
+            <option name="occupation" id="bartender" value="client"> client
+            <option name="occupation" id="bartender" value="student"> student
+            <option name="occupation" id="bartender" value="other"> other
+        </select>
+    </label>
+    <label for="image">Profile image:
+        <input type="file" name="image" id="image">
+    </label>
+    <label for="city">City:
+        <input type="text" name="city" id="city" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.city %>"<% } %>>
+    </label>
+    <label for="bio">About you:
+        <textarea cols="40" rows="6" type="text" name="bio" id="bio" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.bio %>"<% } %>></textarea>
+    </label>
+    <label for="password">Password:
+        <input type="password" name="password" id="password">
+        <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'password') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+    </label>
+    <button type="submit" id="form-login-btn">SignUp</button>
+    <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key !== 'age' && key !== 'username' && key !== 'email') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+</form>

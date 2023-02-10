@@ -1,0 +1,59 @@
+<div id="profile-container">
+<form action="/user/edit" method="POST" class="signup-form profile-form">
+    <div class="profile-title">
+        <button id="image-profile"><img src="<%= user.image %>" alt="profile-image" class="profile-image"></button> 
+        <h1 data-value="username"><%= user.username %></h1>  <button data-name="username" class="edit">edit</button>
+        <h1><input type="text" name="username" id="username" value="<%= user.username %>"></h1>
+    </div>
+    <div class="profile-body">
+        <p>Email: </p><p data-value="email"><%= user.email %></p> <button data-name="email" class="edit" >edit</button>
+        <input type="email" name="email" id="email" value="<%= user.email %>">
+        <p>Age: </p><p data-value="age"><%= user.age %></p> <button data-name="age" class="edit">edit</button>
+        <input type="number" name="age" id="age" value="<%= user.age %>">
+        <p>Occupation: </p><p data-value="occupation"><%= user.occupation %></p> <button data-name="occupation" class="edit">edit</button>
+        <select name="occupation" id="occupation">
+            <option name="occupation" id="bartender" value="bartender"> bartender
+            <option name="occupation" id="bartender" value="barmanager"> barmanager
+            <option name="occupation" id="bartender" value="barback"> barback
+            <option name="occupation" id="bartender" value="owner"> owner
+            <option name="occupation" id="bartender" value="client"> client
+            <option name="occupation" id="bartender" value="student"> student
+            <option name="occupation" id="bartender" value="other"> other
+        </select>
+        <p>City: </p><p  data-value="city"><%= user.city %></p> <button data-name="city" class="edit">edit</button>
+        <input type="text" name="city" id="city" value="<%= user.city %>">
+        <p>Bio: </p><p  data-value="bio"><%= user.bio %></p> <button data-name="bio" class="edit">edit</button>
+        <textarea cols="40" rows="6" type="text" name="bio" id="bio" value="<%= user.bio %>"></textarea>
+    </div>
+    <div class="btn-container">
+        <button type="submit" id="form-btn">Save Changes</button>
+        <button id="delete">DELETE</button>
+    </div>
+</form>
+<dialog class="delete-container">
+    <div class="delete">
+        <h4>Delete Profile</h4>
+        <div class="btn-container">
+        <form method="dialog">
+            <button value="cancel">Cancel</button>
+        </form>
+        <form action="/user/delete" method="GET">
+            <button class="error-message">DELETE</button>
+        </form>
+        </div>
+    </div>
+</dialog>
+<dialog class="image-edit">
+    <div class="delete">
+        <input type="file" name="image" id="image">
+        <div class="btn-container">
+            <form action="/user/edit" method="POST">
+                <button data-name="image" class="edit" type="submit">Save</button> 
+            </form>
+            <form method="dialog">
+                <button value="cancel">Cancel</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+</div>

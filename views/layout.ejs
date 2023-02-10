@@ -9,8 +9,23 @@
   </head>
 
   <body>
+    <nav class="navbar">
+      <a href='/'>Home</a>
+      <ul class=" navbar-ul">
+        <% if (typeof session !== 'undefined') { %>
+          <li class=" navbar-link"><a href="/user/signup">Search</a></li>
+          <li class=" navbar-link"><a href="/user/profile">Profile</a></li>
+          <li class=" navbar-link"><a href="/user/logout">LogOut</a></li>
+        <% } else { %>
+        <li class=" navbar-link"><a href="/user/login">Login</a></li>
+        <li class=" navbar-link"><a href="/user/signup">SignUp</a></li>
+        <% } %>
+        <li class=" navbar-link"><a href="#about">About</a></li>
+      </ul>   
+    </nav>
+    <div class="container">
     <%- body %>
-
+    </div>
     <script src="/js/script.js"></script>
   </body>
 </html>
