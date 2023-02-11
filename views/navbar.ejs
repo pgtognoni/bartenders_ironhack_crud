@@ -2,9 +2,10 @@
 <div class="nav-col-1">
     <a href='/'><i class="fa-solid fa-house home-icon"></i></a>
     <% if (typeof session !== 'undefined') { %>
-    <i class="fa-solid fa-martini-glass-citrus martini"></i><a href="/user/signup">Cocktail Builder</a>
+    <i class="fa-solid fa-martini-glass-citrus martini"></i><a href="/cocktail/create">Cocktail Builder</a>
     <% } %>    
 </div>
+<% if (typeof session !== 'undefined') { %>
 <div class="nav-col-2">
     <form method="" action="" class="navbar-form">
         <label for="search"><i class="fa-solid fa-magnifying-glass form-search"></i>
@@ -13,6 +14,7 @@
         <button type="submit" class="navbar-btn">Go</button>
     </form>
 </div>
+<% } %>    
 <div class="nav-col-3">
     <ul class=" navbar-ul">
         <% if (typeof session !== 'undefined') { %>

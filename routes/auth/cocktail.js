@@ -3,13 +3,13 @@ const router = express.Router()
 const axios = require('axios');
 
 const Cocktail = require('../../models/Cocktail.model')
-const User = require('../../models/User.model')
+const User = require("../../models/user-model")
 
 
 /* Create cocktail */
 router.get('/create', (req, res) => {
-    res.render('cocktail/new-cocktail', { update: false })
-  })
+    res.render('cocktail/new-cocktail', { update: false, session: req.session.user || undefined })
+})
 
 router.post('/create', async (req, res) => {
     const body = req.body
@@ -27,7 +27,7 @@ router.post('/create', async (req, res) => {
   try {
     const allCocktails = await Cocktail.find()
     console.log('All cocktails :', allCocktails)
-    res.render('cocktail/all-cocktails', { cocktails : allCocktails })
+    res.render('cocktail/all-cocktails', { cocktails : allCocktails, session: req.session.user || undefined })
   } catch (error) {
     console.log('Route to all recipes', error)
   }
@@ -53,7 +53,7 @@ function findCocktailInApi(cocktail){
 
 
 router.get('/cocktail', (req, res) => {
-  res.render('cocktail/search-cocktail',)
+  res.render('cocktail/search-cocktail', { session: req.session.user || undefined})
 })
 
 
@@ -76,7 +76,7 @@ router.get('/cocktail/search', async (req, res) => {
  // console.log(drinksApiArray)
 
   //console.log(cocktailsApi)
-  res.render('cocktail/search-cocktail', { cocktails : cocktailFound, cocktailsApi : drinksApi})
+  res.render('cocktail/search-cocktail', { cocktails : cocktailFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
 })
     
     
@@ -85,7 +85,7 @@ router.get('/cocktail/search', async (req, res) => {
 router.get('/:cocktailId/modify', async (req, res) => {
     const cocktail = await Cocktail.findById(req.params.cocktailId)
     console.log({ cocktail })
-    res.render('cocktail/new-cocktail', { cocktail, update: true })
+    res.render('cocktail/new-cocktail', { cocktail, update: true, session: req.session.user || undefined })
   }) 
 
 
