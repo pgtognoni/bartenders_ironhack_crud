@@ -12,7 +12,13 @@ const isLoggedOut = (req, res, next) => {
     next()
 }
 
+const userlogged = (req, res, next) => {
+    if (req.session.user) next()
+    
+}
+
 module.exports = {
+    userlogged,
     isLoggedIn,
     isLoggedOut
 }
