@@ -4,10 +4,10 @@
 :root {
   --bg-color-body: #f7f7f7;
   --btn-index: #4ca9e3;
-  --text-white: #eeebe0;
+  --text-white: #e4e3e3;
   --box-container: rgba(244, 245, 246, 0.108);
-  --border-black: #3c3c3c;
-  --input-shadow: rgba(184, 185, 185, 0.191);
+  --background-black: #3a3a3a;
+  --input-shadow: rgba(184, 185, 185, 0.414);
 }
 body {
   margin: 0;
@@ -76,7 +76,9 @@ select:-webkit-autofill:focus {
   border: none;
   background-clip: text;
   -webkit-background-clip: text;
-  box-shadow: 1px 1px 5px rgba(184, 185, 185, 0.191);
+  -webkit-text-fill-color: inherit;
+  color: inherit;
+  box-shadow: 1px 1px 5px var(--input-shadow);
   outline: none;
   user-select: none;
 }
@@ -88,7 +90,26 @@ select:-webkit-autofill:focus {
   justify-content: space-between;
   align-items: center;
   padding: .3rem 1rem;
-  border-bottom: 1px solid var(--border-black);
+  border-bottom: 3px solid var(--text-white);
+  background-color: var(--background-black);
+  color: var(--text-white);
+  position: fixed;
+  box-sizing: border-box;
+  width: 100vw;
+}
+
+.nav-col-1{
+  max-width: min-content;
+  min-width: max-content;
+}
+
+.nav-col-2{
+  width: 100%;
+}
+
+.nav-col-3 {
+  max-width: min-content;
+  min-width: max-content;
 }
 
 .home-icon {
@@ -100,9 +121,24 @@ select:-webkit-autofill:focus {
   vertical-align: .1rem;
 }
 
+.navbar-form {
+  box-shadow: 1px 1px 5px var(--input-shadow);
+  width: 100%;
+  position: relative;
+  margin-left: 1rem;
+  padding: .2rem;
+}
+
+.form-search {
+  margin-left: .2rem;
+}
+
 .navbar-btn {
   border: none;
   background-color: inherit;
+  color: var(--text-white);
+  position: absolute;
+  right: 0;
 }
 
 .navbar-ul {
@@ -113,10 +149,6 @@ select:-webkit-autofill:focus {
   gap: 1rem;
 }
 
-.navbar-form {
-  box-shadow: 1px 1px 5px var(--input-shadow);
-}
-
 .navbar-form input {
   box-shadow: none;
 }
@@ -124,6 +156,15 @@ select:-webkit-autofill:focus {
 .navbar-link {
   text-decoration: none;
   color: inherit;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-wrap: nowrap;
+  }
+  .nav-col-2 {
+    order: 1;
+  }
 }
 
 /****** BTN-INDEX ******/

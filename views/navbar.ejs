@@ -4,15 +4,18 @@
     <% if (typeof session !== 'undefined') { %>
     <i class="fa-solid fa-martini-glass-citrus martini"></i><a href="/user/signup">Cocktail Builder</a>
     <% } %>    
-    </div>
+</div>
 <div class="nav-col-2">
+    <form method="" action="" class="navbar-form">
+        <label for="search"><i class="fa-solid fa-magnifying-glass form-search"></i>
+            <input type="text" name="search" id="">
+        </label>
+        <button type="submit" class="navbar-btn">Go</button>
+    </form>
+</div>
+<div class="nav-col-3">
     <ul class=" navbar-ul">
         <% if (typeof session !== 'undefined') { %>
-        <form method="" action="" class="navbar-form">
-            <label for="search"><i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" name="search" id="">
-            </label>
-            <button type="submit" class="navbar-btn">Go</button></form>
         <li class=" navbar-link"><a href="/user/profile"><i class="fa-solid fa-user" class="user-icon"></i></a></li>
         <li class=" navbar-link"><a href="/user/logout">LogOut</a></li>
         <% } else if (typeof session === 'undefined') { %>
