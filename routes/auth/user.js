@@ -4,8 +4,9 @@ const bcrypt = require("bcryptjs");
 
 //SigUp Routes for User
 
+
 router.get("/signup", (req, res) => {
-    res.render('user/signup')
+    res.render('user/signup', { session: req.session.user || undefined})
 })
 
 router.post('/signup', async (req, res) => {
@@ -27,19 +28,19 @@ router.post('/signup', async (req, res) => {
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
-            res.render('user/signup', {errorMessage, key, user})
+            res.render('user/signup', {errorMessage, key, user, session: req.session.user || undefined})
         } else {
         const key = Object.keys(error.errors)[0];
         let errorMessage = error.errors[key].message
         console.error(errorMessage);
-        res.render('user/signup', {errorMessage, key, user})
+        res.render('user/signup', {errorMessage, key, user, session: req.session.user || undefined})
         }
     }
 })
 
 //Login Routes for User
 router.get("/login", (req, res) => {
-    res.render('user/login')
+    res.render('user/login', { session: req.session.user || undefined})
 })
 
 router.post('/login', async (req, res) => {
@@ -62,7 +63,7 @@ router.post('/login', async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.render('user/login', { error, username }); 
+        res.render('user/login', { error, username, session: req.session.user || undefined }); 
     }
 })
 
@@ -71,7 +72,7 @@ router.post('/login', async (req, res) => {
 router.get("/profile", async (req, res) => {
     try {
         const user = await User.findById(req.session.userId)
-        res.render('user/profile', { user })
+        res.render('user/profile', { user, session: req.session.user || undefined })
     } catch(error) {
         console.error(error);
     }
@@ -82,7 +83,7 @@ router.get("/profile", async (req, res) => {
 router.get("/edit", async (req, res) => {
     try {
         const user = await User.findById(req.session.userId)
-        res.render('user/edit', { user })
+        res.render('user/edit', { user, session: req.session.user || undefined })
     } catch(error) {
         console.error(error);
     }
@@ -102,12 +103,12 @@ router.post('/edit', async (req, res) => {
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
-            res.render('user/edit', {errorMessage, key, user})
+            res.render('user/edit', {errorMessage, key, user, session: req.session.user || undefined})
         } else {
             const key = Object.keys(error.errors)[0];
             let errorMessage = error.errors[key].message
             console.error(errorMessage);
-            res.render('user/edit', {errorMessage, key, user})
+            res.render('user/edit', {errorMessage, key, user, session: req.session.user || undefined})
         }
     }
 })

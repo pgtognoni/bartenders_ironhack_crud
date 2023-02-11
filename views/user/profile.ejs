@@ -2,15 +2,15 @@
 <form action="/user/edit" method="POST" class="signup-form profile-form">
     <div class="profile-title">
         <button id="image-profile"><img src="<%= user.image %>" alt="profile-image" class="profile-image"></button> 
-        <h1 data-value="username"><%= user.username %></h1>  <button data-name="username" class="edit">edit</button>
+        <button data-name="username" class="edit"><h1 data-value="username"><%= user.username %></h1></button>
         <h1><input type="text" name="username" id="username" value="<%= user.username %>"></h1>
     </div>
     <div class="profile-body">
-        <p>Email: </p><p data-value="email"><%= user.email %></p> <button data-name="email" class="edit" >edit</button>
+        <p>Email: </p><button data-name="email" class="edit" ><p data-value="email"><%= user.email %></p></button>
         <input type="email" name="email" id="email" value="<%= user.email %>">
-        <p>Age: </p><p data-value="age"><%= user.age %></p> <button data-name="age" class="edit">edit</button>
+        <p>Age: </p><button data-name="age" class="edit"><p data-value="age"><%= user.age %></p></button>
         <input type="number" name="age" id="age" value="<%= user.age %>">
-        <p>Occupation: </p><p data-value="occupation"><%= user.occupation %></p> <button data-name="occupation" class="edit">edit</button>
+        <p>Occupation: </p><button data-name="occupation" class="edit"><p data-value="occupation"><%= user.occupation %></p></button>
         <select name="occupation" id="occupation">
             <option name="occupation" id="bartender" value="bartender"> bartender
             <option name="occupation" id="bartender" value="barmanager"> barmanager
@@ -20,9 +20,9 @@
             <option name="occupation" id="bartender" value="student"> student
             <option name="occupation" id="bartender" value="other"> other
         </select>
-        <p>City: </p><p  data-value="city"><%= user.city %></p> <button data-name="city" class="edit">edit</button>
+        <p>City: </p><button data-name="city" class="edit"><p  data-value="city"><%= user.city %></p> </button>
         <input type="text" name="city" id="city" value="<%= user.city %>">
-        <p>Bio: </p><p  data-value="bio"><%= user.bio %></p> <button data-name="bio" class="edit">edit</button>
+        <p>Bio: </p><button data-name="bio" class="edit"><p  data-value="bio"><%= user.bio %></p></button>
         <textarea cols="40" rows="6" type="text" name="bio" id="bio" value="<%= user.bio %>"></textarea>
     </div>
     <div class="btn-container">
