@@ -1,0 +1,23 @@
+<div class="box-container column-center signup-container">
+<h2 class="box-title">Register</h2>
+<form action="/user/signup" method="POST" class="signup-form column-center">
+    <label for="username">Username: 
+        <input type="text" name="username" id="username" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.username %>"<% } %>>
+        <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'username') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+    </label>
+    <label for="email">Email 
+        <input type="email" name="email" id="email" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.email %>"<% } %> >
+        <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'email') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+    </label>
+    <label for="age">Age:
+        <input type="number" name="age" id="age" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.age %>"<% } %>>
+        <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'age') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+    </label>
+    <label for="password">Password:
+        <input type="password" name="password" id="password">
+        <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'password') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+    </label>
+    <button type="submit" id="form-login-btn" class="index-btn btn-signup btn-box">Register</button>
+    <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key !== 'age' && key !== 'username' && key !== 'email') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+</form>
+</div>

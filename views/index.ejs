@@ -1,2 +1,12 @@
-<h1><%= appTitle %> 🚀</h1>
-<p>Welcome Ironhacker!</p>
+<div class="container column-center">
+<h1>Barteders's Club</h1>
+<% if (typeof session === 'undefined') { %>
+<div class="column-center box-container">
+    <h2 class="box-title">Welcome </h2>
+    <div class="btn-container ">
+        <a href="/user/login" class="index-btn btn-login">Login</a>
+        <a href="/user/signup" class="index-btn btn-signup">Register</a>
+    </div>
+</div>
+<% } %>
+</div>

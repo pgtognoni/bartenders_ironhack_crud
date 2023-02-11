@@ -1,0 +1,13 @@
+<div class="box-container column-center signup-container">
+<h1 class="box-title">LogIn</h1>
+<form action="/user/login" method="POST" class="signup-form column-center">
+    <label for="username">Username: 
+        <input type="text" name="username" id="username" required <% if (typeof error !== 'undefined') { %> value="<%= username %>"<% } %>>
+    </label>
+    <label for="password">Password:
+        <input type="password" name="password" id="password" required>
+    </label>
+    <button type="submit" class="index-btn btn-signup btn-box">LogIn</button>
+    <% if (typeof error !== 'undefined')  { %> <p class="error-message"><%= error.message %></p><% } %>
+</form>
+</div>
