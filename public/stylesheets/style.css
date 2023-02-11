@@ -11,7 +11,10 @@
   --box-shadow-inset: rgba(107, 108, 109, 0.5);
   --background-black: #212121;
   --input-shadow: rgba(39, 39, 39, 0.414);
+  --dark-blue: #06365f;
+  --light-blue: #1c5380;
 }
+
 body {
   color: var(--text-white);
   margin: 0;
@@ -273,7 +276,7 @@ select:-webkit-autofill:focus {
   }
 }
 
-.index-btn {
+/* .index-btn {
   background-color: var(--btn-index);
   border: 0 solid #E5E7EB;
   color: var(--text-white) !important;
@@ -292,14 +295,6 @@ select:-webkit-autofill:focus {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-}
-
-.btn-login {
-  padding: .75rem 1.65rem;
-}
-
-.btn-signup {
-  padding: .75rem 1.65rem;
 }
 
 .index-btn:focus {
@@ -321,15 +316,46 @@ select:-webkit-autofill:focus {
   height: calc(100% + 1px);
   bottom: -1px;
   left: -1px;
+} */
 
+.index-btn {
+  background: linear-gradient(#6186a6, #426b90);
+  display: flex;
+  color: var(--text-white) !important;
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1.75rem;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  max-width: 5rem;
+  border-radius: 7px;
+  border: none;
+  box-shadow: .7px .7px  1px var(--dark-blue), 
+    -.7px -.7px 1px  var(--dark-blue),
+    inset 2px 2px 15px var(--light-blue), 
+    inset -2px -2px 15px var(--light-blue);
+  ;
 }
+
+
+.btn-login {
+  padding: .75rem 1.65rem;
+}
+
+.btn-signup {
+  padding: .75rem 1.65rem;
+  background: linear-gradient(#acdbfb79, #76b1e47e);
+}
+
 
 @media (min-width: 768px) {
   .index-btn {
     font-size: 1.3rem;
   }
   .btn-login {
-    padding: .75rem 3rem;
+    padding: .75rem 2.6rem;
   }
   
   .btn-signup {
