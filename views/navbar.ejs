@@ -1,4 +1,10 @@
-<nav class="nav-bar-container in-top">
+<div id="nav-bar" 
+<% if (typeof session !== 'undefined') { %>    
+    class="nav-bar-container"
+<% } else { %>
+    class="nav-bar-container  in-top"
+<% } %>
+>
 <div class="nav-col-1">
     <a href='/'><i class="fa-solid fa-house home-icon"></i></a>
     <% if (typeof session !== 'undefined') { %>
@@ -27,4 +33,4 @@
         <% } %>
     </ul>
 </div>  
-</nav>
+</div> 
