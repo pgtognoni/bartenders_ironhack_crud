@@ -160,6 +160,7 @@ select:-webkit-autofill:focus {
 
 .home-icon {
   margin-right: 1rem;
+  color: var(--text-white)
 }
 
 .martini {

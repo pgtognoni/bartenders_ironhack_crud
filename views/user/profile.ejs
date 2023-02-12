@@ -1,3 +1,6 @@
+<%- include('../navbar.ejs'), { session } %>
+<div class="seccion-container column-center">
+
 <div id="profile-container" class="column-center" >
 <form action="/user/edit" method="POST" class="signup-form profile-form box-container">
     <div class="profile-title">
@@ -40,7 +43,7 @@
     </div>
     <div class="btn-container">
         <button id="delete">DELETE</button>
-        <button type="submit" id="form-btn" id="save-changes" class="index-btn login-btn">Save Changes</button>
+        <button type="submit" id="form-btn" id="save-changes" class="btn-box index-btn login-btn">Save Changes</button>
     </div>
 </form>
 <dialog class="delete-container">
@@ -69,4 +72,5 @@
         </div>
     </div>
 </dialog>
+</div>
 </div>

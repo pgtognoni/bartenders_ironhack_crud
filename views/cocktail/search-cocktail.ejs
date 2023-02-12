@@ -1,9 +1,12 @@
-<form action="/auth/cocktail/search" method="GET">
-    <input type="text" placeholder="Search for a cocktail.." name="cocktail">
-    <button type="submit">Search</button>
-</form>
+<%- include('../navbar.ejs'), { session } %>
+<div class="seccion-container column-center">
 
-<% if (cocktails.length != 0) %> <% cocktails.forEach(cocktail => { %>
+  <form action="/auth/cocktail/search" method="GET">
+      <input type="text" placeholder="Search for a cocktail.." name="cocktail">
+      <button type="submit">Search</button>
+  </form>
+
+  <% if (cocktails.length != 0) %> <% cocktails.forEach(cocktail => { %>
     <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
       <h2>Cocktail Name:<%=cocktail.name%></h2>
       <h2>Garnish: <%=cocktail.garnish%></h2>
@@ -16,17 +19,18 @@
       <a href="/auth/<%- cocktail._id %>/modify">Modify</a>
       <a href="/auth/<%- cocktail._id %>/delete">Delete</a>
     </div>
-    <% }) %>
+  <% }) %>
 
-    <% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %>
-        <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
-          <h2>Cocktail Name:<%=cocktail.name%></h2>
-          <h2>Instructions: <%=cocktail.instructions%></h2>
-          <ul> Ingredients:
-            <% cocktail.ingredients.forEach(ingredient => { %>
-            <li><%= ingredient %></li>
-            <% }) %>
-            </ul>
-    
-        </div>
+  <% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %>
+    <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
+      <h2>Cocktail Name:<%=cocktail.name%></h2>
+      <h2>Instructions: <%=cocktail.instructions%></h2>
+      <ul> Ingredients:
+        <% cocktail.ingredients.forEach(ingredient => { %>
+        <li><%= ingredient %></li>
         <% }) %>
+        </ul>
+
+    </div>
+  <% }) %>
+</div>
