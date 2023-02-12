@@ -4,24 +4,27 @@
 <div id="profile-container" class="column-center" >
 <form action="/user/edit" method="POST" class="signup-form profile-form box-container">
     <div class="profile-title">
-        <button id="image-profile"><img class="image-profile" src="<%= user.image %>" alt="profile-image" class="profile-image"></button> 
+        <button id="image-profile" class="image-profile-btn"><img class="image-profile" src="<%= user.image %>" alt="profile-image" class="profile-image"></button> 
         <label for="username" class="profile-username">
             <button data-name="username" class="edit"><h1 data-value="username"><%= user.username %></h1></button>
             <h1 class="h1-profile"><input type="text" name="username" id="username" value="<%= user.username %>"></h1>
-            <button id="edit-btn">Edit Profile</button>
+            <div class="btn-edit-container">
+                <button id="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button id="cancel-edit"><i class="fa-solid fa-xmark"></i></i></button>
+             </div>
         </label>
     </div>
     <div class="profile-body">
         <label for="email">
-            <p>Email: </p><button data-name="email" class="edit" ><p data-value="email"><%= user.email %></p></button>
+            <p>Email: </p><button data-name="email" class="edit" ><p class="edit-text" data-value="email"><%= user.email %></p></button>
             <input type="email" name="email" id="email" value="<%= user.email %>">
         </label>
         <label for="age">
-            <p>Age: </p><button data-name="age" class="edit"><p data-value="age"><%= user.age %></p></button>
+            <p>Age: </p><button data-name="age" class="edit"><p class="edit-text" data-value="age"><%= user.age %></p></button>
             <input type="number" name="age" id="age" value="<%= user.age %>">
         </label>
         <label for="occupation">
-            <p>Occupation: </p><button data-name="occupation" class="edit"><p data-value="occupation"><%= user.occupation %></p></button>
+            <p>Occupation: </p><button data-name="occupation" class="edit"><p class="edit-text" data-value="occupation"><%= user.occupation %></p></button>
             <select name="occupation" id="occupation">
                 <option name="occupation" id="bartender" value="bartender"> bartender
                 <option name="occupation" id="bartender" value="barmanager"> barmanager
@@ -33,7 +36,7 @@
             </select>
         </label>
         <label for="city">
-            <p>City: </p><button data-name="city" class="edit"><p  data-value="city"><%= user.city %></p> </button>
+            <p>City: </p><button data-name="city" class="edit"><p  class="edit-text" data-value="city"><%= user.city %></p> </button>
             <input type="text" name="city" id="city" value="<%= user.city %>">
         </label>
         <label for="bio">

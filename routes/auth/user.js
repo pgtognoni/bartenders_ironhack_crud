@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../../models/user-model")
 const bcrypt = require("bcryptjs");
+const { isLoggedIn } = require('../../middlewares/islogged');
 
 //SigUp Routes for User
 
@@ -68,7 +69,7 @@ router.post('/login', async (req, res) => {
 
 //User Profile Routes
 
-router.get("/profile", async (req, res) => {
+router.get("/profile", isLoggedIn, async (req, res) => {
     try {
         const user = await User.findById(req.session.userId)
         res.render('user/profile', { user, session: req.session.user || undefined })
@@ -79,7 +80,7 @@ router.get("/profile", async (req, res) => {
 
 //User Edit Profile Routes
 
-router.get("/edit", async (req, res) => {
+router.get("/edit", isLoggedIn, async (req, res) => {
     try {
         const user = await User.findById(req.session.userId)
         res.render('user/edit', { user, session: req.session.user || undefined })
@@ -88,7 +89,7 @@ router.get("/edit", async (req, res) => {
     }
 })
 
-router.post('/edit', async (req, res) => {
+router.post('/edit', isLoggedIn, async (req, res) => {
     const user = req.body;
 
     if (user.image === "") {
@@ -113,7 +114,7 @@ router.post('/edit', async (req, res) => {
 })
 //User delete
 
-router.get("/delete", async (req, res) => {
+router.get("/delete", isLoggedIn, async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.session.userId)
         res.redirect('/')
@@ -123,7 +124,7 @@ router.get("/delete", async (req, res) => {
 })
 
 //Logout
-router.get("/logout", (req, res) => {
+router.get("/logout", isLoggedIn, (req, res) => {
     req.session.destroy();
     res.redirect('/')
 })

@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const edits = document.querySelectorAll('.edit')
 
     edits.forEach(item => {item.classList.add('underline')})
+    document.getElementById("edit-btn").style.display = "none";
+    document.getElementById("cancel-edit").style.display = "block";
 
     edits.forEach(item => item.addEventListener('click', (e) => {
       e.preventDefault();
@@ -16,9 +18,33 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(`[data-value="${datakey}"`).style.display = "none";
       document.getElementById(`${datakey}`).classList.add('underline');
       document.getElementById(`${datakey}`).style.display = "block";
-      document.querySelector('.h1-profile').style.display = 'block';
+      document.querySelector('.h1-profile').style.display = "block";
     }))
 
+  })
+
+  document.getElementById("cancel-edit").addEventListener("click", (e) => {
+    e.preventDefault();
+    const edits = document.querySelectorAll('.edit')
+
+    edits.forEach(item => {item.classList.remove('underline')})
+    document.getElementById("edit-btn").style.display = "block";
+    document.getElementById("cancel-edit").style.display = "none";
+    document.getElementById(`username`).classList.remove('underline');
+    document.querySelector('.h1-profile').classList.remove('underline');
+
+    edits.forEach(item => {
+      e.preventDefault();
+      const datakey = item.dataset.name;
+      console.log("edit button clicked: ", datakey);
+      item.style.display = "block";
+      document.querySelector(`[data-value="${datakey}"`).style.display = "block";
+      document.getElementById(`${datakey}`).classList.remove('underline');
+      document.getElementById(`${datakey}`).style.display = "none";
+      
+    })
+
+    edits.forEach(item => item.removeEventListener('click', (e) => {
   })
 
   document.getElementById(`delete`).addEventListener('click', (e) => {

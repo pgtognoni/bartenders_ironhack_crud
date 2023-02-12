@@ -14,6 +14,7 @@
   --dark-blue: #06365f;
   --light-blue: #3e9be8;
   --nav-bg: #141313;
+  --btn-cancel: #f22424; 
 }
 
 body {
@@ -505,6 +506,11 @@ select:-webkit-autofill:focus {
   width: 100%;
   position: relative;
   margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-gray)
+}
+
+.profile-title h1 {
+  margin: 0;
 }
 
 .profile-form button,
@@ -523,13 +529,36 @@ select:-webkit-autofill:focus {
   max-width: max-content;
 }
 
+.image-profile-btn {
+  background-color: transparent;
+  border-radius: 100;
+}
+
 .image-profile {
   border-radius: 100%;
 }
 
+.edit-btn-container {
+  width: 100%;
+}
+
 #edit-btn {
   cursor: pointer;
-  color: var(--light-blue);
+  background-color: var(--light-blue);
+  color: var(--text-white);
+  padding: .85rem 1rem;
+  border-radius: 10px;
+}
+
+#cancel-edit {
+  cursor: pointer;
+  background-color: var(--btn-cancel);
+  color: var(--dark-blue);
+  padding: .8rem 1.2rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: none;
 }
 
 .profile-form label {
@@ -564,4 +593,13 @@ select:-webkit-autofill:focus {
 
 .h1-profile {
   display: none;
+}
+
+/***** Create Cocktail *****/
+
+.cocktail-form {
+  min-width: 70% ;
+  max-width: 70% ;
+  gap: 1rem;
+  align-items: start;
 }
