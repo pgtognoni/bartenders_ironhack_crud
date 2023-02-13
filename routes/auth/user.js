@@ -91,6 +91,7 @@ router.get("/editUser", isLoggedIn, async (req, res) => {
 
 router.post('/editUser', isLoggedIn, async (req, res) => {
     const user = req.body;
+    console.log('click edit')
 
     if (user.image === "") {
         user.image = undefined;

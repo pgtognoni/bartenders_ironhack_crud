@@ -3,12 +3,14 @@
 
 <div id="profile-container" class="column-center" >
     <div class="profile-head">
-        <img src="<%= user.image %>" alt="profile-image" class="profile-image">
         <div class="profile-username">
-            <h1 class="profile-username"><%= user.username %></h1>
-            <div class="btn-edit-container">
-                <a class="edit-btn" href="/user/editUser"><i class="fa-solid fa-pen-to-square"></i></a>
+            <div>
+                <img src="<%= user.image %>" alt="profile-image" class="profile-image">
             </div>
+            <h1 class="profile-username"><%= user.username %></h1>
+        </div>
+        <div class="btn-edit-container">
+            <a class="edit-btn" href="/user/editUser"><i class="fa-solid fa-pen-to-square"></i></a>
         </div>
     </div>
     <div class="profile-body">

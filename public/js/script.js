@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   document.getElementById("save-changes").addEventListener("click", (e) => {
-    e.preventDefault();
+    
     const edits = document.querySelectorAll('.edit')
 
     edits.forEach(item => item.classList.remove('underline'))

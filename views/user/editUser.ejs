@@ -2,12 +2,12 @@
 <div class="seccion-container column-center">
 
 <div id="profile-container" class="column-center" >
-    <form action="/user/edit" method="POST" class="signup-form profile-form box-container">
+    <form action="/user/editUser" method="POST" class="signup-form profile-form box-container">
     <a href="/user/profile" class="close-edit"><i class="fa-solid fa-xmark"></i></a>
     <div class="profile-title">
-        <button id="image-profile" class="image-profile-btn"><img class="image-profile-edit" src="<%= user.image %>" alt="profile-image"></button> 
-        <label for="username" class="profile-username">
-            <button data-name="username" class="edit prevent"><h1 data-value="username"><%= user.username %></h1></button>
+        <button id="image-profile" class="image-profile-btn"><img class="image-profile-edit" src="<%= user.image %>" alt="edit-profile-image"></button> 
+        <label for="username" class="edit-username">
+            <button data-name="username" class="edit-username edit prevent"><h1 data-value="username"><%= user.username %></h1></button>
             <h1 class="h1-profile"><input type="text" name="username" id="username" value="<%= user.username %>"></h1>
             <div class="btn-edit-container">
                 <button id="edit-btn" class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -37,17 +37,17 @@
             </select>
         </label>
         <label for="city">
-            <p>City: </p><button data-name="city" class="edit prevent"><p  class="edit-text" data-value="city"><%= user.city %></p> </button>
+            <p>City: </p><button data-name="city" class="edit prevent"><span class="text-transparent">.</span><p  class="edit-text" data-value="city"><%= user.city %></p> </button>
             <input type="text" name="city" id="city" value="<%= user.city %>">
         </label>
-        <label for="bio">
-            <p>Add Bio: </p><button data-name="bio" class="edit prevent"><p  data-value="bio"><%= user.bio %></p></button>
+        <label for="bio" class="label-bio">
+            <p>Add Bio: </p><button data-name="bio" class="edit prevent"><span class="text-transparent">.</span><p  data-value="bio"><%= user.bio %></p></button>
             <textarea cols="40" rows="6" type="text" name="bio" id="bio" value="<%= user.bio %>"></textarea>
         </label>
     </div>
     <div class="btn-container">
-        <button id="delete">DELETE</button>
-        <button type="submit" id="form-btn" id="save-changes" class="btn-box index-btn login-btn">Save Changes</button>
+        <button id="delete" class="btn-edit">DELETE</button>
+        <button type="submit" id="save-changes" class="btn-edit btn-box index-btn login-btn">Save Changes</button>
     </div>
 </form>
 <dialog class="delete-container">
