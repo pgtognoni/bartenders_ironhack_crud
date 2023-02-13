@@ -80,17 +80,18 @@ router.get("/profile", isLoggedIn, async (req, res) => {
 
 //User Edit Profile Routes
 
-router.get("/edit", isLoggedIn, async (req, res) => {
+router.get("/editUser", isLoggedIn, async (req, res) => {
     try {
         const user = await User.findById(req.session.userId)
-        res.render('user/edit', { user, session: req.session.user || undefined })
+        res.render('user/editUser', { user, session: req.session.user || undefined })
     } catch(error) {
         console.error(error);
     }
 })
 
-router.post('/edit', isLoggedIn, async (req, res) => {
+router.post('/editUser', isLoggedIn, async (req, res) => {
     const user = req.body;
+    console.log('click edit')
 
     if (user.image === "") {
         user.image = undefined;
@@ -103,12 +104,12 @@ router.post('/edit', isLoggedIn, async (req, res) => {
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
-            res.render('user/edit', {errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/editUser', {errorMessage, key, user, session: req.session.user || undefined})
         } else {
             const key = Object.keys(error.errors)[0];
             let errorMessage = error.errors[key].message
             console.error(errorMessage);
-            res.render('user/edit', {errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/editUser', {errorMessage, key, user, session: req.session.user || undefined})
         }
     }
 })
