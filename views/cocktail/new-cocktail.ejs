@@ -1,9 +1,12 @@
+<%- include('../navbar.ejs'), { session } %>
+<div class="seccion-container column-center">
+
 <h1> <% if (update) { %>
     Modify the recipe
   <% } else { %>
     Create a new cocktail recipe
   <% } %></h1>
-<form method="POST" action="<% if (update) { %>
+<form class="cocktail-form column-center" method="POST" action="<% if (update) { %>
     /auth/<%- cocktail._id %>/modify
    <% } else { %>
     /auth/create
@@ -41,5 +44,5 @@
           </button>       
 </form>
 
-
+</div>
   

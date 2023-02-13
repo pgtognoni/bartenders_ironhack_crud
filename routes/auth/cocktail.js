@@ -5,9 +5,11 @@ const axios = require('axios');
 const Cocktail = require('../../models/Cocktail.model')
 const User = require("../../models/user-model")
 
+const { isLoggedIn } = require('../../middlewares/islogged');
+
 
 /* Create cocktail */
-router.get('/create', (req, res) => {
+router.get('/create', isLoggedIn, (req, res) => {
     res.render('cocktail/new-cocktail', { update: false, session: req.session.user || undefined })
 })
 
@@ -23,7 +25,7 @@ router.post('/create', async (req, res) => {
 
 /* GET all cocktails */ 
 
- router.get('/creations', async (req, res) => {
+ router.get('/creations', isLoggedIn, async (req, res) => {
   try {
     const allCocktails = await Cocktail.find()
     console.log('All cocktails :', allCocktails)
@@ -82,14 +84,14 @@ router.get('/cocktail/search', async (req, res) => {
     
  /* Modify a cocktail recipe  */
 
-router.get('/:cocktailId/modify', async (req, res) => {
+router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
     const cocktail = await Cocktail.findById(req.params.cocktailId)
     console.log({ cocktail })
     res.render('cocktail/new-cocktail', { cocktail, update: true, session: req.session.user || undefined })
   }) 
 
 
-router.post('/:cocktailId/modify', async (req, res) => {
+router.post('/:cocktailId/modify', isLoggedIn, async (req, res) => {
     await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
       ...req.body,
       ingredients: req.body.ingredients.split(' '),
@@ -100,7 +102,7 @@ router.post('/:cocktailId/modify', async (req, res) => {
   
 /* Delete a cocktail recipe */ 
 
-router.get('/:cocktailId/delete', async (req, res) => {
+router.get('/:cocktailId/delete', isLoggedIn, async (req, res) => {
     await Cocktail.findByIdAndDelete(req.params.cocktailId)
     res.redirect('./creations')
 })
