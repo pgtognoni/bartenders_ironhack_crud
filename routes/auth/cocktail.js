@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios');
-const mongoose = require("mongoose");
 
 const Cocktail = require('../../models/Cocktail.model')
 const User = require("../../models/user-model")
@@ -14,13 +13,17 @@ router.get('/create', isLoggedIn, (req, res) => {
     res.render('cocktail/new-cocktail', { update: false, session: req.session.user || undefined })
 })
 
-router.post('/create', async (req, res) => {
+router.post('/create', isLoggedIn ,async (req, res) => {
     const body = req.body
     console.log(body)
-    await Cocktail.create({
+    const cocktailCreated = await Cocktail.create({
       ...body,
       ingredients: body.ingredients.split(' ')
     })
+    const cocktailId = cocktailCreated._id
+    const userId = req.session.userId
+    const userUpdate = await User.findOneAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
+    console.log(userUpdate)
     res.redirect('./creations')
   })
 
