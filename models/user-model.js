@@ -47,10 +47,11 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    favorites: [{
+    creations: [{
       type: Schema.Types.ObjectId,
       ref: "Cocktail"
-    }]
+    }],
+    favorites: [String]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    

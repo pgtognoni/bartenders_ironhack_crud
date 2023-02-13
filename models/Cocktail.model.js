@@ -1,5 +1,7 @@
 const { Schema, model } = require("mongoose");
 
+
+
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const cocktailSchema = new Schema(
   {
@@ -18,6 +20,7 @@ const cocktailSchema = new Schema(
     },
     servingGlass: {
       type: String,
+      enum: ['Martini' , 'Tumbler' , 'Highball' , 'Coupette' , 'Nick N` Nora' , 'other'],
       required: true
     },
     garnish: {
@@ -46,6 +49,8 @@ const cocktailSchema = new Schema(
     timestamps: true
   }
 );
+
+
 
 const Cocktail = model("Cocktail", cocktailSchema);
 

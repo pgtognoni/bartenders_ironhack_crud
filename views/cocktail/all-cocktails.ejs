@@ -12,9 +12,10 @@
     <li><%= ingredient %></li>
     <% }) %>
   </ul>
+  <p>Serving Glass: <%=cocktail.servingGlass%></p>
   <p>Description: <%=cocktail.description%></p>
-  <a href="/auth/<%- cocktail._id %>/modify">Modify</a>
-  <a href="/auth/<%- cocktail._id %>/delete">Delete</a>
+  <a href="./<%- cocktail._id %>/modify">Modify</a>
+  <a href="./<%- cocktail._id %>/delete">Delete</a>
 </div>
 <% }) %>
 

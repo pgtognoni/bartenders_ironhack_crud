@@ -13,8 +13,9 @@
   --input-shadow: rgba(168, 168, 168, 0.414);
   --dark-blue: #06365f;
   --light-blue: #3e9be8;
-  --nav-bg: #141313;
-  --btn-cancel: #f22424; 
+  --nav-bg: #181818;
+  --btn-cancel: #f22424;
+  --bg-search: #323232;
 }
 
 body {
@@ -115,12 +116,15 @@ select:-webkit-autofill:focus {
 
 /****** LAYOUT ******/
 /****** NAVBAR ******/
+/****** NAVBAR ******/
+/****** NAVBAR ******/
+
 .nav-bar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: .3rem 2rem;
-  border-bottom: 3px solid rgb(15, 15, 15);
+  /* border-bottom: 3px solid rgb(15, 15, 15); */
   background-color: var(--nav-bg);
   color: var(--text-white);
   position: fixed;
@@ -169,25 +173,27 @@ select:-webkit-autofill:focus {
   vertical-align: .1rem;
 }
 
-.navbar-form {
-  /* box-shadow: 1px 1px 5px var(--input-shadow); */
+/* .navbar-form {
+  box-shadow: 1px 1px 5px var(--input-shadow);
   width: 100%;
   max-width: 500px;
   position: relative;
   margin: auto;
-  padding: .2rem;
-  border: 1px solid var(--border-gray)
+  padding: .2rem .4rem;
+  border: 1px solid var(--border-gray);
+  background-color: var(--bg-search);
+  border: none;
+  border-radius: 5px;
 }
 
 .form-search {
-  padding: .3rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-right: 1px solid var(--border-gray);
-}
+  padding: 0 .3rem;
+  font-size: 1rem;
+  order-right: 1px solid var(--border-gray);
+  border: none;
+} */
 
-.navbar-btn {
+/* .navbar-btn {
   border: none;
   background-color: inherit;
   color: var(--text-white);
@@ -196,7 +202,9 @@ select:-webkit-autofill:focus {
   right: 0;
   height: 100%;
   border-left: 1px solid var(--border-gray);
-}
+  border: none;
+  border-radius: 5px;
+} */
 
 .navbar-ul {
   list-style: none;
@@ -237,14 +245,17 @@ select:-webkit-autofill:focus {
 }
 
 /****** INDEX ******/
+/****** INDEX ******/
+/****** INDEX ******/
 
 .index-container {
   display: grid;
   grid-template-columns: 1fr 2fr;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   padding: 10%;
   width: 100%;
+  height: 90vh;
 }
 
 @media screen and (max-width: 768px) {
@@ -254,6 +265,7 @@ select:-webkit-autofill:focus {
 }
 
 .col-2-index {
+  align-self: center;
   justify-self: flex-end;
   margin-right: 2rem;
 }
@@ -415,6 +427,14 @@ select:-webkit-autofill:focus {
 }
 
 /****** SIGNUP  LOGIN ******/
+/****** SIGNUP  LOGIN ******/
+/****** SIGNUP  LOGIN ******/
+
+.bg-martini {
+  z-index: 1;
+  font-size: 8rem;
+  color: var(--text-white)
+}
 
 .signup-container {
   width: 40vw;
@@ -464,41 +484,58 @@ select:-webkit-autofill:focus {
   margin-bottom: 1rem;
 }
 
-.error-message {
-  color: red;
-}
-
-.edit:hover {
-  cursor: pointer;
-}
-
-.profile-form input,
-.profile-form select,
-.profile-form textarea {
-  display: none;
-}
-
-:modal {
-  width: 30rem;
-  border: none;
-  border-radius: 5px;
-}
-
-#image-profile {
-  cursor: pointer;
-}
-
 /***** PROFILE *****/
+/***** PROFILE *****/
+/***** PROFILE *****/
+
+.profile-seccion {
+  justify-content: flex-start;
+}
 
 #profile-container {
   width: 100%;
-  margin-top: 15rem;
+  margin-top: 0rem;
+}
+
+.profile-head {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  position: relative;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-gray);
+  gap: 2rem;
+}
+
+.profile-head h1 {
+  font-size: 4rem;
+  text-transform: uppercase;
+}
+
+/***** EDIT PROFILE *****/
+/***** EDIT PROFILE *****/
+/***** EDIT PROFILE *****/
+
+.close-edit {
+  color: var(--dark-blue) !important;
+  font-size: 1.3rem;
+  position: absolute;
+  right: .8rem;
+  top:.5rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .profile-form {
   min-width: 70% ;
   max-width: 70% ;
 }
+
 .profile-title {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -506,11 +543,50 @@ select:-webkit-autofill:focus {
   width: 100%;
   position: relative;
   margin-bottom: 2rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-gray)
+}
+
+.profile-username {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-image {
+  width: 10rem;
+  border-radius: 100%
+}
+
+.image-profile-btn {
+  background-color: transparent;
+  border-radius: 100%;
+  cursor: pointer;
+  width: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 !important;
+  outline: none;
+  border: none;
+}
+
+.image-profile-edit {
+  width: 100%;
+  border-radius: 100%;
+  outline: none;
+  padding: 0;
+  margin: 0;
 }
 
 .profile-title h1 {
   margin: 0;
+}
+
+.profile-form input,
+.profile-form select,
+.profile-form textarea {
+  display: none;
 }
 
 .profile-form button,
@@ -529,35 +605,56 @@ select:-webkit-autofill:focus {
   max-width: max-content;
 }
 
-.image-profile-btn {
-  background-color: transparent;
-  border-radius: 100;
+.error-message {
+  color: red;
 }
 
-.image-profile {
-  border-radius: 100%;
+.edit:hover {
+  cursor: pointer;
+}
+
+.close-modal {
+  font-size: 1rem;
+  position: absolute;
+  right: .3rem;
+  top:.3rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+:modal {
+  width: 30rem;
+  border: none;
+  border-radius: 5px;
 }
 
 .edit-btn-container {
   width: 100%;
 }
 
-#edit-btn {
+.prevent {
+  pointer-events: none;
+}
+
+.edit-btn {
   cursor: pointer;
   background-color: var(--light-blue);
   color: var(--text-white);
-  padding: .85rem 1rem;
+  padding: .75rem .8rem;
   border-radius: 10px;
 }
 
-#cancel-edit {
+.cancel-edit {
   cursor: pointer;
   background-color: var(--btn-cancel);
-  color: var(--dark-blue);
-  padding: .8rem 1.2rem;
+  color: var(--text-white);
+  padding: .7rem 1rem;
   border-radius: 10px;
   font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: bolder;
   display: none;
 }
 
@@ -574,8 +671,9 @@ select:-webkit-autofill:focus {
 }
 
 .underline {
-  border-bottom: 2px dotted var(--dark-blue) !important;
+  border-bottom: 2px dotted var(--border-gray) !important;
   margin-bottom: 0 !important;
+  margin-bottom: .3rem;
 }
 
 .profile-form label p {
@@ -596,6 +694,8 @@ select:-webkit-autofill:focus {
 }
 
 /***** Create Cocktail *****/
+/***** Create Cocktail *****/
+/***** Create Cocktail *****/
 
 .cocktail-form {
   min-width: 70% ;
@@ -603,3 +703,8 @@ select:-webkit-autofill:focus {
   gap: 1rem;
   align-items: start;
 }
+
+/* button[disabled] {
+  color: inherit;
+  cursor: unset !important;;
+} */

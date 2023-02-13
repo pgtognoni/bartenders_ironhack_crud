@@ -7,14 +7,43 @@
     Create a new cocktail recipe
   <% } %></h1>
 <form class="cocktail-form column-center" method="POST" action="<% if (update) { %>
-    /auth/<%- cocktail._id %>/modify
+    ../<%- cocktail._id %>/modify
    <% } else { %>
-    /auth/create
+    ./create
   <% } %>" class="vstack gap-3">
     <label>Name : <input type="text" name="name" value="<% if (update) { %><%= cocktail.name %><% } %>"/></label>
-    <label>Ingredients : <input type="text" name="ingredients" value="<% if (update) { %><%= cocktail.ingredients.join(' ') %><% } %>" /></label>
+    <label>Ingredients : <textarea cols="40" rows="6" type="text" name="ingredients" value="<% if (update) { %><%= cocktail.ingredients.join(' ') %><% } %>" ></textarea></label>
     <label>Method : <input type="text" name="method" value="<% if (update) { %><%= cocktail.method %><% } %>" /></label>
-    <label>Serving glass : <input type="text" name="servingGlass" value="<% if (update) { %><%= cocktail.servingGlass %><% } %>" /></label>
+    <label>Select type of glass:</label>
+          <select name="servingGlass">
+            <% if (update) { %>
+                <option value="Martini" <% if (cocktail.servingGlass === 'Martini') { %>
+               selected
+              <% } %>>Martini</option>
+              <option value="Tumbler" <% if (cocktail.servingGlass === 'Tumbler') { %>
+                selected
+               <% } %>>Tumbler</option>
+               <option value="Nick N` Nora" <% if (cocktail.servingGlass === 'Nick N` Nora') { %>
+                selected
+               <% } %>>Nick N` Nora</option>
+               <option value="Highball" <% if (cocktail.servingGlass === 'Highball') { %>
+                selected
+               <% } %>>Highball</option>
+               <option value="Coupette" <% if (cocktail.servingGlass === 'Coupette') { %>
+                selected
+               <% } %>>Coupette</option>
+               <option value="other" <% if (cocktail.servingGlass === 'other') { %>
+                selected
+               <% } %>>other</option>
+               <% } else { %>
+            <option value="Martini">Martini</option>
+            <option value='Tumbler'>Tumbler</option>
+            <option value="Nick N` Nora">Nick N` Nora</option>
+            <option value='Highball'>Highball</option>
+            <option value="Coupette">Coupette</option>
+            <option value='other'>Other</option>
+            <% } %>
+          </select>
     <label>Garnish : <input type="text" name="garnish" value="<% if (update) { %><%= cocktail.garnish %><% } %>" /></label>
     <label>Description : <input type="text" name="description" value="<% if (update) { %><%= cocktail.description %><% } %>" /></label>
     <label for="image">Upload a picture of your drink:</label>
@@ -27,12 +56,12 @@
                 <option value="true" <% if (cocktail.shared === 'true') { %>
                selected
               <% } %>>Yes</option>
-              <option value="medium" <% if (cocktail.shared === 'false') { %>
+              <option value="false" <% if (cocktail.shared === 'false') { %>
                 selected
                <% } %>>No</option>
                <% } else { %>
             <option value="true">Yes</option>
-            <option value='false'">No</option>
+            <option value='false'>No</option>
             <% } %>
           </select>
           <button type="submit">
@@ -41,8 +70,5 @@
             <% } else { %>
               Submit your creation
             <% } %>
-          </button>       
+          </button>                
 </form>
-
-</div>
-  

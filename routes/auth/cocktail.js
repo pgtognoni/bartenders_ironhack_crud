@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios');
+const mongoose = require("mongoose");
 
 const Cocktail = require('../../models/Cocktail.model')
 const User = require("../../models/user-model")
@@ -37,32 +38,17 @@ router.post('/create', async (req, res) => {
 
  /* Search for a cocktail recipe in local DB */
 
-
-function findCocktailInApi(cocktail){
-  let drinksApi={}
-  axios({
-    method: 'GET',
-    url: 'https://api.api-ninjas.com/v1/cocktail?name=' + cocktail,
-    headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
-    contentType: 'application/json',   
-  }).then((data) => {
-    drinksApi = data.data
-    return drinksApi
-  })
-  .catch((err) => console.log(err))
-}
-
-
-
-router.get('/cocktail', (req, res) => {
+ router.get('/cocktails-search', (req, res) => {
   res.render('cocktail/search-cocktail', { session: req.session.user || undefined})
 })
 
 
-router.get('/cocktail/search', async (req, res) => {
-  console.log(req.query.cocktail)
-  const cocktailFound = await Cocktail.find({ name: req.query.cocktail})
-  console.log(cocktailFound)
+router.get('/search', async (req, res) => {
+  //console.log(req.query.cocktail)
+  //Cocktail.createIndex({ name: "text" });
+  //const cocktailsFound = await Cocktail.find({ $text: { $search: req.query.cocktail } })
+  const cocktailsFound = await Cocktail.find( { name: { $regex: req.query.cocktail, $options:"i" } } )
+  console.log(cocktailsFound)
   let drinksApi={}
   await axios({
     method: 'GET',
@@ -70,15 +56,15 @@ router.get('/cocktail/search', async (req, res) => {
     headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
     contentType: 'application/json',   
   }).then((data) => {
-    drinksApi = data.data
-    console.log (drinksApi)
+     drinksApi = data.data
+   // console.log (drinksApi)
   })
   .catch((err) => console.log(err))
  // drinksApiArray = findCocktailInApi(req.query.cocktail)
  // console.log(drinksApiArray)
 
   //console.log(cocktailsApi)
-  res.render('cocktail/search-cocktail', { cocktails : cocktailFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
+  res.render('cocktail/search-results', { cocktails : cocktailsFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
 })
     
     
@@ -92,6 +78,7 @@ router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
 
 
 router.post('/:cocktailId/modify', isLoggedIn, async (req, res) => {
+  console.log('anything')
     await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
       ...req.body,
       ingredients: req.body.ingredients.split(' '),
@@ -104,8 +91,18 @@ router.post('/:cocktailId/modify', isLoggedIn, async (req, res) => {
 
 router.get('/:cocktailId/delete', isLoggedIn, async (req, res) => {
     await Cocktail.findByIdAndDelete(req.params.cocktailId)
-    res.redirect('./creations')
+    res.redirect('../creations')
 })
 
 
 module.exports = router;
+
+
+/* Save a cocktail recipe from API*/
+
+router.get('/:cocktailName/save', isLoggedIn, async (req, res) => {
+  const userId = req.session.userId
+  const userUpdate = await User.findByIdAndUpdate(userId, { $push: { favorites : req.params.cocktailName } }, {new: true})
+  console.log(userUpdate) 
+})
+
