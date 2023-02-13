@@ -58,18 +58,18 @@ ul {
   display: grid;
   grid-template-columns: 1fr;
 }
+@media screen and (max-width: 769px) {
+  .seccion-container {
+    padding: 7rem 2rem;
+  }
+}
 @media screen and (max-width: 321px){
   .seccion-container {
-    padding: 5rem 0;
+    padding: 7rem 0;
     justify-items: stretch;
     align-items: start;
   }
 }
-@media screen and (max-width: 769px) {
-  .body-container {
-    padding: 7rem 2rem;
-  }
-  }
 
 .box-container {
   background-color: var(--box-container);;
@@ -433,7 +433,7 @@ select:-webkit-autofill:focus {
 
 .img-2 {
   left: 1rem;
-  top: 60rem;
+  top: 50rem;
 }
 
 .index-img-1 {
@@ -444,6 +444,18 @@ select:-webkit-autofill:focus {
 .index-img-2 {
   width: 50%;
   justify-self: start;
+}
+
+@media screen and (max-width: 769px) {
+  .img-2 {
+    top: 35rem;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .img-2 {
+    top: 30rem;
+  }
 }
 
 @media screen and (max-width: 321px) {
@@ -460,7 +472,7 @@ select:-webkit-autofill:focus {
     margin-right: auto;
     right: 0;
     left: 0;
-    top: 40rem;
+    top: 20rem;
   }
   }
 
@@ -489,7 +501,6 @@ select:-webkit-autofill:focus {
 
 @media screen and (max-width: 1024px) {
   .martini-login-img {
-    /* width: 15rem; */
     left: 1rem;  
   }
 }
@@ -634,15 +645,6 @@ select:-webkit-autofill:focus {
 /***** EDIT PROFILE *****/
 /***** EDIT PROFILE *****/
 
-/***** EDIT PROFILE *****/
-/***** EDIT PROFILE *****/
-/***** EDIT PROFILE *****/
-
-.profile-head h1 {
-  font-size: 4rem;
-  text-transform: uppercase;
-}
-
 .profile-form input,
 .profile-form select,
 .profile-form textarea {
@@ -702,7 +704,7 @@ select:-webkit-autofill:focus {
 
 .profile-title {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 3fr 1fr;
   align-items: center;
   width: 100%;
   position: relative;
@@ -710,15 +712,6 @@ select:-webkit-autofill:focus {
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-gray)
 }
-
-.error-message {
-  color: red;
-}
-
-.edit:hover {
-  cursor: pointer;
-}
-
 
 .image-profile-btn {
   background-color: transparent;
@@ -741,34 +734,119 @@ select:-webkit-autofill:focus {
   margin: 0;
 }
 
-.edit-username {
+.profile-title label.edit-username {
   line-height: initial !important;
-  max-width: 80% !important;
-  width: 80% !important;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  align-items: center;
-  justify-items: flex-start;
+  max-width: 80%;
+  width: 80%;
+  margin-left: .4rem;
+  margin-bottom: -.9rem;
+}
+
+.edit-btn {
+  cursor: pointer;
+  background-color: var(--light-blue);
+  color: var(--text-white);
+  padding: .75rem .8rem;
+  border-radius: 10px;
+}
+
+.edit-username-btn {
+  border-bottom: 1px solid inherit;
+}
+
+.cancel-edit {
+  cursor: pointer;
+  background-color: var(--btn-cancel);
+  color: var(--text-white);
+  padding: .7rem 1rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  display: none;
+}
+
+@media screen and (max-width: 769px) { 
+  
+  .profile-title {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  .edit-btn {
+    padding: .65rem .7rem;
+  }
+  
+  .cancel-edit {
+    padding: .6rem .9rem;
+    font-size: .8rem;
+  }
+
+}
+
+@media screen and (max-width: 521px) { 
+  .profile-title {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+  button.image-profile-btn {
+    margin: auto;
+  }
+  .edit-username{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+  }
+  .btn-edit-container {
+    justify-self: center;
+    margin-top: .5rem;
+  }
+  .profile-title label.edit-username {
+    margin: auto;
+    margin-top: .5rem;
+    justify-self: center;
+    align-self: initial;
+    width: 100%;
+  }
+  .edit-btn {
+    padding: .65rem .7rem;
+  }
+  
+  .cancel-edit {
+    padding: .6rem .9rem;
+    font-size: .8rem;
+  }
+
 }
 
 @media screen and (max-width: 321px) { 
   .profile-title {
     grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
   }
-}
-
-@media screen and (max-width: 769px) { 
-  .profile-title {
-    grid-template-columns: 1fr 2fr;
+  .edit-username{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+  }
+  .btn-edit-container {
+    justify-self: center;
+    margin-top: .5rem;
+  }
+  .profile-title label.edit-username {
+    margin: auto;
+    margin-top: .5rem;
+    justify-self: center;
+    align-items: unset;
   }
 }
 
 .profile-title h1 {
-  margin: 0;
+  margin: 0 0 .8rem;
 }
 
 .profile-form label {
-  height: 2rem;
+  margin-bottom: 2rem;
 }
 
 label[for='age'] input {
@@ -809,29 +887,6 @@ label[for='age'] input {
   pointer-events: none;
 }
 
-.edit-btn {
-  cursor: pointer;
-  background-color: var(--light-blue);
-  color: var(--text-white);
-  padding: .75rem .8rem;
-  border-radius: 10px;
-}
-
-.cancel-edit {
-  cursor: pointer;
-  background-color: var(--btn-cancel);
-  color: var(--text-white);
-  padding: .7rem 1rem;
-  border-radius: 10px;
-  font-size: 1.3rem;
-  font-weight: bolder;
-  display: none;
-}
-@media screen and (max-width: 321px) { 
-  .cancel-edit {
-    font-size: .8rem;
-  }
-}
 
 .profile-form label {
   display: flex;
@@ -839,11 +894,11 @@ label[for='age'] input {
   justify-content: flex-start;
 }
 
-.profile-form label.profile-username {
+/* .profile-form label.edit-username {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+} */
 
 .underline {
   border-bottom: 2px dotted black !important;

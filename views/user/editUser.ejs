@@ -7,13 +7,13 @@
     <div class="profile-title">
         <button id="image-profile" class="image-profile-btn"><img class="image-profile-edit" src="<%= user.image %>" alt="edit-profile-image"></button> 
         <label for="username" class="edit-username">
-            <button data-name="username" class="edit-username edit prevent"><h1 data-value="username"><%= user.username %></h1></button>
+            <button data-name="username" class="edit-username-btn edit prevent"><h1 data-value="username"><%= user.username %></h1></button>
             <h1 class="h1-profile"><input type="text" name="username" id="username" value="<%= user.username %>"></h1>
-            <div class="btn-edit-container">
-                <button id="edit-btn" class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button id="cancel-edit" class="cancel-edit"><i class="fa-solid fa-xmark"></i></i></button>
-             </div>
         </label>
+        <div class="btn-edit-container">
+            <button id="edit-btn" class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button id="cancel-edit" class="cancel-edit"><i class="fa-solid fa-xmark"></i></i></button>
+         </div>
     </div>
     <div class="profile-body">
         <label for="email">
@@ -47,7 +47,7 @@
     </div>
     <div class="btn-container">
         <button id="delete" class="btn-edit">DELETE</button>
-        <button type="submit" id="save-changes" class="btn-edit btn-box index-btn login-btn">Save Changes</button>
+        <button type="submit" id="save-changes" class="btn-edit btn-box index-btn login-btn">SAVE</button>
     </div>
 </form>
 <dialog class="delete-container">
