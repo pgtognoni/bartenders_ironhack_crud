@@ -59,7 +59,7 @@ router.get('/cocktail', (req, res) => {
 })
 
 
-router.get('/cocktail/search', async (req, res) => {
+router.get('/search', async (req, res) => {
   console.log(req.query.cocktail)
   const cocktailFound = await Cocktail.find({ name: req.query.cocktail})
   console.log(cocktailFound)
