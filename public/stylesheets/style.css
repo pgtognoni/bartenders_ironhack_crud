@@ -103,12 +103,14 @@ ul {
 @media screen and (max-width: 321px){
   .box-container {
     padding: 1.5rem 1rem;
+    padding: calc(2rem *0.5) calc(2.5rem *0.5);
     border-radius: 5px;
     min-width: fit-content;
   }
 
   .box-title {
     font-size: 1.25rem;
+    font-size: calc(2rem * 0.5);
   }
 
   .btn-container {

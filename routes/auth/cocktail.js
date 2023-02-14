@@ -41,7 +41,7 @@ router.post('/create', isLoggedIn ,async (req, res) => {
 
  /* Search for a cocktail recipe in local DB */
 
- router.get('/cocktails-search', (req, res) => {
+router.get('/cocktails-search', (req, res) => {
   res.render('cocktail/search-cocktail', { session: req.session.user || undefined})
 })
 
@@ -50,9 +50,15 @@ router.get('/search', async (req, res) => {
   //console.log(req.query.cocktail)
   //Cocktail.createIndex({ name: "text" });
   //const cocktailsFound = await Cocktail.find({ $text: { $search: req.query.cocktail } })
-  const cocktailsFound = await Cocktail.find( { name: { $regex: req.query.cocktail, $options:"i" } } )
-  console.log(cocktailsFound)
+  
+    const string = req.query.cocktail;
+    string.toLowerCase();
+    cocktailsFound = await Cocktail.find( { name: string} )
+
+  //console.log(cocktailsFound)
+  
   let drinksApi={}
+
   await axios({
     method: 'GET',
     url: 'https://api.api-ninjas.com/v1/cocktail?name=' + req.query.cocktail,
