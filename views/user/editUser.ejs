@@ -8,7 +8,7 @@
         <button id="image-profile" class="image-profile-btn"><img class="image-profile-edit" src="<%= user.image %>" alt="edit-profile-image"></button> 
         <label for="username" class="edit-username">
             <button data-name="username" class="edit-username-btn edit prevent"><h1 data-value="username"><%= user.username %></h1></button>
-            <h1 class="h1-profile"><input type="text" name="username" id="username" value="<%= user.username %>"></h1>
+            <h1 class="h1-profile"><input oninput="this.size = this.value.length" type="text" name="username" id="username" value="<%= user.username %>"></h1>
         </label>
         <div class="btn-edit-container">
             <button id="edit-btn" class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -18,14 +18,14 @@
     <div class="profile-body">
         <label for="email">
             <p>Email: </p><button data-name="email" class="edit prevent" ><p class="edit-text" data-value="email"><%= user.email %></p></button>
-            <input type="email" name="email" id="email" value="<%= user.email %>">
+            <input oninput="this.size = this.value.length" type="email" name="email" id="email" value="<%= user.email %>">
         </label>
         <label for="age">
             <p>Age: </p><button data-name="age" class="edit prevent"><p class="edit-text" data-value="age"><%= user.age %></p></button>
-            <input type="number" name="age" id="age" value="<%= user.age %>">
+            <input oninput="this.size = this.value.length" type="number" name="age" id="age" value="<%= user.age %>">
         </label>
         <label for="occupation">
-            <p>Occupation: </p><button data-name="occupation" class="edit prevent"><p class="edit-text" data-value="occupation"><%= user.occupation %></p></button>
+            <p>Occupation: </p><button data-name="occupation" class="edit prevent"><p class="edit-text" data-value="occupation"><span class="text-transparent">.</span><%= user.occupation %></p></button>
             <select name="occupation" id="occupation">
                 <option name="occupation" id="bartender" value="bartender"> bartender
                 <option name="occupation" id="bartender" value="barmanager"> barmanager
@@ -38,7 +38,7 @@
         </label>
         <label for="city">
             <p>City: </p><button data-name="city" class="edit prevent"><span class="text-transparent">.</span><p  class="edit-text" data-value="city"><%= user.city %></p> </button>
-            <input type="text" name="city" id="city" value="<%= user.city %>">
+            <input oninput="this.size = this.value.length" type="text" name="city" id="city" value="<%= user.city %>">
         </label>
         <label for="bio" class="label-bio">
             <p>Add Bio: </p><button data-name="bio" class="edit prevent"><span class="text-transparent">.</span><p  data-value="bio"><%= user.bio %></p></button>

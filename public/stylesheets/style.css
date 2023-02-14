@@ -12,7 +12,7 @@
 :root {
   --border-gray: #c9c9c9;
   --btn-index: #4ca9e3;
-  --text-white: #e4e3e3;
+  --text-white: #dadada;
   --box-container: rgb(241, 241, 241);
   --box-shadow: rgba(211, 237, 241, 0.5);
   --box-shadow-inset: rgba(223, 222, 222, 0.5);
@@ -22,13 +22,16 @@
   --light-blue: #3e9be8;
   --nav-bg: #161618;
   --btn-cancel: #f22424;
-  --bg-search: #323232;
+  --bg-search: #3b3734;
+  --green1: #1eba79;
+  --green2: rgb(28, 201, 91);
+  --index-btn: linear-gradient(var(--green1), var(--green2));
 }
 
 body {
   color: var(--text-white);
   font: 16px 'Roboto', "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: var(--background-black);
+  background-color: var(--background-black)
 }
 
 a, 
@@ -385,7 +388,7 @@ select:-webkit-autofill:focus {
 }
 
 .index-btn {
-  background: linear-gradient(#2ed590, rgb(31, 213, 97));
+  background: var(--index-btn);
   text-shadow: 1px 0 1px var(--light-blue);
   letter-spacing: 1px;
   display: flex;
@@ -579,11 +582,7 @@ select:-webkit-autofill:focus {
     font-size: calc(1rem * .5);
   }
 }
-/* @media screen and (max-width: 480px) {
-  .signup-input[id='age'] {
-    right: 45%;
-  }
-} */
+
 @media screen and (max-width: 700px) {
   .signup-form label {
     font-size: 1rem;
@@ -996,82 +995,126 @@ label[for='age'] input {
 /***** Create Cocktail *****/
 /***** Create Cocktail *****/
 
+.create-seccion {
+  height: 100%;
+}
+
+.cocktail-form button,
+.cocktail-form input,
+.cocktail-form textarea,
+.cocktail-form select {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  line-height: 1.25rem;
+  border: none;
+  outline: none;
+  text-transform: none;
+  overflow: visible;
+  box-shadow: none;
+  max-width: max-content;
+  text-align: left;
+  width: 100%;
+}
+
+textarea {
+  width: 90%;
+  background-color: inherit;
+}
+
+label[for='image'] input::-webkit-file-upload-button {
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background-color: var(--background-black);
+  color: inherit;
+  padding: .4rem .6rem;
+}
+
+.cocktail-form label {
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  background-color: var(--bg-search);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+}
+
 .cocktail-form {
-  min-width: 70% ;
-  max-width: 70% ;
+  max-width: 70%;
+  height: 100%;
   gap: 1rem;
   align-items: start;
+  background-color: var(--nav-bg);
+  box-shadow: none;
+  justify-self: center;
 }
 
-/* button[disabled] {
-  color: inherit;
-  cursor: unset !important;;
-} */
-
-
-
-
-
-.clearfix {
-	clear: both;
-	padding: 0px;
-	margin: 0px;
+.cocktail-form button {
+  justify-self: center;
 }
-.clearfix:before,
-.clearfix:after {
-	content:"";
-	display:table;
+.cocktail-form {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
 }
-.clearfix:after {
-	clear:both;
-}
-.clearfix {
-    zoom:1; /* For IE 6/7 */
-}
-/*  Clearfix End */
-
-
-
-/***** Cocktail card *****/
-
-.recipe-card h3 {
-  text-transform: capitalize;
-}
-.card-head {
-  align-self: center;
-  margin-bottom: 10px;
-}
-
-.recipe-card {
-  background-color: black;
-  box-shadow: rgba(186, 17, 17, 0.56) 0px 22px 70px 4px;
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.card-body {
-  display: flex;
-}
-
-.card-text{
-  margin-left: 25px;
-  padding-right: 10px;
- }
-
-.card-text li{
-  list-style-type: square;
-}
-
-.card-text h4 {
+.cocktail-create-title {
+  font-size: calc(1.5rem * 1.5);
   text-align: center;
-  margin: 10px;
-  font-weight: normal;
-  text-decoration-line: underline; 
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.cocktail-create-title span{
+  font-size: calc(1.5rem * 1.75)
+}
+.cocktail-form label {
+  padding: calc(.5rem * 1.25) calc(.7rem * 1.25);
 }
 
+label[for='description'],
+label[for='ingredients'],
+label[for='image'] {
+  flex-direction: column;
+  align-items: flex-start;
+}
+label[for='description'] textarea,
+label[for='ingredients'] textarea,
+label[for='image'] input{
+  margin-top: .7rem;
+}
 
+label[for='servingGlass'] select,
+label[for='shared'] select {
+  margin-left: 1rem;
+}
 
+@media screen and (max-width: 577px) {
+  .cocktail-create-title {
+    font-size: calc(1.5rem * 1.25);
+  }
+  .cocktail-create-title span{
+    font-size: calc(1.5rem * 1.5)
+  }
+  .cocktail-form label {
+    padding: .5rem .7rem;
+  }
+
+  label[for='servingGlass'],
+  label[for='shared'] {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .cocktail-form label {
+    font-size: .8rem;
+  }
+  .cocktail-form {
+    width: 80%;
+  }
+  .cocktail-create-title {
+    font-size: 1.5rem;
+  }
+}

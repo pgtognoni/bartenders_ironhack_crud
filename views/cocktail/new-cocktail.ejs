@@ -1,74 +1,77 @@
 <%- include('../navbar.ejs'), { session } %>
-<div class="seccion-container column-center">
+<div class="seccion-container column-center create-seccion">
 
-<h1> <% if (update) { %>
-    Modify the recipe
+<h1 class="cocktail-create-title"> <% if (update) { %>
+    <span class="error-message">M</span>odify the recipe
   <% } else { %>
-    Create a new cocktail recipe
+    <span class="error-message ">C</span>reate a New Cocktail recipe
   <% } %></h1>
-<form class="cocktail-form column-center" method="POST" action="<% if (update) { %>
+<form class="cocktail-form box-container seccion-container" method="POST" action="<% if (update) { %>
     ../<%- cocktail._id %>/modify
    <% } else { %>
     ./create
   <% } %>" class="vstack gap-3">
-    <label>Name : <input type="text" name="name" value="<% if (update) { %><%= cocktail.name %><% } %>"/></label>
-    <label>Ingredients : <textarea cols="40" rows="6" type="text" name="ingredients" value="<% if (update) { %><%= cocktail.ingredients.join(' ') %><% } %>" ></textarea></label>
-    <label>Method : <input type="text" name="method" value="<% if (update) { %><%= cocktail.method %><% } %>" /></label>
-    <label>Select type of glass:</label>
-          <select name="servingGlass">
-            <% if (update) { %>
-                <option value="Martini" <% if (cocktail.servingGlass === 'Martini') { %>
-               selected
-              <% } %>>Martini</option>
-              <option value="Tumbler" <% if (cocktail.servingGlass === 'Tumbler') { %>
-                selected
-               <% } %>>Tumbler</option>
-               <option value="Nick N` Nora" <% if (cocktail.servingGlass === 'Nick N` Nora') { %>
-                selected
-               <% } %>>Nick N` Nora</option>
-               <option value="Highball" <% if (cocktail.servingGlass === 'Highball') { %>
-                selected
-               <% } %>>Highball</option>
-               <option value="Coupette" <% if (cocktail.servingGlass === 'Coupette') { %>
-                selected
-               <% } %>>Coupette</option>
-               <option value="other" <% if (cocktail.servingGlass === 'other') { %>
-                selected
-               <% } %>>other</option>
-               <% } else { %>
-            <option value="Martini">Martini</option>
-            <option value='Tumbler'>Tumbler</option>
-            <option value="Nick N` Nora">Nick N` Nora</option>
-            <option value='Highball'>Highball</option>
-            <option value="Coupette">Coupette</option>
-            <option value='other'>Other</option>
-            <% } %>
-          </select>
-    <label>Garnish : <input type="text" name="garnish" value="<% if (update) { %><%= cocktail.garnish %><% } %>" /></label>
-    <label>Description : <input type="text" name="description" value="<% if (update) { %><%= cocktail.description %><% } %>" /></label>
-    <label for="image">Upload a picture of your drink:</label>
-        <input type="file"
-             name="image"
-             accept="image/png, image/jpeg">
-    <label>Make your recipe available to public:</label>
-        <select name="shared">
-            <% if (update) { %>
-                <option value="true" <% if (cocktail.shared === 'true') { %>
-               selected
-              <% } %>>Yes</option>
-              <option value="false" <% if (cocktail.shared === 'false') { %>
-                selected
-               <% } %>>No</option>
-               <% } else { %>
-            <option value="true">Yes</option>
-            <option value='false'>No</option>
-            <% } %>
-          </select>
-          <button type="submit">
-            <% if (update) { %>
-              Modify recipe
+  <label for="name">Name : <input oninput="this.size = this.value.length" type="text" name="name" value="<% if (update) { %><%= cocktail.name %><% } %>"/></label>
+  <label for="ingredients">Ingredients : <textarea oninput="this.size = this.value.length" cols="80" rows="6" type="text" name="ingredients" value="<% if (update) { %><%= cocktail.ingredients.join(' ') %><% } %>" ></textarea></label>
+  <label for="method">Method : <input oninput="this.size = this.value.length" type="text" name="method" value="<% if (update) { %><%= cocktail.method %><% } %>" /></label>
+  <label for="servingGlass">Type of glass:
+      <select name="servingGlass">
+        <% if (update) { %>
+            <option value="Martini" <% if (cocktail.servingGlass === 'Martini') { %>
+            selected
+          <% } %>>Martini</option>
+          <option value="Tumbler" <% if (cocktail.servingGlass === 'Tumbler') { %>
+            selected
+            <% } %>>Tumbler</option>
+            <option value="Nick N` Nora" <% if (cocktail.servingGlass === 'Nick N` Nora') { %>
+            selected
+            <% } %>>Nick N` Nora</option>
+            <option value="Highball" <% if (cocktail.servingGlass === 'Highball') { %>
+            selected
+            <% } %>>Highball</option>
+            <option value="Coupette" <% if (cocktail.servingGlass === 'Coupette') { %>
+            selected
+            <% } %>>Coupette</option>
+            <option value="other" <% if (cocktail.servingGlass === 'other') { %>
+            selected
+            <% } %>>other</option>
             <% } else { %>
-              Submit your creation
-            <% } %>
-          </button>                
+        <option value="Martini">Martini</option>
+        <option value='Tumbler'>Tumbler</option>
+        <option value="Nick N` Nora">Nick N` Nora</option>
+        <option value='Highball'>Highball</option>
+        <option value="Coupette">Coupette</option>
+        <option value='other'>Other</option>
+        <% } %>
+      </select>
+  </label>
+  <label for="garnish">Garnish : <input oninput="this.size = this.value.length" type="text" name="garnish" value="<% if (update) { %><%= cocktail.garnish %><% } %>" /></label>
+  <label for="description">Description: <textarea oninput="this.size = this.value.length" cols="100" rows="6" type="text" name="description" value="<% if (update) { %><%= cocktail.description %><% } %>"></textarea></label>
+  <label for="image">Upload picture:
+    <input type="file"
+          name="image"
+          accept="image/png, image/jpeg">
+  </label>
+  <label for="shared">Make your recipe public:
+    <select name="shared">
+      <% if (update) { %>
+        <option value="true" <% if (cocktail.shared === 'true') { %>
+          selected
+        <% } %>>Yes</option>
+        <option value="false" <% if (cocktail.shared === 'false') { %>
+          selected
+          <% } %>>No</option>
+          <% } else { %>
+      <option value="true">Yes</option>
+      <option value='false'>No</option>
+      <% } %>
+    </select> 
+  </label>
+  <button type="submit" class="btn-edit btn-box index-btn login-btn">
+    <% if (update) { %>
+      EDIT
+    <% } else { %>
+      SAVE
+    <% } %>
+  </button>                
 </form>
