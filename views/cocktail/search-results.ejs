@@ -1,3 +1,6 @@
+<%- include('../navbar.ejs'), { session } %>
+<div class="seccion-container column-center">
+
 <div style = 'display:flex ; flex-direction:column' >
  
     <% if (cocktails.length != 0) %> <% cocktails.forEach(cocktail => { %>
@@ -15,7 +18,7 @@
       </div>
     <% }) %>
   
-    <% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %>
+    <% if (favourites.length != 0) %> <% favourites.forEach(cocktail => { %>
       <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
         <h2>Cocktail Name:<%=cocktail.name%></h2>
         <h2>Instructions: <%=cocktail.instructions%></h2>
@@ -29,5 +32,5 @@
       </div>
     <% }) %>
   </div>
-
+</div>
   

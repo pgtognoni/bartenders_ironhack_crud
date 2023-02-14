@@ -13,7 +13,41 @@
             <a class="edit-btn" href="/user/editUser"><i class="fa-solid fa-pen-to-square"></i></a>
         </div>
     </div>
+    <div class="user-info">
+        <div>
+            <p><%= user.city %></p>
+            <p><%= user.occupation %></p>
+        </div>
+        <p><%= user.bio %></p>
+    </div>
     <div class="profile-body">
+        <% if (user.creations.length != 0) %> <% user.creations.forEach(cocktail => { %>
+            <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
+              <h2>Cocktail Name:<%=cocktail.name%></h2>
+              <h2>Garnish: <%=cocktail.garnish%></h2>
+              <ul> Ingredients:
+                <% cocktail.ingredients.forEach(ingredient => { %>
+                <li><%= ingredient %></li>
+                <% }) %>
+              </ul>
+              <h2>Description: <%=cocktail.description%></h2>
+              <a href="../<%- cocktail._id %>/modify">Modify</a>
+              <a href="../<%- cocktail._id %>/delete">Delete</a>
+            </div>
+          <% }) %>
+          <% if (favourites.length != 0) %> <% favourites.forEach(cocktail => { %>
+            <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
+              <h2>Cocktail Name:<%=cocktail.name%></h2>
+              <h2>Instructions: <%=cocktail.instructions%></h2>
+              <ul> Ingredients:
+                <% cocktail.ingredients.forEach(ingredient => { %>
+                <li><%= ingredient %></li>
+                <% }) %>
+                </ul>
+                <a href="../<%- cocktail.name %>/save">Save the recipe</a>
         
+            </div>
+          <% }) %>
+            
     </div>
 </div>

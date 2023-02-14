@@ -46,14 +46,15 @@ router.get('/cocktails-search', (req, res) => {
 })
 
 
-router.get('/search', async (req, res) => {
+router.get('/search', isLoggedIn, async (req, res) => {
   //console.log(req.query.cocktail)
   //Cocktail.createIndex({ name: "text" });
   //const cocktailsFound = await Cocktail.find({ $text: { $search: req.query.cocktail } })
   
     const string = req.query.cocktail;
     string.toLowerCase();
-    cocktailsFound = await Cocktail.find( { name: string} )
+    //cocktailsFound = await Cocktail.find( { name: string} )
+    const cocktailsFound = await Cocktail.find( { name: { $regex: req.query.cocktail, $options:"i" } } )
 
   //console.log(cocktailsFound)
   
@@ -111,7 +112,7 @@ module.exports = router;
 
 router.get('/:cocktailName/save', isLoggedIn, async (req, res) => {
   const userId = req.session.userId
-  const userUpdate = await User.findByIdAndUpdate(userId, { $push: { favorites : req.params.cocktailName } }, {new: true})
+  const userUpdate = await User.findByIdAndUpdate(userId, { $push: { favourites : req.params.cocktailName } }, {new: true})
   console.log(userUpdate) 
 })
 

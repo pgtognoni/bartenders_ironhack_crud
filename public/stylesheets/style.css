@@ -145,6 +145,12 @@ select:-webkit-autofill:focus {
 }
 
 
+.error-message {
+  font-size: .8rem;
+  margin-top: .7rem;
+  color: red;
+}
+
 /****** MODAL ******/
 /****** MODAL ******/
 
@@ -170,6 +176,7 @@ select:-webkit-autofill:focus {
   .close-modal {
     right: .2rem;
     top: .2rem;
+    font-size: calc(1rem * 0.5);
   }
 
   :modal {
@@ -199,10 +206,6 @@ select:-webkit-autofill:focus {
 
 @media screen and (max-width: 728px) {
   .nav-bar-container {
-    /* display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    justify-items: center; */
     flex-wrap: wrap;
   }
 
@@ -301,40 +304,6 @@ select:-webkit-autofill:focus {
   margin-right: .4rem;
   vertical-align: -.25rem;
 }
-@media screen and (max-width: 321px) {
-  
-  .index-title {
-    font-size: 1.5rem !important;
-  }
-
-  .index-title span {
-    font-size:calc(1.5rem * 1.25) !important;
-    margin-right: .2rem;
-    vertical-align: -.15rem;
-  }
-  .col-2-index {
-    margin-right: 0rem;
-  }
-  
-}
-
-@media screen and (max-width: 769px) {
-  .col-2-index {
-    justify-self: center;
-    margin-right: 0rem;
-
-  }
-  .index-title {
-    font-size: 2.5rem;
-  }
-
-  .index-title span {
-    font-size:calc(2.5rem * 1.25);
-    margin-right: .2rem;
-    vertical-align: -.15rem;
-  }
-
-}
 
 @media screen and (max-width: 1024px) {
 
@@ -347,6 +316,43 @@ select:-webkit-autofill:focus {
     border-radius: 10px;
     max-width: 350px;
   }
+}
+
+@media screen and (max-width: 769px) {
+  .col-2-index {
+    justify-self: center;
+    margin-right: 0rem;
+
+  }
+  .index-title {
+    font-size: 2.5rem;
+    font-size: calc(3.5rem * 0.75);
+  }
+
+  .index-title span {
+    font-size:calc(2.5rem * 1.25);
+    margin-right: .2rem;
+    vertical-align: -.15rem;
+  }
+
+}
+
+@media screen and (max-width: 321px) {
+  
+  .index-title {
+    font-size: 1.5rem;
+    font-size: calc(3.5rem * .5);
+  }
+
+  .index-title span {
+    font-size:calc(1.5rem * 1.25);
+    margin-right: .2rem;
+    vertical-align: -.15rem;
+  }
+  .col-2-index {
+    margin-right: 0rem;
+  }
+  
 }
 
 .in-left {
@@ -408,14 +414,18 @@ select:-webkit-autofill:focus {
 @media screen and (max-width: 321px) {
   .index-btn {
     font-size: .8rem;
+    font-size: calc(1.3rem * .5);
     padding: .55rem 1rem;
+    padding: calc(.75rem * .5) calc(1rem *.5rem);
   }
 }
 
 @media screen and (max-width: 769px) {
   .index-btn {
     font-size: 1rem;
+    font-size: calc(1.3rem * .75);
     padding: .75rem 1.65rem;
+    padding: calc(.75rem * .75) calc(1rem *.75rem);
   }
 }
 /****** INDEX IMAGES ******/
@@ -507,11 +517,11 @@ select:-webkit-autofill:focus {
   }
 }
 
-@media screen and (max-width: 850px) {
+/* @media screen and (max-width: 850px) {
   .martini-login-img {
     display: none;  
   }
-}
+} */
 
 @keyframes movingBG {
   0% {
@@ -554,21 +564,34 @@ select:-webkit-autofill:focus {
   border-radius: 2px;
   font-size: 1rem;
 }
+
+.signup-input[id='age'] {
+  width: 60% !important;
+}
+
 @media screen and (max-width: 321px) {
   .signup-form label {
     font-size: .8rem;
+    font-size: calc(1.3rem * .5);
   }
   .signup-form input {
     font-size: .8rem;
+    font-size: calc(1rem * .5);
   }
 }
-
+/* @media screen and (max-width: 480px) {
+  .signup-input[id='age'] {
+    right: 45%;
+  }
+} */
 @media screen and (max-width: 700px) {
   .signup-form label {
     font-size: 1rem;
+    font-size: calc(1.3rem * .75);
   }
   .signup-form input {
     font-size: 1rem;
+    font-size: calc(1.3rem * .75);
   }
 }
 
@@ -601,9 +624,6 @@ select:-webkit-autofill:focus {
   align-items: center;
   width: 90%;
   position: relative;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-gray);
   gap: 2rem;
 }
 
@@ -612,9 +632,18 @@ select:-webkit-autofill:focus {
   text-transform: uppercase;
 }
 
+.user-info {
+  width: 90%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-gray);
+}
+
 @media screen and (max-width: 321px) {
   .profile-head h1 {
     font-size: 1.5rem;
+    font-size: calc(4rem * .3);
   }
   .profile-head {
     grid-template-columns: 1fr;
@@ -624,6 +653,7 @@ select:-webkit-autofill:focus {
 @media screen and (max-width: 769px) {
   .profile-head h1 {
     font-size: 2.5rem;
+    font-size: calc(4rem * .7);
   }
 }
 
@@ -671,6 +701,10 @@ select:-webkit-autofill:focus {
   margin-left: .5rem;
 }
 
+textarea {
+  width: 90%;
+}
+
 .close-edit {
   color: var(--dark-blue) !important;
   font-size: 1.3rem;
@@ -692,15 +726,25 @@ select:-webkit-autofill:focus {
 @media screen and (max-width: 321px) {
   .profile-form {
     padding: 1rem .5rem;
+    padding: calc(3rem * .3) calc(3rem *.3) calc(2rem * .3);
   }
   .close-edit {
     font-size: .8rem;
+    font-size: calc(1.3rem * .5);
   }  
+  .profile-form label h1.h1-profile {
+    width: 100%;
+    margin-left: 0rem;
+  }
+  textarea {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 769px) {
   .profile-form {
     padding: 2rem 1rem;
+    padding: calc(3rem * .6) calc(3rem *.6) calc(2rem * .6);
   }
 }
 
@@ -775,10 +819,13 @@ select:-webkit-autofill:focus {
 
   .edit-btn {
     padding: .65rem .7rem;
+    padding: calc(.75rem *.75) calc(.8rem * .75);
+
   }
   
   .cancel-edit {
     padding: .6rem .9rem;
+    padding: calc(.7rem *.75) calc(1rem *.75);
     font-size: .8rem;
   }
 
@@ -811,10 +858,12 @@ select:-webkit-autofill:focus {
   }
   .edit-btn {
     padding: .65rem .7rem;
+    padding: calc(.75rem *.5) calc(.8rem * .5);
   }
   
   .cancel-edit {
     padding: .6rem .9rem;
+    padding: calc(.7rem *.5) calc(1rem *.5);
     font-size: .8rem;
   }
 
@@ -849,6 +898,7 @@ select:-webkit-autofill:focus {
 
 .profile-form label {
   margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 label[for='age'] input {
@@ -871,10 +921,6 @@ label[for='age'] input {
 
 .text-transparent {
   color: transparent!important;
-}
-
-.error-message {
-  color: red;
 }
 
 .edit:hover {
@@ -913,7 +959,7 @@ label[for='age'] input {
 }
 
 .profile-form label h1 {
-  width: 60%;
+  /* width: 60%; */
   margin-left: .5rem;
 }
 
@@ -940,6 +986,7 @@ label[for='age'] input {
 @media screen and (max-width: 321px) { 
   .btn-edit {
     padding: .5rem .9rem;
+    padding: calc(.7rem *.5) calc(1.1rem * .5);
     border-radius: 5px;
     font-size: 1rem;
     }
