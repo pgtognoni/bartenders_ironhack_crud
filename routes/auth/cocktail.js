@@ -109,3 +109,21 @@ router.get('/:cocktailName/save', isLoggedIn, async (req, res) => {
   console.log(userUpdate) 
 })
 
+
+router.get('/allcocktails', isLoggedIn, async (req, res) => {
+  //const cocktails = await Cocktail.find()
+  let drinksApi={}
+  await axios({
+    method: 'GET',
+    url: 'https://api.api-ninjas.com/v1/cocktail?name=' + 'martini',
+    headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
+    contentType: 'application/json',   
+  }).then((data) => {
+     drinksApi = data.data
+   // console.log (drinksApi)
+  })
+  .catch((err) => console.log(err))
+  cocktails = drinksApi
+  //console.log(cocktails)   
+  res.render('cocktail/display-cocktails', { cocktails })
+})

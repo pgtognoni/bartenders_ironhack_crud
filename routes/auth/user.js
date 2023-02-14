@@ -2,6 +2,8 @@ const router = require("express").Router();
 const User = require("../../models/user-model")
 const bcrypt = require("bcryptjs");
 const { isLoggedIn } = require('../../middlewares/islogged');
+const axios = require('axios');
+
 
 //SigUp Routes for User
 
@@ -69,10 +71,50 @@ router.post('/login', async (req, res) => {
 
 //User Profile Routes
 
+const findInApi = async (name) => {
+    await axios({
+        method: 'GET',
+        url: 'https://api.api-ninjas.com/v1/cocktail?name=' + name,
+        headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
+        contentType: 'application/json',   
+    })
+    .then((data) => {
+        drinksApi = data.data
+        const one = drinksApi[0]
+        //console.log(one)
+        return one
+    })
+    .then(data => data)
+    .catch((err) => console.log(err))    
+}
+
+
 router.get("/profile", isLoggedIn, async (req, res) => {
     try {
-        const user = await User.findById(req.session.userId)
-        res.render('user/profile', { user, session: req.session.user || undefined })
+        const user = await User.findById(req.session.userId).populate('creations')
+        const favouritesArr = user.favourites;
+        const favourites = []
+
+        const result = await Promise.all(favouritesArr.map(async favourite => {
+            let drinksApi = {};
+            await axios({
+                method: 'GET',
+                url: 'https://api.api-ninjas.com/v1/cocktail?name=' + favourite,
+                headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
+                contentType: 'application/json',   
+            })
+            .then((data) => {
+                drinksApi = data.data
+                const one = drinksApi[0]
+                return one
+            })
+            .then(data => {
+                favourites.push(data)
+            })
+            .catch((err) => console.log(err))   
+        }))
+        
+        res.render('user/profile', { user, session: req.session.user || undefined, favourites })
     } catch(error) {
         console.error(error);
     }
@@ -80,17 +122,18 @@ router.get("/profile", isLoggedIn, async (req, res) => {
 
 //User Edit Profile Routes
 
-router.get("/edit", isLoggedIn, async (req, res) => {
+router.get("/editUser", isLoggedIn, async (req, res) => {
     try {
         const user = await User.findById(req.session.userId)
-        res.render('user/edit', { user, session: req.session.user || undefined })
+        res.render('user/editUser', { user, session: req.session.user || undefined })
     } catch(error) {
         console.error(error);
     }
 })
 
-router.post('/edit', isLoggedIn, async (req, res) => {
+router.post('/editUser', isLoggedIn, async (req, res) => {
     const user = req.body;
+    console.log('click edit')
 
     if (user.image === "") {
         user.image = undefined;
@@ -103,12 +146,12 @@ router.post('/edit', isLoggedIn, async (req, res) => {
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
-            res.render('user/edit', {errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/editUser', {errorMessage, key, user, session: req.session.user || undefined})
         } else {
             const key = Object.keys(error.errors)[0];
             let errorMessage = error.errors[key].message
             console.error(errorMessage);
-            res.render('user/edit', {errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/editUser', {errorMessage, key, user, session: req.session.user || undefined})
         }
     }
 })
