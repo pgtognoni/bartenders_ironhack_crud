@@ -41,18 +41,25 @@ router.post('/create', isLoggedIn ,async (req, res) => {
 
  /* Search for a cocktail recipe in local DB */
 
- router.get('/cocktails-search', (req, res) => {
+router.get('/cocktails-search', (req, res) => {
   res.render('cocktail/search-cocktail', { session: req.session.user || undefined})
 })
 
 
-router.get('/search', async (req, res) => {
+router.get('/search', isLoggedIn, async (req, res) => {
   //console.log(req.query.cocktail)
   //Cocktail.createIndex({ name: "text" });
   //const cocktailsFound = await Cocktail.find({ $text: { $search: req.query.cocktail } })
-  const cocktailsFound = await Cocktail.find( { name: { $regex: req.query.cocktail, $options:"i" } } )
-  console.log(cocktailsFound)
+  
+    const string = req.query.cocktail;
+    string.toLowerCase();
+    //cocktailsFound = await Cocktail.find( { name: string} )
+    const cocktailsFound = await Cocktail.find( { name: { $regex: req.query.cocktail, $options:"i" } } )
+
+  //console.log(cocktailsFound)
+  
   let drinksApi={}
+
   await axios({
     method: 'GET',
     url: 'https://api.api-ninjas.com/v1/cocktail?name=' + req.query.cocktail,
@@ -105,7 +112,7 @@ module.exports = router;
 
 router.get('/:cocktailName/save', isLoggedIn, async (req, res) => {
   const userId = req.session.userId
-  const userUpdate = await User.findByIdAndUpdate(userId, { $push: { favorites : req.params.cocktailName } }, {new: true})
+  const userUpdate = await User.findByIdAndUpdate(userId, { $push: { favourites : req.params.cocktailName } }, {new: true})
   console.log(userUpdate) 
 })
 
