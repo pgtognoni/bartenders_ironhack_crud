@@ -71,23 +71,6 @@ router.post('/login', async (req, res) => {
 
 //User Profile Routes
 
-const findInApi = async (name) => {
-    await axios({
-        method: 'GET',
-        url: 'https://api.api-ninjas.com/v1/cocktail?name=' + name,
-        headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
-        contentType: 'application/json',   
-    })
-    .then((data) => {
-        drinksApi = data.data
-        const one = drinksApi[0]
-        //console.log(one)
-        return one
-    })
-    .then(data => data)
-    .catch((err) => console.log(err))    
-}
-
 
 router.get("/profile", isLoggedIn, async (req, res) => {
     try {
@@ -113,7 +96,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
             })
             .catch((err) => console.log(err))   
         }))
-        
+
         res.render('user/profile', { user, session: req.session.user || undefined, favourites })
     } catch(error) {
         console.error(error);
