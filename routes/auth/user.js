@@ -97,7 +97,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
             .catch((err) => console.log(err))   
         }))
 
-        res.render('user/profile', { user, session: req.session.user || undefined, favourites })
+        res.render('user/profile', { user, session: req.session.user || undefined, cocktailsApi: favourites })
     } catch(error) {
         console.error(error);
     }
