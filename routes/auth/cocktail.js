@@ -16,15 +16,25 @@ router.get('/create', isLoggedIn, (req, res) => {
 
 router.post('/create', isLoggedIn ,async (req, res) => {
     const body = req.body
+    let img = ''
     console.log(body)
+    switch (body.servingGlass){
+      case 'Martini' : img = '/images/martini.png' ; break;
+      case 'Tumbler' : img = '/images/tumbler.png' ; break;
+      case 'Nick N` Nora' : img = '/images/nickNnora2.png' ; break;
+      case 'Highball' : img = '/images/highball.png' ; break;
+      case 'Coupette': img = '/images/coupette.png' ; break;
+      case 'Other' : img = '/images/other-cocktail.png' ; break;
+    }
     const cocktailCreated = await Cocktail.create({
-      ...body,
+      ...body, image : img ,
       ingredients: body.ingredients.split(' ')
     })
+
     const cocktailId = cocktailCreated._id
     const userId = req.session.userId
     const userUpdate = await User.findOneAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
-    console.log(userUpdate)
+    //console.log(userUpdate)
     res.redirect('./creations')
   })
 
@@ -172,3 +182,21 @@ router.get('/:cocktailName/save', isLoggedIn, async (req, res) => {
   console.log(userUpdate) 
 })
 
+
+router.get('/allcocktails', isLoggedIn, async (req, res) => {
+  //const cocktails = await Cocktail.find()
+  let drinksApi={}
+  await axios({
+    method: 'GET',
+    url: 'https://api.api-ninjas.com/v1/cocktail?name=' + 'martini',
+    headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
+    contentType: 'application/json',   
+  }).then((data) => {
+     drinksApi = data.data
+   // console.log (drinksApi)
+  })
+  .catch((err) => console.log(err))
+  cocktails = drinksApi
+  //console.log(cocktails)   
+  res.render('cocktail/display-cocktails', { cocktails })
+})
