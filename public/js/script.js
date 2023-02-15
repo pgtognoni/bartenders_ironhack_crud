@@ -76,9 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   })
 
+  //*** DELETE PROFILE MODAL ***//
+
   document.getElementById(`delete`).addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelector('.delete-container').showModal();
+    document.querySelector('#delete-modal').style.display = "block";;
   })
 
   //*** MODAL ***//
@@ -101,6 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
       container.style.display = "none";
     })
   )
+
+
 
   // document.getElementById(`image-profile`).addEventListener('click', (e) => {
   //   e.preventDefault();

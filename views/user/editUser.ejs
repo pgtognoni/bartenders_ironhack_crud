@@ -59,34 +59,18 @@
         <button type="submit" id="save-changes" class="btn-edit btn-box index-btn login-btn">SAVE</button>
     </div>
 </form>
-<dialog class="delete-container">
-    <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
-    <div class="delete">
-        <h4>Delete Profile</h4>
-        <div class="btn-container">
-        <form method="dialog">
-            <button value="cancel">Cancel</button>
-        </form>
-        <form action="/user/delete" method="GET">
-            <button class="error-message">DELETE</button>
-        </form>
-        </div>
-    </div>
-</dialog>
-<!-- <dialog class="image-edit">
-    <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
-    <div class="delete">
-        <form action="/user/editUser" method="POST">
-        <input type="file" name="image" id="image" accept="image/png, image/jpeg">
-        <div class="btn-container">
-            <form method="dialog">
-                <button value="cancel" id-="cancel-img">Cancel</button>
-            </form>
-                <button class="login-btn" type="submit">Save</button> 
-        </div>
+<div class="modal-container" id="delete-modal">
+    <div class="modal column-center">
+        <form action="/user/delete" method="GET" class="signup-form profile-form box-container">
+            <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h2>DELETE PROFILE</h2>
+            <div class="btn-container">
+                <button id="close-modal" class="login-btn btn-edit btn-box index-btn login-btn">CANCEL</button>
+                <button class="btn-edit btn-delete">DELETE</button>
+            </div>
         </form>
     </div>
-</dialog> -->
+</div>
 </div>
 </div>
 <div class="modal-container" id="image-modal">
