@@ -27,19 +27,20 @@ router.post('/create', isLoggedIn ,async (req, res) => {
       case 'Other' : img = '/images/other-cocktail.png' ; break;
     }
     const cocktailCreated = await Cocktail.create({
-      ...body, image : img ,
+      ...body, creator: req.session.userId , image : img ,
       ingredients: body.ingredients.split(' ')
     })
 
     const cocktailId = cocktailCreated._id
     const userId = req.session.userId
+    
     const userUpdate = await User.findOneAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
-    //console.log(userUpdate)
-    res.redirect('./creations')
+    console.log(userUpdate)
+    res.render('cocktail/new-cocktail' , { page, cocktail : cocktailCreated ,update: true, session: req.session.user || undefined })
   })
 
 /* GET all cocktails */ 
-
+/*
  router.get('/creations', isLoggedIn, async (req, res) => {
   const page = req.url.split('/')[1];
   try {
@@ -50,7 +51,7 @@ router.post('/create', isLoggedIn ,async (req, res) => {
     console.log('Route to all recipes', error)
   }
 })
-
+*/
  /* Search for a cocktail recipe in local DB */
 
  const shuffle = (array) => {
@@ -156,7 +157,7 @@ router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
 router.post('/:cocktailId/modify', isLoggedIn, async (req, res) => {
   console.log('anything')
   await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
-    ...req.body,
+    ...req.body, 
     ingredients: req.body.ingredients.split(' '),
   })
   res.redirect('../creations')
