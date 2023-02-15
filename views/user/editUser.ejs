@@ -2,10 +2,19 @@
 <div class="seccion-container column-center">
 
 <div id="profile-container" class="column-center" >
-    <form action="/user/editUser" method="POST" class="signup-form profile-form box-container">
+    <form action="/user/editUser" method="POST" enctype="multipart/form-data" class="signup-form profile-form box-container">
     <a href="/user/profile" class="close-edit"><i class="fa-solid fa-xmark"></i></a>
     <div class="profile-title">
-        <button id="image-profile" class="image-profile-btn"><img class="image-profile-edit" src="<%= user.image %>" alt="edit-profile-image"></button> 
+        <button data-name="image" id="image-profile" class="image-profile-btn edit prevent"><img class="image-profile-edit" src="<%= user.image %>" alt="edit-profile-image"></button> 
+        <!-- <div class="modal-container" id="image-modal">
+            <div class="modal">
+                <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+                <div class="btn-container">
+                        <button id-="close-modal">Cancel</button>
+                        <button class="login-btn" type="submit">Save</button> 
+                </div>
+            </div>
+        </div> -->
         <label for="username" class="edit-username">
             <button data-name="username" class="edit-username-btn edit prevent"><h1 data-value="username"><%= user.username %></h1></button>
             <h1 class="h1-profile"><input oninput="this.size = this.value.length" type="text" name="username" id="username" value="<%= user.username %>"></h1>
@@ -46,7 +55,7 @@
         </label>
     </div>
     <div class="btn-container">
-        <button id="delete" class="btn-edit">DELETE</button>
+        <button id="delete" class="btn-edit btn-delete">DELETE</button>
         <button type="submit" id="save-changes" class="btn-edit btn-box index-btn login-btn">SAVE</button>
     </div>
 </form>
@@ -64,19 +73,31 @@
         </div>
     </div>
 </dialog>
-<dialog class="image-edit">
+<!-- <dialog class="image-edit">
     <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
     <div class="delete">
-        <input type="file" name="image" id="image">
+        <form action="/user/editUser" method="POST">
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg">
         <div class="btn-container">
             <form method="dialog">
-                <button value="cancel">Cancel</button>
+                <button value="cancel" id-="cancel-img">Cancel</button>
             </form>
-            <form action="/user/edit" method="POST">
-                <button class="edit" type="submit">Save</button> 
-            </form>
+                <button class="login-btn" type="submit">Save</button> 
         </div>
+        </form>
     </div>
-</dialog>
+</dialog> -->
+</div>
+</div>
+<div class="modal-container" id="image-modal">
+<div class="modal column-center">
+    <form action="/user/editUser" method="POST" enctype="multipart/form-data" class="signup-form profile-form box-container">
+        <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+        <div class="btn-container">
+                <button id="close-modal" class="btn-edit btn-delete">CANCEL</button>
+                <button class="login-btn btn-edit btn-box index-btn login-btn" type="submit">SAVE</button> 
+        </div>
+    </form>
 </div>
 </div>

@@ -3,6 +3,7 @@ const User = require("../../models/user-model")
 const bcrypt = require("bcryptjs");
 const { isLoggedIn } = require('../../middlewares/islogged');
 const axios = require('axios');
+const fileUploader = require('../../config/cloudinary.config')
 
 
 //SigUp Routes for User
@@ -81,7 +82,6 @@ router.get("/profile", isLoggedIn, async (req, res) => {
         const user = await User.findById(req.session.userId).populate('creations')
         const favouritesArr = user.favourites;
         const favourites = []
-        console.log(user.creations)
 
         const result = await Promise.all(favouritesArr.map(async favourite => {
             let drinksApi = {};
@@ -120,15 +120,16 @@ router.get("/editUser", isLoggedIn, async (req, res) => {
     }
 })
 
-router.post('/editUser', isLoggedIn, async (req, res) => {
+router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, res) => {
     const user = req.body;
     const page = req.url.split('/')[1];
+    const path = req.file.path;
     if (user.image === "") {
         user.image = undefined;
     }
 
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.session.userId, user, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(req.session.userId, { user, image: path }, { new: true });
         res.redirect('/user/profile')
     } catch (error) {
         if (error.code === 11000) {
@@ -136,6 +137,7 @@ router.post('/editUser', isLoggedIn, async (req, res) => {
             let errorMessage = 'User name already exists'
             res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
         } else {
+            console.log(error)
             const key = Object.keys(error.errors)[0];
             let errorMessage = error.errors[key].message
             console.error(errorMessage);

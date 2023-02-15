@@ -18,7 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   console.log("bartender_crud JS imported successfully!");
-   
+
+  //*** EDIT PROFILE ***//
+  //*** EDIT PROFILE ***//
+  //*** EDIT PROFILE ***//
+
   document.getElementById("edit-btn").addEventListener("click", (e) => {
     e.preventDefault();
     const edits = document.querySelectorAll('.edit')
@@ -34,11 +38,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const datakey = item.dataset.name;
       console.log("edit button clicked: ", datakey);
       
-      item.style.display = "none";
-      document.querySelector(`[data-value="${datakey}"]`).style.display = "none";
-      document.getElementById(`${datakey}`).classList.add('underline');
-      document.getElementById(`${datakey}`).style.display = "block";
-      document.querySelector('.h1-profile').style.display = "block";
+      if (datakey !== 'image'){
+        item.style.display = "none";      
+        document.getElementById(`${datakey}`).classList.add('underline');
+      } 
+      if (datakey === 'image'){ 
+        document.getElementById('image-modal').style.display = "block";
+        document.getElementById(`${datakey}`).style.display = "block";
+      } else {
+        document.getElementById(`${datakey}`).style.display = "block";
+        document.querySelector('.h1-profile').style.display = "block";
+      }
+      //document.querySelector(`[data-value="${datakey}"]`).style.display = "none";
     }))
 
   })
@@ -70,20 +81,32 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('.delete-container').showModal();
   })
 
+  //*** MODAL ***//
+  //*** MODAL ***//
+  //*** MODAL ***//
+
+  document.getElementById('close-modal').addEventListener('click', (e) => { 
+    e.preventDefault();
+    console.log("close modal clicked");
+    document.querySelector('.modal-container').style.display = "none";
+  })
+
   const modalClose = document.querySelectorAll('.close-modal')
   
   modalClose.forEach(item => item.addEventListener('click', (e) => {
       e.preventDefault();
-      const parent = item.parentElement
-      parent.close()
+      const child = item.parentElement
+      const parent = child.parentElement
+      const container = parent.parentElement
+      container.style.display = "none";
     })
   )
 
-  document.getElementById(`image-profile`).addEventListener('click', (e) => {
-    e.preventDefault();
-    console.log("image-profile clicked");
-    document.querySelector('.image-edit').showModal();
-  })
+  // document.getElementById(`image-profile`).addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   console.log("image-profile clicked");
+  //   document.querySelector('.image-edit').showModal();
+  // })
 
   document.getElementById("save-changes").addEventListener("click", (e) => {
     
@@ -91,6 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     edits.forEach(item => item.classList.remove('underline'))
 
+  })
+
+  document.getElementById("close-modal").addEventListener("click", (e) => { 
+    e.preventDefault();
   })
 
 });
