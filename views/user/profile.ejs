@@ -31,8 +31,8 @@
                 <% }) %>
               </ul>
               <h2>Description: <%=cocktail.description%></h2>
-              <a href="../<%- cocktail._id %>/modify">Modify</a>
-              <a href="../<%- cocktail._id %>/delete">Delete</a>
+              <a href="/cocktail/<%- cocktail._id %>/modify">Modify</a>
+              <a href="/cocktail/<%- cocktail._id %>/delete">Delete</a>
             </div>
           <% }) %>
           <% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %>
@@ -44,7 +44,7 @@
                 <li><%= ingredient %></li>
                 <% }) %>
                 </ul>
-                <a href="../<%- cocktail.name %>/save">Save the recipe</a>
+                <a href="/cocktail/<%- cocktail.name %>/save">Save the recipe</a>
 
             </div>
           <% }) %>

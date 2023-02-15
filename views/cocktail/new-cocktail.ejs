@@ -6,8 +6,9 @@
   <% } else { %>
     <span class="error-message ">C</span>reate a New Cocktail recipe
   <% } %></h1>
-<form class="cocktail-form box-container seccion-container" method="POST" action="<% if (update) { %>
-    ../<%- cocktail._id %>/modify
+  <% if (typeof cocktail !== 'undefined') { %> <%- include('../partials/recipe-card', {cocktail}) %> <% } %>
+  <form class="cocktail-form box-container seccion-container" method="POST" action="<% if (update) { %>
+    ./<%- cocktail._id %>/modify
    <% } else { %>
     ./create
   <% } %>" class="vstack gap-3">
