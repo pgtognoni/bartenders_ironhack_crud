@@ -131,9 +131,13 @@ router.post('/search', isLoggedIn, async (req, res) => {
   
     if (drinksApi.length !== 0) {   
       if (historyArr.includes(string) === false) {
-        const userUpdate = await User.findByIdAndUpdate(userId, { $push: { searchHistory: {$each: [string], $slice: 10} }}, {new: true}) 
+        const userUpdate = await User.findByIdAndUpdate(userId, { $push: { searchHistory: string }}, {new: true}) 
+        if(historyArr.length > 10) {
+          const removefirst = await User.findByIdAndUpdate(userId, { $pop: { searchHistory: -1}})
+        }
       }
     }
+    
     res.render('cocktail/search-results', { page, cocktails: cocktailsFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
 
   } catch (error) {
