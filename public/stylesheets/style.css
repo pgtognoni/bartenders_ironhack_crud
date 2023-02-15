@@ -1157,3 +1157,7 @@ label[for='shared'] select {
   font-weight: normal;
   text-decoration-line: underline; 
 }
+
+.cocktail-img-container{
+  width: 150px;
+}

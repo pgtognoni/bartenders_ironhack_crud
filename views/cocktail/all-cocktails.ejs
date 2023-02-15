@@ -3,21 +3,6 @@
 
 <h1>Cocktails personal database</h1>
 
-<% if (!cocktails.length) { %> There is nothing in the DB <% } %> <% cocktails.forEach(cocktail => { %>
-<div style="border: 1px solid black; margin: 1rem; padding: 1rem">
-  <h4>Cocktail Name:<%=cocktail.name%></h4>
-  <img class= 'cocktail-img' alt="image" width="100" class="img-thumbnail"  src="<%=cocktail.image %>">
-  <p>Garnish: <%=cocktail.garnish%></p>
-  <ul> Ingredients:
-    <% cocktail.ingredients.forEach(ingredient => { %>
-    <li><%= ingredient %></li>
-    <% }) %>
-  </ul>
-  <p>Serving Glass: <%=cocktail.servingGlass%></p>
-  <p>Description: <%=cocktail.description%></p>
-  <a href="./<%- cocktail._id %>/modify">Modify</a>
-  <a href="./<%- cocktail._id %>/delete">Delete</a>
-</div>
-<% }) %>
+<% cocktails.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail}) %> <% }) %>
 
 </div>
