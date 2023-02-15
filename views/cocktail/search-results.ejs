@@ -18,7 +18,7 @@
       </div>
     <% }) %>
   
-    <% if (favourites.length != 0) %> <% favourites.forEach(cocktail => { %>
+    <% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %>
       <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
         <h2>Cocktail Name:<%=cocktail.name%></h2>
         <h2>Instructions: <%=cocktail.instructions%></h2>

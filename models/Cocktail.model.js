@@ -20,7 +20,7 @@ const cocktailSchema = new Schema(
     },
     servingGlass: {
       type: String,
-      enum: ['Martini' , 'Tumbler' , 'Highball' , 'Coupette' , 'Nick N` Nora' , 'other'],
+      enum: ['Martini' , 'Tumbler' , 'Highball' , 'Coupette' , 'Nick N` Nora' , 'Other'],
       required: true
     },
     garnish: {
