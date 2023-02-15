@@ -21,43 +21,15 @@
         <p><%= user.bio %></p>
     </div>
 <div class="profile-body">
-<<<<<<< HEAD
-  <div>
-    <% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail}) %> <% }) %>
-  </div>
-  <div>
-    <% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail}) %> <% }) %>
-  </div>
- </div> 
-=======
-        <% if (user.creations.length != 0) %> <% user.creations.forEach(cocktail => { %>
-            <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
-              <h2>Cocktail Name:<%=cocktail.name%></h2>
-              <h2>Garnish: <%=cocktail.garnish%></h2>
-              <ul> Ingredients:
-                <% cocktail.ingredients.forEach(ingredient => { %>
-                <li><%= ingredient %></li>
-                <% }) %>
-              </ul>
-              <h2>Description: <%=cocktail.description%></h2>
-              <a href="/cocktail/<%- cocktail._id %>/modify">Modify</a>
-              <a href="/cocktail/<%- cocktail._id %>/delete">Delete</a>
-            </div>
-          <% }) %>
-          <% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %>
-            <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
-              <h2>Cocktail Name:<%=cocktail.name%></h2>
-              <h2>Instructions: <%=cocktail.instructions%></h2>
-              <ul> Ingredients:
-                <% cocktail.ingredients.forEach(ingredient => { %>
-                <li><%= ingredient %></li>
-                <% }) %>
-                </ul>
-                <a href="/cocktail/<%- cocktail.name %>/save">Save the recipe</a>
-
-            </div>
-          <% }) %>
->>>>>>> 1d8debbfa50a1b7ee80753d817c968036a5fd1af
+  <div class="cocktails-profile-display">
+    <div class='user-cocktails'>
+      <% if (user.creations.length != 0) %> <% user.creations.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
+    </div>
+    <div class="api-cocktails" >
+      <% if (cocktailsApi.length != 0) %>  <% cocktailsApi.forEach((cocktail) => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
+    </div>
+  </div>  
+        
 
     </div>
 </div>

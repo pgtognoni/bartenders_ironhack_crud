@@ -75,7 +75,7 @@ router.post('/create', isLoggedIn ,async (req, res) => {
   return array;
 }
 
-router.get('/cocktails-search', async (req, res) => {
+router.get('/cocktails-search', isLoggedIn , async (req, res) => {
   const page = req.url.split('/')[1];
   try {
     const user = await User.findById(req.session.userId).populate('creations')
@@ -101,9 +101,19 @@ router.get('/cocktails-search', async (req, res) => {
       
     }))
 
+    const allCocktails = await Cocktail.find()
+    let cocktailsShared = []
+    allCocktails.forEach(cocktail => {
+      if (cocktail.creator != user._id) {
+        cocktailsShared.push(cocktail)
+      }
+    console.log('cocktailsShared', cocktailsShared)
+    })
+
+
     const final = await shuffle(searchHistory);
 
-  res.render('cocktail/search-cocktail', { page, session: req.session.user || undefined, cocktailsApi:  final })
+  res.render('cocktail/search-cocktail', { user , page, session: req.session.user || undefined, cocktailsApi:  final , cocktailsDb: allCocktails })
 
   } catch(error) {
       console.error(error);
@@ -207,4 +217,17 @@ router.get('/allcocktails', isLoggedIn, async (req, res) => {
   cocktails = drinksApi
   //console.log(cocktails)   
   res.render('cocktail/display-cocktails', { cocktails })
+})
+
+router.get("/remove/:name", async (req, res) => {
+  const id = req.session.userId;
+  const name = req.params.name;
+  try {
+    await User.findByIdAndUpdate(id, { $pull: { favourites : name } }, {new: true})
+    console.log(name)
+    res.redirect('/user/profile')
+  //  ($pull: {favourites : name })
+  } catch (error) {
+    console.log(error);
+   }
 })

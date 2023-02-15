@@ -659,6 +659,17 @@ select:-webkit-autofill:focus {
 /***** PROFILE *****/
 /***** PROFILE *****/
 /***** PROFILE *****/
+.profile-body {
+  width: 100%;
+}
+
+.cocktails-profile-display {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
 
 .profile-seccion.column-center {
   align-items: flex-start;

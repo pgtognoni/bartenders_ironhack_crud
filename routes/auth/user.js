@@ -81,7 +81,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
         const user = await User.findById(req.session.userId).populate('creations')
         const favouritesArr = user.favourites;
         const favourites = []
-        console.log(user.creations)
+        //console.log(user.creations)
 
         const result = await Promise.all(favouritesArr.map(async favourite => {
             let drinksApi = {};
@@ -101,7 +101,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
             })
             .catch((err) => console.log(err))   
         }))
-        console.log (user)
+        //console.log (user)
         res.render('user/profile', { user, session: req.session.user || undefined, cocktailsApi: favourites, page })
     } catch(error) {
         console.error(error);
