@@ -10,7 +10,8 @@ const { isLoggedIn } = require('../../middlewares/islogged');
 
 /* Create cocktail */
 router.get('/create', isLoggedIn, (req, res) => {
-    res.render('cocktail/new-cocktail', { update: false, session: req.session.user || undefined })
+  const page = req.url.split('/')[1];
+  res.render('cocktail/new-cocktail', { page, update: false, session: req.session.user || undefined })
 })
 
 router.post('/create', isLoggedIn ,async (req, res) => {
@@ -30,10 +31,11 @@ router.post('/create', isLoggedIn ,async (req, res) => {
 /* GET all cocktails */ 
 
  router.get('/creations', isLoggedIn, async (req, res) => {
+  const page = req.url.split('/')[1];
   try {
     const allCocktails = await Cocktail.find()
     console.log('All cocktails :', allCocktails)
-    res.render('cocktail/all-cocktails', { cocktails : allCocktails, session: req.session.user || undefined })
+    res.render('cocktail/all-cocktails', { page, cocktails : allCocktails, session: req.session.user || undefined })
   } catch (error) {
     console.log('Route to all recipes', error)
   }
@@ -41,60 +43,114 @@ router.post('/create', isLoggedIn ,async (req, res) => {
 
  /* Search for a cocktail recipe in local DB */
 
-router.get('/cocktails-search', (req, res) => {
-  res.render('cocktail/search-cocktail', { session: req.session.user || undefined})
+ const shuffle = (array) => {
+  let currentIndex = array.length,  randomIndex;
+  console.log('shuffling array')
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+router.get('/cocktails-search', async (req, res) => {
+  const page = req.url.split('/')[1];
+  try {
+    const user = await User.findById(req.session.userId).populate('creations')
+    const historysArr = user.searchHistory;
+    let searchHistory = []
+
+    const result = await Promise.all(historysArr.map(async history => {
+      let drinksApi = {};
+      await axios({
+          method: 'GET',
+          url: 'https://api.api-ninjas.com/v1/cocktail?name=' + history,
+          headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
+          contentType: 'application/json',   
+        })
+        .then((data) => {
+          drinksApi = data.data
+          return drinksApi;
+        })
+        .then(data => { 
+          data.forEach(drink => {
+          searchHistory.push(drink)})
+        }) .catch((err) => console.log(err))   
+      
+    }))
+
+    const final = await shuffle(searchHistory);
+
+  res.render('cocktail/search-cocktail', { page, session: req.session.user || undefined, cocktailsApi:  final })
+
+  } catch(error) {
+      console.error(error);
+  }  
 })
 
 
-router.get('/search', isLoggedIn, async (req, res) => {
-  //console.log(req.query.cocktail)
-  //Cocktail.createIndex({ name: "text" });
-  //const cocktailsFound = await Cocktail.find({ $text: { $search: req.query.cocktail } })
+router.post('/search', isLoggedIn, async (req, res) => {
+  const page = req.url.split('/')[1];
+  try {
+    const user = await User.findById(req.session.userId)
+    const historyArr = user.searchHistory;
+    const userId = req.session.userId;
+    const string = req.body.cocktail;
+    console.log(string)
+    const cocktailsFound = await Cocktail.find( { name: { $regex: string, $options:"i" } } )
   
-    const string = req.query.cocktail;
-    string.toLowerCase();
-    //cocktailsFound = await Cocktail.find( { name: string} )
-    const cocktailsFound = await Cocktail.find( { name: { $regex: req.query.cocktail, $options:"i" } } )
-
-  //console.log(cocktailsFound)
+    let drinksApi={}
   
-  let drinksApi={}
+    await axios({
+      method: 'GET',
+      url: 'https://api.api-ninjas.com/v1/cocktail?name=' + string,
+      headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
+      contentType: 'application/json',   
+    }).then((data) => {
+       drinksApi = data.data
+    })
+    .catch((err) => console.log(err))
+  
+    if (drinksApi.length !== 0) {   
+      if (historyArr.includes(string) === false) {
+        const userUpdate = await User.findByIdAndUpdate(userId, { $push: { searchHistory: {$each: [string], $slice: 10} }}, {new: true}) 
+      }
+    }
+    res.render('cocktail/search-results', { page, cocktails: cocktailsFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
 
-  await axios({
-    method: 'GET',
-    url: 'https://api.api-ninjas.com/v1/cocktail?name=' + req.query.cocktail,
-    headers: { 'X-Api-Key': 'ypvsJtMeGB4U0viT9PWG7w==TtcrrPL7KZdEFtGm'},
-    contentType: 'application/json',   
-  }).then((data) => {
-     drinksApi = data.data
-   // console.log (drinksApi)
-  })
-  .catch((err) => console.log(err))
- // drinksApiArray = findCocktailInApi(req.query.cocktail)
- // console.log(drinksApiArray)
+  } catch (error) {
+    console.error(error);
+  }
 
-  //console.log(cocktailsApi)
-  res.render('cocktail/search-results', { cocktails : cocktailsFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
 })
     
     
  /* Modify a cocktail recipe  */
 
 router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
-    const cocktail = await Cocktail.findById(req.params.cocktailId)
-    console.log({ cocktail })
-    res.render('cocktail/new-cocktail', { cocktail, update: true, session: req.session.user || undefined })
-  }) 
+  const page = req.url.split('/')[1];
+  const cocktail = await Cocktail.findById(req.params.cocktailId)
+  console.log({ cocktail })
+  res.render('cocktail/new-cocktail', { page, cocktail, update: true, session: req.session.user || undefined })
+}) 
 
 
 router.post('/:cocktailId/modify', isLoggedIn, async (req, res) => {
   console.log('anything')
-    await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
-      ...req.body,
-      ingredients: req.body.ingredients.split(' '),
-    })
-    res.redirect('../creations')
+  await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
+    ...req.body,
+    ingredients: req.body.ingredients.split(' '),
   })
+  res.redirect('../creations')
+})
 
   
 /* Delete a cocktail recipe */ 

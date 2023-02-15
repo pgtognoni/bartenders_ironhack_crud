@@ -1,5 +1,22 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
 document.addEventListener("DOMContentLoaded", () => {
+  
+  window.onscroll = () => {
+    const about = document.getElementById('about')
+    const elementTop = about.getBoundingClientRect().top;
+    const windowY = window.scrollY + window.innerHeight;
+    const elementHeight = about.offsetHeight;
+
+    if (windowY - elementHeight/2 > elementTop) {
+      console.log('show');
+      about.classList.remove('hide');
+      about.classList.add('in-right');
+    } else {
+      about.classList.add('hide');
+      about.classList.remove('in-right');
+    }
+  }
+
   console.log("bartender_crud JS imported successfully!");
    
   document.getElementById("edit-btn").addEventListener("click", (e) => {

@@ -1,10 +1,23 @@
 <%- include('../navbar.ejs'), { session } %>
 <div class="seccion-container column-center ">
 <div class="search-container"> 
-  <form action="./search/" method="GET"  class="search-form" >
+  <form action="/cocktail/search" method="POST"  class="search-form" >
     <label for="cocktail"><i class="fa-solid fa-magnifying-glass icon-search"></i>
     <input oninput="this.size = this.value.length" type="text" placeholder="Search for a cocktail.." name="cocktail"></label>
     <button type="submit" class="search-btn">Go</button>
   </form>
 </div>
+<% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %>
+  <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
+    <h2>Cocktail Name:<%=cocktail.name%></h2>
+    <h2>Instructions: <%=cocktail.instructions%></h2>
+    <ul> Ingredients:
+      <% cocktail.ingredients.forEach(ingredient => { %>
+      <li><%= ingredient %></li>
+      <% }) %>
+      </ul>
+      <a href="../<%- cocktail.name %>/save">Save the recipe</a>
+
+  </div>
+<% }) %>
 </div>

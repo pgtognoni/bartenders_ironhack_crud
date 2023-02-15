@@ -9,10 +9,12 @@ const axios = require('axios');
 
 
 router.get("/signup", (req, res) => {
-    res.render('user/signup', { session: req.session.user || undefined})
+    const page = req.url.split('/')[1];
+    res.render('user/signup', { session: req.session.user || undefined, page})
 })
 
 router.post('/signup', async (req, res) => {
+    const page = req.url.split('/')[1];
     const user = req.body;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(user.password, salt);
@@ -31,24 +33,25 @@ router.post('/signup', async (req, res) => {
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
-            res.render('user/signup', {errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/signup', {page, errorMessage, key, user, session: req.session.user || undefined})
         } else {
         const key = Object.keys(error.errors)[0];
         let errorMessage = error.errors[key].message
         console.error(errorMessage);
-        res.render('user/signup', {errorMessage, key, user, session: req.session.user || undefined})
+        res.render('user/signup', {page, errorMessage, key, user, session: req.session.user || undefined})
         }
     }
 })
 
 //Login Routes for User
 router.get("/login", (req, res) => {
-    res.render('user/login', { session: req.session.user || undefined})
+    const page = req.url.split('/')[1];
+    res.render('user/login', { session: req.session.user || undefined, page})
 })
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
-
+    const page = req.url.split('/')[1];
     try {
         const user = await User.findOne({ username });
         
@@ -65,7 +68,7 @@ router.post('/login', async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.render('user/login', { error, username, session: req.session.user || undefined }); 
+        res.render('user/login', { error, username, session: req.session.user || undefined, page}); 
     }
 })
 
@@ -73,6 +76,7 @@ router.post('/login', async (req, res) => {
 
 
 router.get("/profile", isLoggedIn, async (req, res) => {
+    const page = req.url.split('/')[1];
     try {
         const user = await User.findById(req.session.userId).populate('creations')
         const favouritesArr = user.favourites;
@@ -91,13 +95,13 @@ router.get("/profile", isLoggedIn, async (req, res) => {
                 const one = drinksApi[0]
                 return one
             })
-            .then(data => {
+            .then(data => { 
                 favourites.push(data)
             })
             .catch((err) => console.log(err))   
         }))
 
-        res.render('user/profile', { user, session: req.session.user || undefined, cocktailsApi: favourites })
+        res.render('user/profile', { user, session: req.session.user || undefined, cocktailsApi: favourites, page })
     } catch(error) {
         console.error(error);
     }
@@ -106,9 +110,10 @@ router.get("/profile", isLoggedIn, async (req, res) => {
 //User Edit Profile Routes
 
 router.get("/editUser", isLoggedIn, async (req, res) => {
+    const page = req.url.split('/')[1];
     try {
         const user = await User.findById(req.session.userId)
-        res.render('user/editUser', { user, session: req.session.user || undefined })
+        res.render('user/editUser', { user, session: req.session.user || undefined, page })
     } catch(error) {
         console.error(error);
     }
@@ -116,8 +121,7 @@ router.get("/editUser", isLoggedIn, async (req, res) => {
 
 router.post('/editUser', isLoggedIn, async (req, res) => {
     const user = req.body;
-    console.log('click edit')
-
+    const page = req.url.split('/')[1];
     if (user.image === "") {
         user.image = undefined;
     }
@@ -129,12 +133,12 @@ router.post('/editUser', isLoggedIn, async (req, res) => {
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
-            res.render('user/editUser', {errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
         } else {
             const key = Object.keys(error.errors)[0];
             let errorMessage = error.errors[key].message
             console.error(errorMessage);
-            res.render('user/editUser', {errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
         }
     }
 })
@@ -143,6 +147,7 @@ router.post('/editUser', isLoggedIn, async (req, res) => {
 router.get("/delete", isLoggedIn, async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.session.userId)
+        req.session.destroy();
         res.redirect('/')
     } catch(error) {
         console.error(error);

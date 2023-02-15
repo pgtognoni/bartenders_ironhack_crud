@@ -51,7 +51,8 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Cocktail"
     }],
-    favourites: [String]
+    favourites: [String],
+    searchHistory: {type: [String] , default: ['martini', 'negroni', 'margarita', 'whiskey']}
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    

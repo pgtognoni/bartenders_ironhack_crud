@@ -6,7 +6,9 @@
 <% } %>
 >
 <div class="nav-col-1">
-    <a href='/'><i class="fa-solid fa-house home-icon"></i></a>
+    <% if (page !== "") { %>
+        <a href='/'><i class="fa-solid fa-house home-icon"></i></a>
+    <% } %>
     <% if (typeof session !== 'undefined') { %>
         <a href="/cocktail/create"><i class="fa-solid fa-martini-glass-citrus martini"></i><a href="/cocktail/create">Cocktail Builder</a>
     <% } %>    
@@ -20,7 +22,13 @@
         <% } else if (typeof session === 'undefined') { %>
         <li class="navbar-link"><a href="/user/login">Log In</a></li>
         <li class="navbar-link"><a href="/user/signup">Register</a></li>
-        <li class="navbar-link"><a href="#about">About</a></li>
+        <li class="navbar-link"><a 
+            <% if (page !== "") { %>
+                href="/#about"
+            <% } else {%>
+                href="#about"
+            <% } %>
+            >About</a></li>
         <% } %>
     </ul>
 </div>  

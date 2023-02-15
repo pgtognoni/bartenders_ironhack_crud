@@ -1,6 +1,12 @@
 <%- include('../navbar.ejs'), { session } %>
 <div class="seccion-container column-center">
-
+  <div class="search-container"> 
+    <form action="/cocktail/search" method="post"  class="search-form" >
+      <label for="cocktail"><i class="fa-solid fa-magnifying-glass icon-search"></i>
+      <input oninput="this.size = this.value.length" type="text" placeholder="Search for a cocktail.." name="cocktail"></label>
+      <button type="submit" class="search-btn">Go</button>
+    </form>
+  </div>  
 <div style = 'display:flex ; flex-direction:column' >
  
     <% if (cocktails.length != 0) %> <% cocktails.forEach(cocktail => { %>
