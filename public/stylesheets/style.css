@@ -75,7 +75,7 @@ ul {
     inset 2px 2px 15px var(--box-shadow-inset), 
     inset -2px -2px 15px var(--box-shadow-inset);
   padding: 2rem 2.5rem;
-  border-radius: 10px;
+  border-radius: 5px;
   min-width: 350px;
   max-width: 350px;
 }
@@ -121,6 +121,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active,
+textarea,
 textarea:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
@@ -134,8 +135,8 @@ select:-webkit-autofill:focus {
   border: none;
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: inherit;
   color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
   outline: none;
   user-select: none;
   padding-left: .5rem;
@@ -288,9 +289,8 @@ select:-webkit-autofill:focus {
 }
 
 .col-2-index {
-  align-self: center;
   justify-self: flex-end;
-  margin-right: 2rem;
+  margin: 2rem 0 0 2rem;
 }
 
 .index-title {
@@ -314,7 +314,7 @@ select:-webkit-autofill:focus {
 
   .index-container .box-container {
     padding: 2rem 3rem;
-    border-radius: 10px;
+    border-radius: 5px;
     max-width: 350px;
   }
 }
@@ -397,7 +397,7 @@ select:-webkit-autofill:focus {
   text-align: center;
   min-width: 3rem;
   max-width: 7rem;
-  border-radius: 7px;
+  border-radius: 4px;
   border: none;
   cursor: pointer;
   padding: .75rem 1rem;
@@ -1055,6 +1055,8 @@ label[for='age'] input {
 .cocktail-form button,
 .cocktail-form input,
 .cocktail-form textarea,
+.cocktail-form textarea:-webkit-autofill:focus,
+.cocktail-form input:-webkit-autofill:focus,
 .cocktail-form select {
   font-family: inherit;
   font-size: 100%;
@@ -1068,6 +1070,8 @@ label[for='age'] input {
   max-width: max-content;
   text-align: left;
   width: 100%;
+  -webkit-text-fill-color: var(--text-white) !important;
+  color: var(--text-white) !important;  
 }
 
 textarea {
@@ -1190,6 +1194,13 @@ label[for='shared'] select {
   border: none;
   border-radius: 5px;
   position: relative;
+  -webkit-text-fill-color: inherit;
+}
+
+.search-form textarea:-webkit-autofill:focus,
+.search-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-white) !important;
+  color: var(--text-white) !important;  
 }
 
 .icon-search {

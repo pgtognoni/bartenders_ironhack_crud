@@ -3,7 +3,7 @@
   <div class="search-container"> 
     <form action="/cocktail/search" method="post"  class="search-form" >
       <label for="cocktail"><i class="fa-solid fa-magnifying-glass icon-search"></i>
-      <input oninput="this.size = this.value.length" type="text" placeholder="Search for a cocktail.." name="cocktail"></label>
+      <input oninput="this.size = this.value.length" type="text" placeholder="Search for a cocktail..." name="cocktail"></label>
       <button type="submit" class="search-btn">Go</button>
     </form>
   </div>  
@@ -11,7 +11,7 @@
  
     <% if (cocktails.length != 0) %> <% cocktails.forEach(cocktail => { %>
       <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
-        <h2>Cocktail Name:<%=cocktail.name%></h2>
+        <h2>Cocktail Name:<%=cocktail.name%></h2><p>by <%= cocktail.creator.username %></p>
         <h2>Garnish: <%=cocktail.garnish%></h2>
         <ul> Ingredients:
           <% cocktail.ingredients.forEach(ingredient => { %>
@@ -19,8 +19,8 @@
           <% }) %>
         </ul>
         <h2>Description: <%=cocktail.description%></h2>
-        <a href="../<%- cocktail._id %>/modify">Modify</a>
-        <a href="../<%- cocktail._id %>/delete">Delete</a>
+        <a href="/cocktail/<%- cocktail._id %>/modify">Modify</a>
+        <a href="/cocktail/<%- cocktail._id %>/delete">Delete</a>
       </div>
     <% }) %>
   
@@ -33,7 +33,7 @@
           <li><%= ingredient %></li>
           <% }) %>
           </ul>
-          <a href="../<%- cocktail.name %>/save">Save the recipe</a>
+          <a href="/cocktail/<%- cocktail.name %>/save">Save the recipe</a>
   
       </div>
     <% }) %>

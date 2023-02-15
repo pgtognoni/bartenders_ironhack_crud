@@ -81,6 +81,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
         const user = await User.findById(req.session.userId).populate('creations')
         const favouritesArr = user.favourites;
         const favourites = []
+        console.log(user.creations)
 
         const result = await Promise.all(favouritesArr.map(async favourite => {
             let drinksApi = {};
