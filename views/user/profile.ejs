@@ -23,10 +23,10 @@
 <div class="profile-body">
   <div class="cocktails-profile-display">
     <div class='user-cocktails'>
-      <% if (user.creations.length != 0) %> <% user.creations.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
+      <% if (user.creations.length != 0) %> <% user.creations.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail , page }) %> <% }) %>
     </div>
     <div class="api-cocktails" >
-      <% if (cocktailsApi.length != 0) %>  <% cocktailsApi.forEach((cocktail) => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
+      <% if (cocktailsApi.length != 0) %>  <% cocktailsApi.forEach((cocktail) => { %> <%- include('../partials/recipe-card', {cocktail , page }) %> <% }) %>
     </div>
   </div>  
         

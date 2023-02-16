@@ -20,19 +20,19 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
   const body = req.body
   let img = ''
   if (!req.file) {
-    img = '';
+    switch (body.servingGlass){
+      case 'Martini' : img = '/images/martini.png' ; break;
+      case 'Tumbler' : img = '/images/tumbler.png' ; break;
+      case 'Nick N` Nora' : img = '/images/nickNnora2.png' ; break;
+      case 'Highball' : img = '/images/highball.png' ; break;
+      case 'Coupette': img = '/images/coupette.png' ; break;
+      case 'Other' : img = '/images/other-cocktail.png' ; break;
+    }
   } else {
     img = req.file.path;
   }
 
-  switch (body.servingGlass){
-    case 'Martini' : img = '/images/martini.png' ; break;
-    case 'Tumbler' : img = '/images/tumbler.png' ; break;
-    case 'Nick N` Nora' : img = '/images/nickNnora2.png' ; break;
-    case 'Highball' : img = '/images/highball.png' ; break;
-    case 'Coupette': img = '/images/coupette.png' ; break;
-    case 'Other' : img = '/images/other-cocktail.png' ; break;
-  }
+ 
     const cocktailCreated = await Cocktail.create({
     ...body, 
     image : img ,
@@ -43,8 +43,8 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
   const cocktailId = cocktailCreated._id
   const userId = req.session.userId
   const userUpdate = await User.findOneAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
-  //console.log(userUpdate)
-  res.render('cocktail/new-cocktail', { page, cocktail : cocktailCreated || undefined, update: true, session: req.session.user || undefined })
+  console.log(userUpdate)
+  res.redirect('/user/profile')
 })
 
 /* GET all cocktails */ 
@@ -178,13 +178,22 @@ router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
 
 
 router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, async (req, res) => {
-  
+  const body = req.body
   let img = ''
   if (!req.file) {
-    img = '';
+    switch (body.servingGlass){
+      case 'Martini' : img = '/images/martini.png' ; break;
+      case 'Tumbler' : img = '/images/tumbler.png' ; break;
+      case 'Nick N` Nora' : img = '/images/nickNnora2.png' ; break;
+      case 'Highball' : img = '/images/highball.png' ; break;
+      case 'Coupette': img = '/images/coupette.png' ; break;
+      case 'Other' : img = '/images/other-cocktail.png' ; break;
+    }
   } else {
     img = req.file.path;
   }
+
+  
 
   await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
     ...req.body, 

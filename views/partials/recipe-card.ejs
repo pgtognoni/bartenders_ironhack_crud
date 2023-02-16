@@ -4,11 +4,10 @@
     <h3 class="my-0 font-weight-normal" id="cocktail-name"> <%= cocktail.name %></h3>
     </div>
     <div class="card-body">
-<<<<<<< HEAD
       <% if (!cocktail.id) { %>
       <div class="cocktail-img-container">  
       <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="image" width="150" class="img-thumbnail">        
-      <% if (session) { %>
+      <% if (page === 'profile') { %>
       <form action="/cocktail/remove/<%- cocktail.name %>" method="get">
         <button type="submit">Remove</button>
       </form>
@@ -22,22 +21,6 @@
              <% cocktail.ingredients.forEach(ingredient => { %>
              <li><%- ingredient%></li><% }) %>
           </ul>
-=======
-      <div class="cocktail-img-container">
-      <% if (cocktail.instructions) { %>
-        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="image" width="150" class="img-thumbnail">        
-      <% } else if (cocktail.description){ %>
-        <img class= 'cocktail-img' alt="image" width="100" class="img-thumbnail"  src="<%=cocktail.image %>">
-            <% } %>
-        </div>     
-       <div class="card-text">
-       <h4 class="ingredients">Ingredients:</h4>
-       <ul class="list-unstyled mt-3 mb-4">
-          <% cocktail.ingredients.forEach((ingredient) => { %>
-          <li><%- ingredient%></li><% }) %>
-        </ul>
-        <% if (cocktail.instructions) { %>
->>>>>>> 9592cea007fc2bbe303b2ae3ee045faf27a73ce1
           <h4 class="instructions">Instructions:</h4>
           <p><%= cocktail.instructions %></p>
        </div>
