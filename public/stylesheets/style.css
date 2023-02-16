@@ -1316,6 +1316,9 @@ label[for='shared'] select {
 }
 
 .card-text{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   margin-left: 25px;
   padding-right: 10px;
  }
@@ -1333,4 +1336,14 @@ label[for='shared'] select {
 
 .cocktail-img-container{
   width: 150px;
+}
+
+.card-upper-body {
+  display: flex;
+  gap: 20px;
+}
+
+.card-lower-body {
+  display: flex;
+  gap: 20px;
 }
