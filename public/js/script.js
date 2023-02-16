@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const windowHeight = window.innerHeight;
   
   if( bodyHeight < windowHeight ) {
-    footer.style.top = (windowHeight +footerHeight*2) + "px";
+    footer.style.top = (windowHeight + footerHeight*2) + "px";
   } else {
     footer.style.top = (bodyHeight + footerHeight*2) + "px";
   }
@@ -22,13 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const windowY = window.scrollY + window.innerHeight;
     const elementHeight = about.offsetHeight;
     const footerTop = footer.getBoundingClientRect().top;
-    
-    //** SET FOOTER ALWAYS ON THE BOTTOM DEPPENDING ON BODY CONTENT **/
-    if( windowY - footerHeight > footerTop ) {
-      footer.style.top = (windowHeight - footerHeight) + "px";
-    } else {
-      footer.style.top = (bodyHeight - footerHeight) + "px";
-    }
+        
   
     //** SHOW ABOUT TEXT ON SCROLL **/
     if (windowY - elementHeight/2 > elementTop) {
