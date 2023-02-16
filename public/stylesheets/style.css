@@ -34,6 +34,7 @@ body {
   font: 16px 'Roboto', "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: var(--background-black);
   position: relative;
+  height: 100vh;
 }
 
 a, 
@@ -283,9 +284,16 @@ select:-webkit-autofill:focus {
   padding: .5rem 1rem;
 }
 
+.footer .brand {
+  font-size: 1rem;
+  font-weight: 900;
+  font-family: 'Russo One', 'Heebo', sans-serif;
+}
+
 .footer p {
   font-size: .7rem;
   margin-top: .3rem;
+  font-weight: 700;
 }
 /****** LAYOUT ******/
 /****** NAVBAR ******/
@@ -403,13 +411,13 @@ select:-webkit-autofill:focus {
 
 .index-title {
   font-family: 'Russo One', 'Heebo', sans-serif;
-  font-size: 3.5rem;
+  font-size: 5rem;
   letter-spacing: 3px;
   color: var(--text-white);
 }
 
 .index-title span {
-  font-size:calc(3.5rem * 1.25);
+  font-size:calc(5rem * 1.25);
   margin-right: .4rem;
   vertical-align: -.25rem;
 }

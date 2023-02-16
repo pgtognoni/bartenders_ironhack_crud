@@ -17,20 +17,21 @@ router.get("/signup", (req, res) => {
 router.post('/signup', async (req, res) => {
     const page = req.url.split('/')[1];
     const user = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(user.password, salt);
-    delete user.password;
-    user.password = hashedPassword;
-
+    
     if (user.image === "") {
         user.image = undefined;
     }
-
+    
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(user.password, salt);
+        delete user.password;
+        user.password = hashedPassword;
+        console.log(user)
         const userdata = await User.create(user);
         res.redirect('/user/login')
     } catch (error) {
-        console.log(req.session.user)
+        console.error(error);
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'

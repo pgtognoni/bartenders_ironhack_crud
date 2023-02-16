@@ -1,13 +1,13 @@
 <%- include('../navbar.ejs'), { session } %>
 <div class="seccion-container column-center create-seccion">
 
-<h1 class="cocktail-create-title"> <% if (update && errorMessage === 'undefined') { %>
+<h1 class="cocktail-create-title"> <% if (update && typeof errorMessage === 'undefined') { %>
     <span class="error-message">M</span>odify the recipe
   <% } else { %>
     <span class="error-message ">C</span>reate a New Cocktail recipe
   <% } %></h1>
-  <% if (typeof cocktail !== 'undefined' && errorMessage === 'undefined') { %> <%- include('../partials/recipe-card', {cocktail}) %> <% } %>
-  <form class="cocktail-form box-container seccion-container" enctype="multipart/form-data" method="POST" action="<% if (update && errorMessage === 'undefined') { %>
+  <% if (typeof cocktail !== 'undefined' && typeof errorMessage === 'undefined') { %> <%- include('../partials/recipe-card', {cocktail}) %> <% } %>
+  <form class="cocktail-form box-container seccion-container" enctype="multipart/form-data" method="POST" action="<% if (update && typeof errorMessage === 'undefined') { %>
     /cocktail/<%- cocktail._id %>/modify
    <% } else { %>
     /cocktail/create

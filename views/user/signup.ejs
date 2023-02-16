@@ -7,7 +7,7 @@
 <h2 class="box-title">Register</h2>
 <form action="/user/signup" method="POST" class="signup-form column-center">
     <label for="username">Username: 
-        <input class="signup-input" type="text" name="username" id="username" <% if (typeof errorMessage !== 'undefined') { %> value="<%= user.username %>"<% } %>>
+        <input class="signup-input" type="text" name="username" id="username" >
         <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'username') { %> <p class="error-message"><%= errorMessage %></p><% } %>
     </label>
     <label for="email">Email 

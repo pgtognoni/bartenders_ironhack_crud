@@ -50,6 +50,7 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
     const cocktailId = cocktailCreated._id
     const userId = req.session.userId
     const userUpdate = await User.findOneAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
+    console.log(userUpdate)
     res.redirect('/user/profile')
   } catch (error) {
     console.log(error.name)
