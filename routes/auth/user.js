@@ -127,17 +127,21 @@ router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, r
     const page = req.url.split('/')[1];
     console.log('update: ', user)
     let path = req.body.image;
-    if (req.file){
-        path = req.file.path;
-    }
     // if (user.image === "") {
-    //     user.image = undefined;
-    // }
-
+        //     user.image = undefined;
+        // }
+        
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.session.userId, {...user, image: path}, { runValidators: true });
-        console.log('user updated: ', updatedUser)
-        res.redirect('/user/profile')
+        if (req.file){
+            path = req.file.path;
+            const updatedUser = await User.findByIdAndUpdate(req.session.userId, {image: path});
+            res.redirect('/user/editUser')
+
+        } else {
+            const updatedUser = await User.findByIdAndUpdate(req.session.userId, {...user}, { runValidators: true });
+            console.log('user updated: ', updatedUser)
+            res.redirect('/user/profile')
+        }
     } catch (error) {
         if (error.code === 11000) {
             let key = 'username'
