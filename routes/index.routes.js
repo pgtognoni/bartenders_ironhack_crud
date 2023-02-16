@@ -8,6 +8,9 @@ router.get("/", (req, res, next) => {
   res.render("index", { session: req.session.user || undefined, page});
 });
 
+router.get("/about", (req, res, next) => {
+  res.render("about");
+});
 ///// API testings */
 
 
