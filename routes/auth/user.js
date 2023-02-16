@@ -27,7 +27,6 @@ router.post('/signup', async (req, res) => {
         const hashedPassword = await bcrypt.hash(user.password, salt);
         delete user.password;
         user.password = hashedPassword;
-        console.log(user)
         const userdata = await User.create(user);
         res.redirect('/user/login')
     } catch (error) {
@@ -125,12 +124,8 @@ router.get("/editUser", isLoggedIn, async (req, res) => {
 router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, res) => {
     const user = req.body;
     const page = req.url.split('/')[1];
-    console.log('update: ', user)
     let path = req.body.image;
-    // if (user.image === "") {
-        //     user.image = undefined;
-        // }
-        
+   
     try {
         if (req.file){
             path = req.file.path;
