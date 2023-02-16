@@ -119,19 +119,10 @@ router.get('/cocktails-search', isLoggedIn , async (req, res) => {
       
     }))
 
-    const allCocktails = await Cocktail.find()
-    let cocktailsShared = []
-    allCocktails.forEach(cocktail => {
-      if (cocktail.creator != user._id) {
-        cocktailsShared.push(cocktail)
-      }
-    console.log('cocktailsShared', cocktailsShared)
-    })
-
 
     const final = await shuffle(searchHistory);
 
-  res.render('cocktail/search-cocktail', { user , page, session: req.session.user || undefined, cocktailsApi:  final , cocktailsDb: allCocktails })
+  res.render('cocktail/search-cocktail', { user , page, session: req.session.user || undefined, cocktailsApi:  final })
 
   } catch(error) {
       console.error(error);
@@ -146,7 +137,7 @@ router.post('/search', isLoggedIn, async (req, res) => {
     const historyArr = user.searchHistory;
     const userId = req.session.userId;
     const string = req.body.cocktail;
-    console.log(string)
+    
     const cocktailsFound = await Cocktail.find( { name: { $regex: string, $options:"i" } } ).populate('creator')
   
     let drinksApi={}
@@ -170,7 +161,7 @@ router.post('/search', isLoggedIn, async (req, res) => {
       }
     }
 
-    res.render('cocktail/search-results', { page, cocktails: cocktailsFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
+    res.render('cocktail/search-results', { page, cocktailsDb: cocktailsFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
 
   } catch (error) {
     console.error(error);
@@ -184,7 +175,7 @@ router.post('/search', isLoggedIn, async (req, res) => {
 router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
   const page = req.url.split('/')[1];
   const cocktail = await Cocktail.findById(req.params.cocktailId)
-  console.log({ cocktail })
+  
   res.render('cocktail/new-cocktail', { page, cocktail, update: true, session: req.session.user || undefined })
 }) 
 
@@ -256,7 +247,6 @@ module.exports = router;
 router.get('/:cocktailName/save', isLoggedIn, async (req, res) => {
   const userId = req.session.userId
   const userUpdate = await User.findByIdAndUpdate(userId, { $push: { favourites : req.params.cocktailName } }, {new: true})
-  console.log(userUpdate) 
 })
 
 
@@ -283,7 +273,7 @@ router.get("/remove/:name", async (req, res) => {
   const name = req.params.name;
   try {
     await User.findByIdAndUpdate(id, { $pull: { favourites : name } }, {new: true})
-    console.log(name)
+    
     res.redirect('/user/profile')
   //  ($pull: {favourites : name })
   } catch (error) {

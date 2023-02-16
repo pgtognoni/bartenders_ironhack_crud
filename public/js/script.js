@@ -7,22 +7,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const bodyHeight = document.body.offsetHeight;
   const windowHeight = window.innerHeight;
   
-  if( bodyHeight < windowHeight ) {
-    footer.style.top = (windowHeight - footerHeight) + "px";
-  } else {
-    footer.style.top = (bodyHeight - footerHeight) + "px";
-  }
-
-  console.log(footerHeight, bodyHeight, windowHeight);
-
   //*** WINDOW EVENTS ***//
-
+  //*** WINDOW EVENTS ***//
+  
   window.onscroll = () => {
+    
     const about = document.getElementById('about')
     const elementTop = about.getBoundingClientRect().top;
     const windowY = window.scrollY + window.innerHeight;
     const elementHeight = about.offsetHeight;
-
+    
+    //** SET FOOTER ALWAYS ON THE BOTTOM DEPPENDING ON BODY CONTENT **/
+    if( bodyHeight < windowHeight ) {
+      footer.style.top = (windowHeight - footerHeight) + "px";
+    } else {
+      footer.style.top = (bodyHeight - footerHeight) + "px";
+    }
+  
+    //** SHOW ABOUT TEXT ON SCROLL **/
     if (windowY - elementHeight/2 > elementTop) {
       console.log('show');
       about.classList.remove('hide');

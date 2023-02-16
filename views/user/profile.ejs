@@ -1,7 +1,6 @@
 <%- include('../navbar.ejs'), { session } %>
 <div class="seccion-container column-center profile-seccion">
-
-<div id="profile-container" class="column-center" >
+  <div id="profile-container" class="column-center" >
     <div class="profile-head">
         <div class="profile-username">
             <div>
@@ -20,16 +19,14 @@
         </div>
         <p><%= user.bio %></p>
     </div>
-<div class="profile-body">
-  <div class="cocktails-profile-display">
-    <div class='user-cocktails'>
-      <% if (user.creations.length != 0) %> <% user.creations.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail , page }) %> <% }) %>
+    <div class="profile-body">
+      <div class="cocktails-profile-display">
+        <div class='cocktails-container'>
+          <% if (user.creations.length != 0) %> <% user.creations.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail , page }) %> <% }) %>
+          <% if (cocktailsApi.length != 0) %>  <% cocktailsApi.forEach((cocktail) => { %> <%- include('../partials/recipe-card', {cocktail , page }) %> <% }) %>
+        </div>
+      </div>  
     </div>
-    <div class="api-cocktails" >
-      <% if (cocktailsApi.length != 0) %>  <% cocktailsApi.forEach((cocktail) => { %> <%- include('../partials/recipe-card', {cocktail , page }) %> <% }) %>
-    </div>
-  </div>  
+  </div>
 </div>
-</div>
-</div>
-</div>
+

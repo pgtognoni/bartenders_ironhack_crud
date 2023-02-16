@@ -8,11 +8,7 @@
   </form>
 </div>
 <div class="cocktails-profile-display">
-  <div class='user-cocktails'>
-    <% if (cocktailsDb.length != 0) %> <% cocktailsDb.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
-  </div>
-
-  <div class="api-cocktails" >
+  <div class='cocktails-container'>
     <% if (cocktailsApi.length != 0) %>  <% cocktailsApi.forEach((cocktail) => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
   </div>
 </div>  
