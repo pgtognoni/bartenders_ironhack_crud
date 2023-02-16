@@ -141,7 +141,10 @@ router.get("/editUser", isLoggedIn, async (req, res) => {
 router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, res) => {
     const user = req.body;
     const page = req.url.split('/')[1];
-    const path = req.file.path;
+    let path = req.body.image;
+    if (req.file){
+        path = req.file.path;
+    }
     if (user.image === "") {
         user.image = undefined;
     }
@@ -162,7 +165,7 @@ router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, r
                 res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
             } else {
                 console.error(error);
-                res.render('user/editUser', {page, error, key, user, session: req.session.user || undefined})
+                res.render('user/editUser', {page, error, user, session: req.session.user || undefined})
             }
         }
     }
