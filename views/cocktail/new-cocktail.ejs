@@ -6,7 +6,7 @@
   <% } else { %>
     <span class="error-message ">C</span>reate a New Cocktail recipe
   <% } %></h1>
-  <% if (typeof cocktail !== 'undefined' && typeof errorMessage === 'undefined') { %> <%- include('../partials/recipe-card', {cocktail}) %> <% } %>
+  <% if (typeof cocktail !== 'undefined' && typeof errorMessage === 'undefined') { %> <%- include('../partials/recipe-card', {cocktail, page}) %> <% } %>
   <form class="cocktail-form box-container seccion-container" enctype="multipart/form-data" method="POST" action="<% if (update && typeof errorMessage === 'undefined') { %>
     /cocktail/<%- cocktail._id %>/modify
    <% } else { %>

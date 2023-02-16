@@ -72,8 +72,11 @@
   </div>
   <div class="card-footer">
     <div class="btn-container">
+      <% if (page === 'modify') { %>       
+      <% } else { %>
       <a href="/cocktail/<%- cocktail._id %>/modify" class="edit-btn">Modify</a>
       <a href="/cocktail/<%- cocktail._id %>/delete" class="edit-btn btn-delete">Delete</a>              
+      <% } %>
     </div>
   </div>
   <% } %>

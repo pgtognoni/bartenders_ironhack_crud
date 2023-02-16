@@ -173,7 +173,8 @@ router.post('/search', isLoggedIn, async (req, res) => {
  /* Modify a cocktail recipe  */
 
 router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
-  const page = req.url.split('/')[1];
+  const page = req.url.split('/')[2];
+  console.log(page)
   const cocktail = await Cocktail.findById(req.params.cocktailId)
   
   res.render('cocktail/new-cocktail', { page, cocktail, update: true, session: req.session.user || undefined })
