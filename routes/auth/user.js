@@ -69,21 +69,8 @@ router.post('/login', async (req, res) => {
             }
         }
     } catch (error) {
-        if (error.code === 11000) {
-            let key = 'username'
-            let errorMessage = 'User name already exists'
-            res.render('user/login', {page, errorMessage, key, user, session: req.session.user || undefined})
-        } else {
-            if (error.name === 'ValidationError') {
-                const key = Object.keys(error.errors)[0];
-                let errorMessage = error.errors[key].message
-                console.error(errorMessage);
-                res.render('user/login', {page, errorMessage, key, user, session: req.session.user || undefined})
-            } else {
-                console.error(error);
-                res.render('user/login', {page, error, user, session: req.session.user || undefined})
-            }
-        }
+            console.error(error);
+            res.render('user/login', {page, error, username, session: req.session.user || undefined})
     }
 //     } catch (error) {
 //         console.error(error);
@@ -119,7 +106,6 @@ router.get("/profile", isLoggedIn, async (req, res) => {
             })
             .catch((err) => console.log(err))   
         }))
-        console.log (user)
         res.render('user/profile', { user, session: req.session.user || undefined, cocktailsApi: favourites, page })
     } catch(error) {
         console.error(error);
@@ -141,16 +127,18 @@ router.get("/editUser", isLoggedIn, async (req, res) => {
 router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, res) => {
     const user = req.body;
     const page = req.url.split('/')[1];
+    console.log('update: ', user)
     let path = req.body.image;
     if (req.file){
         path = req.file.path;
     }
-    if (user.image === "") {
-        user.image = undefined;
-    }
+    // if (user.image === "") {
+    //     user.image = undefined;
+    // }
 
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.session.userId, { user, image: path }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(req.session.userId, {...user, image: path}, { runValidators: true });
+        console.log('user updated: ', updatedUser)
         res.redirect('/user/profile')
     } catch (error) {
         if (error.code === 11000) {
