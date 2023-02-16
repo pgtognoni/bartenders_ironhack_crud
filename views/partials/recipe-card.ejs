@@ -18,8 +18,8 @@
       <div class="card-text">
           <h4 class="ingredients">Ingredients:</h4>
           <ul class="list-unstyled mt-3 mb-4">
-             <% if (typeof cocktail.ingredientes == 'Object' && cocktail.ingredients.length > 0) { cocktail.ingredients.forEach(ingredient => { %>
-             <li><%- ingredient%></li><% })} else { %>
+            <% if (typeof cocktail.ingredientes == 'Object' && cocktail.ingredients.length > 0) { cocktail.ingredients.forEach(ingredient => { %>
+            <li><%- ingredient%></li><% })} else { %>
               <li><%- cocktail.ingredient %></li><% } %>
           </ul>
           <h4 class="instructions">Instructions:</h4>
@@ -36,8 +36,9 @@
             <div>
               <h4 class="ingredients">Ingredients:</h4>
               <ul class="list-unstyled mt-3 mb-4">
-                <% cocktail.ingredients.forEach(ingredient => { %>
-                <li><%- ingredient%></li><% }) %>
+                <% if (typeof cocktail.ingredients == 'Object' && cocktail.ingredients.length > 0) { cocktail.ingredients.forEach(ingredient => { %>
+                  <li><%- ingredient%></li><% })} else { %>
+                    <li><%- cocktail.ingredients %></li><% } %>
               </ul>
             </div>
             <div>

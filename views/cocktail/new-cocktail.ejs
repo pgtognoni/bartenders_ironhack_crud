@@ -18,7 +18,7 @@
   </label>
   <label for="ingredients">Ingredients : 
     <textarea oninput="this.size = this.value.length" cols="80" rows="6" type="text" name="ingredients" value="" >
-      <% if (update) { if (typeof cocktail.ingredientes == 'Object' && cocktail.ingredients.length > 0) {%> <%= cocktail.ingredients.join(' ') %> <% } else if (cocktail.ingredients.length > 0){ %> <%= cocktail.ingredients %> <%}}%></textarea>
+      <% if (update) { if (typeof cocktail.ingredientes == 'Object' && cocktail.ingredients.length > 0) {%> <%= cocktail.ingredients.join(' ') %> <% } else { %> <%= cocktail.ingredients %> <%}}%></textarea>
     <p>Please make a comma separated list</p>
     <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'ingredients') { %> <p class="error-message"><%= errorMessage %></p><% } %>
   </label>

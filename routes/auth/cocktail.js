@@ -190,7 +190,7 @@ router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
 
 
 router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, async (req, res) => {
-  const body = req.body
+  const body = {...req.body}
   const page = req.url.split('/')[1];
   let img = ''
   if (!req.file) {
@@ -211,16 +211,12 @@ router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, asy
   }
   
   try {
-    const cocktail = await Cocktail.findById(req.params.cocktailId);
-    if (cocktail.name == req.body.name || req.body.name === "") {
-      delete body.name
-    }
-    console.log(body)
+    
     await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
       ...body, 
       ingredients: ingredients,
       image : img ,
-    }, { runValidators: true })
+    })
     res.redirect('/user/profile')
   } catch (error) {
     console.log(error.name)
