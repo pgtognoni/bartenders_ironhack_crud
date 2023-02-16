@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios');
-
+const fileUploader = require('../../config/cloudinary.config')
 const Cocktail = require('../../models/Cocktail.model')
 const User = require("../../models/user-model")
 
@@ -11,14 +11,20 @@ const { isLoggedIn } = require('../../middlewares/islogged');
 /* Create cocktail */
 router.get('/create', isLoggedIn, (req, res) => {
   const page = req.url.split('/')[1];
+
   res.render('cocktail/new-cocktail', { page, update: false, session: req.session.user || undefined })
 })
 
-router.post('/create', isLoggedIn ,async (req, res) => {
+router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res) => {
   const page = req.url.split('/')[1];
   const body = req.body
   let img = ''
-  console.log(body)
+  if (!req.file) {
+    img = '';
+  } else {
+    img = req.file.path;
+  }
+
   switch (body.servingGlass){
     case 'Martini' : img = '/images/martini.png' ; break;
     case 'Tumbler' : img = '/images/tumbler.png' ; break;
@@ -171,11 +177,19 @@ router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
 }) 
 
 
-router.post('/:cocktailId/modify', isLoggedIn, async (req, res) => {
-  console.log('anything')
+router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, async (req, res) => {
+  
+  let img = ''
+  if (!req.file) {
+    img = '';
+  } else {
+    img = req.file.path;
+  }
+
   await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
     ...req.body, 
     ingredients: req.body.ingredients.split(' '),
+    image : img ,
   })
   res.redirect('/user/profile')
 })

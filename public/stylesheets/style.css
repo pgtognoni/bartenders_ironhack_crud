@@ -26,6 +26,7 @@
   --green1: #1eba79;
   --green2: rgb(28, 201, 91);
   --index-btn: linear-gradient(var(--green1), var(--green2));
+  --modal-container: rgba(55, 55, 55, 0.273);
 }
 
 body {
@@ -152,6 +153,49 @@ select:-webkit-autofill:focus {
 /****** MODAL ******/
 /****** MODAL ******/
 
+.modal-container {
+  background-color: var(--modal-container);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  z-index: 100;
+  display: none;
+}
+
+.modal {
+  width: 100%;
+  height: 50%;
+}
+
+.modal i {
+  color: var(--bg-search)
+}
+
+.modal h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--btn-cancel)
+}
+.modal form {
+  min-width: unset;
+  max-width: 400px;
+}
+
+.modal form input {
+  margin-bottom: 1.5rem;
+  box-shadow: 1px 1px 2px var(--input-shadow);
+}
+.modal form input::-webkit-file-upload-button {
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  color: var(--bg-search);
+  padding: .4rem .6rem;
+}
+
 .close-modal {
   font-size: 1rem;
   position: absolute;
@@ -162,12 +206,6 @@ select:-webkit-autofill:focus {
   outline: none;
   color: inherit;
   cursor: pointer;
-}
-
-:modal {
-  width: 30rem;
-  border: none;
-  border-radius: 5px;
 }
 
 @media screen and (max-width: 321px){
@@ -727,7 +765,9 @@ select:-webkit-autofill:focus {
 }
 
 .profile-image {
-  width: 90%;
+  max-width: 100px;
+  width: auto;
+  height: auto;
   border-radius: 100%
 }
 
@@ -835,7 +875,9 @@ textarea {
 }
 
 .image-profile-edit {
-  width: 100%;
+  max-width: 100px;
+  width: auto;
+  height: auto;
   border-radius: 100%;
   outline: none;
   padding: 0;
@@ -1040,11 +1082,14 @@ label[for='age'] input {
   font-size: 1.15rem;
   font-weight: 500;
 }
-#delete {
+.btn-delete {
   background-color: var(--btn-cancel);
   color: var(--text-white);
 }
 
+.btn-delete:hover {
+  cursor: pointer;
+}
 
 @media screen and (max-width: 321px) { 
   .btn-edit {
@@ -1143,12 +1188,14 @@ label[for='image'] input::-webkit-file-upload-button {
 
 label[for='description'],
 label[for='ingredients'],
+label[for='method'],
 label[for='image'] {
   flex-direction: column;
   align-items: flex-start;
 }
 label[for='description'] textarea,
 label[for='ingredients'] textarea,
+label[for='method'] textarea,
 label[for='image'] input{
   margin-top: .7rem;
 }
