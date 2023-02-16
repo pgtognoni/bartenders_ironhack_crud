@@ -7,6 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const bodyHeight = document.body.offsetHeight;
   const windowHeight = window.innerHeight;
   
+  if( bodyHeight < windowHeight ) {
+    footer.style.top = (windowHeight - footerHeight) + "px";
+  } else {
+    footer.style.top = (bodyHeight - footerHeight) + "px";
+  }
   //*** WINDOW EVENTS ***//
   //*** WINDOW EVENTS ***//
   
