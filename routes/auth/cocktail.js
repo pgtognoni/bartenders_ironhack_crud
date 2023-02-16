@@ -45,11 +45,11 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
       image : img ,
       creator: req.session.userId,
       ingredients: ingredients
-    })
+    }) 
 
     const cocktailId = cocktailCreated._id
     const userId = req.session.userId
-    const userUpdate = await User.findOneAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
+    const userUpdate = await User.findByIdAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
     console.log(userUpdate)
     res.redirect('/user/profile')
   } catch (error) {
@@ -211,32 +211,32 @@ router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, asy
   }
   
   try {
-  //   const cocktail = await Cocktail.findById(req.params.cocktailId);
-  //   if (cocktail.name == req.body.name) {
-  //     delete req.body.name
-  //   }
-  //   console.log(req.body)
+    const cocktail = await Cocktail.findById(req.params.cocktailId);
+    if (cocktail.name == req.body.name || req.body.name === "") {
+      delete body.name
+    }
+    console.log(body)
     await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
-      ...req.body, 
+      ...body, 
       ingredients: ingredients,
       image : img ,
-    })
+    }, { runValidators: true })
     res.redirect('/user/profile')
   } catch (error) {
     console.log(error.name)
     if (error.code === 11000) {
         let key = 'name'
         let errorMessage = 'Name already exists'; 
-        res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined })
+        res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : req.body || undefined, update: true, session: req.session.user || undefined })
       } else {
         if (error.name === 'ValidationError') {
             const key = Object.keys(error.errors)[0];
             let errorMessage = error.errors[key].message
             console.error(errorMessage);
-            res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined })
+            res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : req.body || undefined, update: true, session: req.session.user || undefined })
           } else {
             console.error(error);
-            res.render('cocktail/new-cocktail', {page, error, cocktail : body || undefined, update: true, session: req.session.user || undefined})
+            res.render('cocktail/new-cocktail', {page, error, cocktail : req.body || undefined, update: true, session: req.session.user || undefined})
         }
     }
   }

@@ -363,7 +363,7 @@ select:-webkit-autofill:focus {
   background-color: var(--nav-bg);
   color: var(--text-white);
   padding: .5rem 1rem;
-  position: relative;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;

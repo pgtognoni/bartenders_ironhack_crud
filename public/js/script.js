@@ -1,6 +1,22 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
 document.addEventListener("DOMContentLoaded", () => {
   
+  //*** FOOTER POSITIONING ***//
+  const footer = document.getElementById("footer");
+  const footerHeight = footer.offsetHeight;
+  const bodyHeight = document.body.offsetHeight;
+  const windowHeight = window.innerHeight;
+  
+  if( bodyHeight < windowHeight ) {
+    footer.style.top = (windowHeight - footerHeight) + "px";
+  } else {
+    footer.style.top = (bodyHeight - footerHeight) + "px";
+  }
+
+  console.log(footerHeight, bodyHeight, windowHeight);
+
+  //*** WINDOW EVENTS ***//
+
   window.onscroll = () => {
     const about = document.getElementById('about')
     const elementTop = about.getBoundingClientRect().top;
@@ -104,13 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   )
 
-
-
-  // document.getElementById(`image-profile`).addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   console.log("image-profile clicked");
-  //   document.querySelector('.image-edit').showModal();
-  // })
 
   document.getElementById("save-changes").addEventListener("click", (e) => {
     
