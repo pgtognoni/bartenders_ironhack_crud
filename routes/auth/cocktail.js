@@ -191,6 +191,7 @@ router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
 
 router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, async (req, res) => {
   const body = req.body
+  const page = req.url.split('/')[1];
   let img = ''
   if (!req.file) {
     switch (body.servingGlass){
@@ -209,13 +210,37 @@ router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, asy
     ingredients = body.ingredients.trim().split(',')
   }
   
+  // try {
+  //   const cocktail = await Cocktail.findById(req.params.cocktailId);
+  //   if (cocktail.name == req.body.name) {
+  //     delete req.body.name
+  //   }
+  //   console.log(req.body)
+    await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
+      ...req.body, 
+      ingredients: ingredients,
+      image : img ,
+    })
+    res.redirect('/user/profile')
+  } catch (error) {
+    console.log(error.name)
+    if (error.code === 11000) {
+        let key = 'name'
+        let errorMessage = 'Name already exists'; 
+        res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined })
+      } else {
+        if (error.name === 'ValidationError') {
+            const key = Object.keys(error.errors)[0];
+            let errorMessage = error.errors[key].message
+            console.error(errorMessage);
+            res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined })
+          } else {
+            console.error(error);
+            res.render('cocktail/new-cocktail', {page, error, cocktail : body || undefined, update: true, session: req.session.user || undefined})
+        }
+    }
+  }
 
-  await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
-    ...req.body, 
-    ingredients: ingredients,
-    image : img ,
-  }, { runValidators: true })
-  res.redirect('/user/profile')
 })
 
   

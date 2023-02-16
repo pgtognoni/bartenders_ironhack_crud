@@ -1,6 +1,11 @@
 const { Schema, model } = require("mongoose");
 
-
+const checkLength = (value) => { 
+  if (value.length === 0) {
+    return "This field is required";
+  }
+  return true;
+}
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const cocktailSchema = new Schema(
@@ -16,7 +21,7 @@ const cocktailSchema = new Schema(
     },
     method: {
       type: String,
-      required: true
+      required: true,
     },
     servingGlass: {
       type: String,
@@ -25,7 +30,7 @@ const cocktailSchema = new Schema(
     },
     garnish: {
       type: String,
-      required: true
+      required: true,
     },
     description: {
       type: String,

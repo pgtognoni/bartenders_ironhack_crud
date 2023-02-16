@@ -34,7 +34,7 @@ body {
   font: 16px 'Roboto', "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: var(--background-black);
   position: relative;
-  height: 100vh;
+  overflow-y: scroll;
 }
 
 a, 
@@ -97,6 +97,87 @@ ul {
     padding: .75rem 1.65rem;
     padding: calc(.75rem * .75) calc(1rem *.75rem);
   }
+}
+
+.edit-btn {
+  cursor: pointer;
+  background-color: var(--light-blue);
+  color: var(--text-white);
+  padding: .75rem .8rem;
+  border-radius: 10px;
+}
+
+.edit-username-btn {
+  border-bottom: 1px solid inherit;
+}
+
+.cancel-edit {
+  cursor: pointer;
+  background-color: var(--btn-cancel);
+  color: var(--text-white);
+  padding: .7rem 1rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  display: none;
+}
+@media screen and (max-width: 769px) { 
+  
+  .profile-title {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  .edit-btn {
+    padding: .65rem .7rem;
+    padding: calc(.75rem *.75) calc(.8rem * .75);
+
+  }
+  
+  .cancel-edit {
+    padding: .6rem .9rem;
+    padding: calc(.7rem *.75) calc(1rem *.75);
+    font-size: .8rem;
+  }
+
+}
+
+@media screen and (max-width: 521px) { 
+  
+  .edit-btn {
+    padding: .65rem .7rem;
+    padding: calc(.75rem *.5) calc(.8rem * .5);
+  }
+  
+  .cancel-edit {
+    padding: .6rem .9rem;
+    padding: calc(.7rem *.5) calc(1rem *.5);
+    font-size: .8rem;
+  }
+
+}
+
+.btn-edit {
+  padding: .7rem 1.1rem;
+  border-radius: 7px;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+.btn-delete {
+  background-color: var(--btn-cancel);
+  color: var(--text-white);
+}
+
+.btn-delete:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 321px) { 
+  .btn-edit {
+    padding: .5rem .9rem;
+    padding: calc(.7rem *.5) calc(1.1rem * .5);
+    border-radius: 5px;
+    font-size: 1rem;
+    }
 }
 
 /**** END BUTTONS ****/
@@ -282,6 +363,10 @@ select:-webkit-autofill:focus {
   background-color: var(--nav-bg);
   color: var(--text-white);
   padding: .5rem 1rem;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .footer .brand {
@@ -850,29 +935,6 @@ textarea {
   margin-bottom: -.9rem;
 }
 
-.edit-btn {
-  cursor: pointer;
-  background-color: var(--light-blue);
-  color: var(--text-white);
-  padding: .75rem .8rem;
-  border-radius: 10px;
-}
-
-.edit-username-btn {
-  border-bottom: 1px solid inherit;
-}
-
-.cancel-edit {
-  cursor: pointer;
-  background-color: var(--btn-cancel);
-  color: var(--text-white);
-  padding: .7rem 1rem;
-  border-radius: 10px;
-  font-size: 1.3rem;
-  font-weight: bolder;
-  display: none;
-}
-
 @media screen and (max-width: 769px) { 
   
   .profile-title {
@@ -1034,29 +1096,6 @@ label[for='age'] input {
   display: none;
 }
 
-.btn-edit {
-  padding: .7rem 1.1rem;
-  border-radius: 7px;
-  font-size: 1.15rem;
-  font-weight: 500;
-}
-.btn-delete {
-  background-color: var(--btn-cancel);
-  color: var(--text-white);
-}
-
-.btn-delete:hover {
-  cursor: pointer;
-}
-
-@media screen and (max-width: 321px) { 
-  .btn-edit {
-    padding: .5rem .9rem;
-    padding: calc(.7rem *.5) calc(1.1rem * .5);
-    border-radius: 5px;
-    font-size: 1rem;
-    }
-}
 
 /***** Create Cocktail *****/
 /***** Create Cocktail *****/
