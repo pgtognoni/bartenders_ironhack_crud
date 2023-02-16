@@ -1,60 +1,77 @@
 <%- include('../navbar.ejs'), { session } %>
 <div class="seccion-container column-center create-seccion">
 
-<h1 class="cocktail-create-title"> <% if (update) { %>
+<h1 class="cocktail-create-title"> <% if (update && errorMessage === 'undefined') { %>
     <span class="error-message">M</span>odify the recipe
   <% } else { %>
     <span class="error-message ">C</span>reate a New Cocktail recipe
   <% } %></h1>
-  <% if (typeof cocktail !== 'undefined') { %> <%- include('../partials/recipe-card', {cocktail}) %> <% } %>
-  <form class="cocktail-form box-container seccion-container" enctype="multipart/form-data" method="POST" action="<% if (update) { %>
+  <% if (typeof cocktail !== 'undefined' && errorMessage === 'undefined') { %> <%- include('../partials/recipe-card', {cocktail}) %> <% } %>
+  <form class="cocktail-form box-container seccion-container" enctype="multipart/form-data" method="POST" action="<% if (update && errorMessage === 'undefined') { %>
     /cocktail/<%- cocktail._id %>/modify
    <% } else { %>
     /cocktail/create
   <% } %>" class="vstack gap-3">
   <label for="name">Name : 
     <input oninput="this.size = this.value.length" type="text" name="name" value="<% if (update) { %><%= cocktail.name %><% } %>"/>
+    <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'name') { %> <p class="error-message"><%= errorMessage %></p><% } %>
   </label>
   <label for="ingredients">Ingredients : 
-    <textarea oninput="this.size = this.value.length" cols="80" rows="6" type="text" name="ingredients" value="" ><% if (update) { %><%= cocktail.ingredients.join(' ') %><% } %></textarea></label>
-  <label for="method">Method : <textarea oninput="this.size = this.value.length" type="text" cols="80" rows="6" name="method" value="" ><% if (update) { %><%= cocktail.method %><% } %></textarea></label>
-  <label for="servingGlass">Type of glass:
-      <select name="servingGlass">
-        <% if (update) { %>
-            <option value="Martini" <% if (cocktail.servingGlass === 'Martini') { %>
-            selected
-          <% } %>>Martini</option>
-          <option value="Tumbler" <% if (cocktail.servingGlass === 'Tumbler') { %>
-            selected
-            <% } %>>Tumbler</option>
-            <option value="Nick N` Nora" <% if (cocktail.servingGlass === 'Nick N` Nora') { %>
-            selected
-            <% } %>>Nick N` Nora</option>
-            <option value="Highball" <% if (cocktail.servingGlass === 'Highball') { %>
-            selected
-            <% } %>>Highball</option>
-            <option value="Coupette" <% if (cocktail.servingGlass === 'Coupette') { %>
-            selected
-            <% } %>>Coupette</option>
-            <option value="Other" <% if (cocktail.servingGlass === 'Other') { %>
-            selected
-            <% } %>>Other</option>
-            <% } else { %>
-        <option value="Martini">Martini</option>
-        <option value='Tumbler'>Tumbler</option>
-        <option value="Nick N` Nora">Nick N` Nora</option>
-        <option value='Highball'>Highball</option>
-        <option value="Coupette">Coupette</option>
-        <option value='Other'>Other</option>
-        <% } %>
-      </select>
+    <textarea oninput="this.size = this.value.length" cols="80" rows="6" type="text" name="ingredients" value="" >
+      <% if (update) { if (typeof cocktail.ingredientes == 'Object' && cocktail.ingredients.length > 0) {%> <%= cocktail.ingredients.join(' ') %> <% } else if (cocktail.ingredients.length > 0){ %> <%= cocktail.ingredients.trim() %> <%}}%></textarea>
+    <p>Please make a comma separated list</p>
+    <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'ingredients') { %> <p class="error-message"><%= errorMessage %></p><% } %>
   </label>
-  <label for="garnish">Garnish : <input oninput="this.size = this.value.length" type="text" name="garnish" value="<% if (update) { %><%= cocktail.garnish %><% } %>" /></label>
-  <label for="description">Description: <textarea oninput="this.size = this.value.length" cols="100" rows="6" type="text" name="description" value=""><% if (update) { %><%= cocktail.description %><% } %></textarea></label>
+  <label for="method">Method : 
+    <textarea oninput="this.size = this.value.length" type="text" cols="80" rows="6" name="method" value="" ><% if (update) { %><%= cocktail.method %><% } %></textarea>
+    <p>Please make a comma separated list</p>
+    <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'method') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+  </label>
+  <label for="servingGlass">Type of glass:
+    <select name="servingGlass">
+      <% if (update) { %>
+          <option value="Martini" <% if (cocktail.servingGlass === 'Martini') { %>
+          selected
+        <% } %>>Martini</option>
+        <option value="Tumbler" <% if (cocktail.servingGlass === 'Tumbler') { %>
+          selected
+          <% } %>>Tumbler</option>
+          <option value="Nick N` Nora" <% if (cocktail.servingGlass === 'Nick N` Nora') { %>
+          selected
+          <% } %>>Nick N` Nora</option>
+          <option value="Highball" <% if (cocktail.servingGlass === 'Highball') { %>
+          selected
+          <% } %>>Highball</option>
+          <option value="Coupette" <% if (cocktail.servingGlass === 'Coupette') { %>
+          selected
+          <% } %>>Coupette</option>
+          <option value="Other" <% if (cocktail.servingGlass === 'Other') { %>
+          selected
+          <% } %>>Other</option>
+          <% } else { %>
+      <option value="Martini">Martini</option>
+      <option value='Tumbler'>Tumbler</option>
+      <option value="Nick N` Nora">Nick N` Nora</option>
+      <option value='Highball'>Highball</option>
+      <option value="Coupette">Coupette</option>
+      <option value='Other'>Other</option>
+      <% } %>
+    </select>
+  </label>
+  <label for="garnish">Garnish : 
+    <input oninput="this.size = this.value.length" type="text" name="garnish" value="<% if (update) { %><%= cocktail.garnish %><% } %>" />
+    <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'garnish') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+  </label>
+  <label for="description">Description: 
+    <textarea oninput="this.size = this.value.length" cols="100" rows="6" type="text" name="description" value=""><% if (update) { %><%= cocktail.description %><% } %></textarea>
+    <p>Please make a comma separated list</p>
+    <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'description') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+  </label>
   <label for="image">Upload picture:
     <input type="file"
           name="image"
           accept="image/png, image/jpeg">
+          <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'image') { %> <p class="error-message"><%= errorMessage %></p><% } %>
   </label>
   <label for="shared">Make your recipe public:
     <select name="shared">
@@ -71,11 +88,6 @@
       <% } %>
     </select> 
   </label>
-  <button type="submit" class="btn-edit btn-box index-btn login-btn">
-    <% if (update) { %>
-      SAVE
-    <% } else { %>
-      SAVE
-    <% } %>
-  </button>                
+  <button type="submit" class="btn-edit btn-box index-btn login-btn">SAVE</button>                
 </form>
+</div>

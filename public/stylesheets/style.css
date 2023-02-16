@@ -32,7 +32,8 @@
 body {
   color: var(--text-white);
   font: 16px 'Roboto', "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: var(--background-black)
+  background-color: var(--background-black);
+  position: relative;
 }
 
 a, 
@@ -48,6 +49,59 @@ ul {
   list-style: none !important;
 }
 
+/**** BUTTONS ****/
+/**** BUTTONS ****/
+/**** BUTTONS ****/
+
+.index-btn {
+  background: var(--index-btn);
+  text-shadow: 1px 0 1px var(--light-blue);
+  letter-spacing: 1px;
+  display: flex;
+  color: var(--text-white) !important;
+  font-size: 1.3rem;
+  font-weight: 700;
+  justify-content: center;
+  text-align: center;
+  min-width: 3rem;
+  max-width: 7rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  padding: .75rem 1rem;
+}
+
+.index-btn:focus {
+  outline: 0;
+}
+
+.btn-signup {
+  background: linear-gradient(#38afffe9, #15b9ffeb);
+  text-shadow: 1px 0 1px var(--dark-blue);
+}
+
+@media screen and (max-width: 321px) {
+  .index-btn {
+    font-size: .8rem;
+    font-size: calc(1.3rem * .5);
+    padding: .55rem 1rem;
+    padding: calc(.75rem * .5) calc(1rem *.5rem);
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .index-btn {
+    font-size: 1rem;
+    font-size: calc(1.3rem * .75);
+    padding: .75rem 1.65rem;
+    padding: calc(.75rem * .75) calc(1rem *.75rem);
+  }
+}
+
+/**** END BUTTONS ****/
+/**** END BUTTONS ****/
+/**** END BUTTONS ****/
+
 .column-center {
   display: flex;
   flex-direction: column;
@@ -57,7 +111,7 @@ ul {
 
 .seccion-container {
   padding: 4rem 2rem;
-  height: 90vh;
+  height: 100%;
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
@@ -219,8 +273,20 @@ select:-webkit-autofill:focus {
     width: 90%;
   }
 }
+/****** FOOTER ******/
+/****** FOOTER ******/
 
+.footer {
+  width: 100%;
+  background-color: var(--nav-bg);
+  color: var(--text-white);
+  padding: .5rem 1rem;
+}
 
+.footer p {
+  font-size: .7rem;
+  margin-top: .3rem;
+}
 /****** LAYOUT ******/
 /****** NAVBAR ******/
 /****** NAVBAR ******/
@@ -314,6 +380,10 @@ select:-webkit-autofill:focus {
   padding: 10%;
   width: 100%;
   height: 90vh;
+  background-image: url("../images/bartender1.png");
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: right 3%;
 }
 
 .index-container input {
@@ -423,50 +493,6 @@ select:-webkit-autofill:focus {
   }
 }
 
-.index-btn {
-  background: var(--index-btn);
-  text-shadow: 1px 0 1px var(--light-blue);
-  letter-spacing: 1px;
-  display: flex;
-  color: var(--text-white) !important;
-  font-size: 1.3rem;
-  font-weight: 700;
-  justify-content: center;
-  text-align: center;
-  min-width: 3rem;
-  max-width: 7rem;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  padding: .75rem 1rem;
-}
-
-.index-btn:focus {
-  outline: 0;
-}
-
-.btn-signup {
-  background: linear-gradient(#38afffe9, #15b9ffeb);
-  text-shadow: 1px 0 1px var(--dark-blue);
-}
-
-@media screen and (max-width: 321px) {
-  .index-btn {
-    font-size: .8rem;
-    font-size: calc(1.3rem * .5);
-    padding: .55rem 1rem;
-    padding: calc(.75rem * .5) calc(1rem *.5rem);
-  }
-}
-
-@media screen and (max-width: 769px) {
-  .index-btn {
-    font-size: 1rem;
-    font-size: calc(1.3rem * .75);
-    padding: .75rem 1.65rem;
-    padding: calc(.75rem * .75) calc(1rem *.75rem);
-  }
-}
 
 /****** INDEX ABOUT ******/
 
@@ -476,15 +502,19 @@ select:-webkit-autofill:focus {
   line-height: 1.5;
   font-size: 1.5rem;
   width: 55%;
+  align-self: center;
 }
 
 .about-container {
+  margin-top: 5rem;
   width: 100%;
+  height: 90vh;
   display: flex;
   justify-content: flex-end;
-  position: absolute;
-  top: 50rem;
-  right: 1rem;
+  background-image: url("../images/bartender2.png");
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-position: left 3%;
 }
 
 .hide {
@@ -496,89 +526,6 @@ select:-webkit-autofill:focus {
   transition: opacity .5s ease-in;
 }
 
-/****** INDEX IMAGES ******/
-
-.index-img-container {
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.img-1 {
-  right: 1rem;
-  top: 7rem;
-}
-
-.img-2 {
-  left: 1rem;
-  top: 50rem;
-}
-
-.index-img-1 {
-  width: 50%;
-  justify-self: end;
-}
-
-.index-img-2 {
-  width: 50%;
-  justify-self: start;
-}
-
-@media screen and (max-width: 769px) {
-  .img-2 {
-    top: 35rem;
-  }
-  .about-container {
-    top: 45rem;
-  }
-  .about-text {
-    width: 65%;
-  }
-  
-}
-
-@media screen and (max-width: 526px) {
-  .img-2 {
-    top: 30rem;
-  }
-  .about-container {
-    top: 40rem;
-  }
-  .about-text {
-    width: 75%;
-  }
-}
-
-@media screen and (max-width: 321px) {
-  .img-1 {
-    margin-left: auto;
-    margin-right: auto;
-    right: 0;
-    left: 0;
-    top: 7rem;
-  }
-  
-  .img-2 {
-    margin-left: auto;
-    margin-right: auto;
-    right: 0;
-    left: 0;
-    top: 20rem;
-  }
-  .about-container {
-    margin-left: auto;
-    margin-right: auto;
-    right: 0;
-    left: 0;
-    top: 40rem;
-  }
-  .about-text {
-    font-size: 1rem;
-    width: 100%;
-  }
-  }
 
 /****** SIGNUP  LOGIN ******/
 /****** SIGNUP  LOGIN ******/
@@ -609,12 +556,6 @@ select:-webkit-autofill:focus {
   }
 }
 
-/* @media screen and (max-width: 850px) {
-  .martini-login-img {
-    display: none;  
-  }
-} */
-
 @keyframes movingBG {
   0% {
     background-position: 0 50%;
@@ -625,6 +566,15 @@ select:-webkit-autofill:focus {
   100% {
       background-position: 0 50%;
   }
+}
+
+.login-container {
+  background-image: url("../images/bartender2.png");
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: right 3% top 75%;
+  width: 100%;
+  height: 100vh;
 }
 
 .signup-container {

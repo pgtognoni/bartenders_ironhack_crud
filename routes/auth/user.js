@@ -62,15 +62,33 @@ router.post('/login', async (req, res) => {
             if(bcrypt.compareSync(password, user.password)) {
                 req.session.user = user.username;
                 req.session.userId = user._id;
+
                 res.redirect('/')
             } else {
                 throw new Error('Invalid password');
             }
         }
     } catch (error) {
-        console.error(error);
-        res.render('user/login', { error, username, session: req.session.user || undefined, page}); 
+        if (error.code === 11000) {
+            let key = 'username'
+            let errorMessage = 'User name already exists'
+            res.render('user/login', {page, errorMessage, key, user, session: req.session.user || undefined})
+        } else {
+            if (error.name === 'ValidationError') {
+                const key = Object.keys(error.errors)[0];
+                let errorMessage = error.errors[key].message
+                console.error(errorMessage);
+                res.render('user/login', {page, errorMessage, key, user, session: req.session.user || undefined})
+            } else {
+                console.error(error);
+                res.render('user/login', {page, error, user, session: req.session.user || undefined})
+            }
+        }
     }
+//     } catch (error) {
+//         console.error(error);
+//         res.render('user/login', { error, username, session: req.session.user || undefined, page}); 
+//     }
 })
 
 //User Profile Routes
@@ -123,7 +141,10 @@ router.get("/editUser", isLoggedIn, async (req, res) => {
 router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, res) => {
     const user = req.body;
     const page = req.url.split('/')[1];
-    const path = req.file.path;
+    let path = req.body.image;
+    if (req.file){
+        path = req.file.path;
+    }
     if (user.image === "") {
         user.image = undefined;
     }
@@ -137,11 +158,15 @@ router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, r
             let errorMessage = 'User name already exists'
             res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
         } else {
-            console.log(error)
-            const key = Object.keys(error.errors)[0];
-            let errorMessage = error.errors[key].message
-            console.error(errorMessage);
-            res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
+            if (error.name === 'ValidationError') {
+                const key = Object.keys(error.errors)[0];
+                let errorMessage = error.errors[key].message
+                console.error(errorMessage);
+                res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
+            } else {
+                console.error(error);
+                res.render('user/editUser', {page, error, user, session: req.session.user || undefined})
+            }
         }
     }
 })

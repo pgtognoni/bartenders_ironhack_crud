@@ -1,5 +1,5 @@
 <%- include('../navbar.ejs'), { session } %>
-<div class="seccion-container column-center">
+<div class="seccion-container column-center login-container">
     <div class="martini-container">
         <img src="/images/martiniGlassShape.png" alt="martini glass background" class="martini-login-img">
      </div>
@@ -25,8 +25,5 @@
     <button type="submit" id="form-login-btn" class="index-btn btn-signup btn-box">Register</button>
     <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key !== 'age' && key !== 'username' && key !== 'email') { %> <p class="error-message"><%= errorMessage %></p><% } %>
 </form>
-</div>
-<div class="index-img-container img-1">
-    <img src="/images/bartender2.png" alt="bartenders image" class="index-img-1" loading="lazy">
 </div>
 </div>
