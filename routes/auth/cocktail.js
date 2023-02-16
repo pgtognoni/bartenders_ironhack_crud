@@ -22,24 +22,24 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
 
   let img = ''
   if (!req.file) {
-    img = '';
+    switch (body.servingGlass){
+      case 'Martini' : img = '/images/martini.png' ; break;
+      case 'Tumbler' : img = '/images/tumbler.png' ; break;
+      case 'Nick N` Nora' : img = '/images/nickNnora2.png' ; break;
+      case 'Highball' : img = '/images/highball.png' ; break;
+      case 'Coupette': img = '/images/coupette.png' ; break;
+      case 'Other' : img = '/images/other-cocktail.png' ; break;
+    }
   } else {
     img = req.file.path;
   }
 
+ 
   let ingredients = null;
   if (body.ingredients.trim().length > 0) {
     ingredients = body.ingredients.trim().split(',')
   }
   console.log('ingredients: ', ingredients);
-  switch (body.servingGlass){
-    case 'Martini' : img = '/images/martini.png' ; break;
-    case 'Tumbler' : img = '/images/tumbler.png' ; break;
-    case 'Nick N` Nora' : img = '/images/nickNnora2.png' ; break;
-    case 'Highball' : img = '/images/highball.png' ; break;
-    case 'Coupette': img = '/images/coupette.png' ; break;
-    case 'Other' : img = '/images/other-cocktail.png' ; break;
-  }
   try {
     const cocktailCreated = await Cocktail.create({
       ...body, 
@@ -93,7 +93,7 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
   return array;
 }
 
-router.get('/cocktails-search', async (req, res) => {
+router.get('/cocktails-search', isLoggedIn , async (req, res) => {
   const page = req.url.split('/')[1];
   try {
     const user = await User.findById(req.session.userId).populate('creations')
@@ -119,9 +119,19 @@ router.get('/cocktails-search', async (req, res) => {
       
     }))
 
+    const allCocktails = await Cocktail.find()
+    let cocktailsShared = []
+    allCocktails.forEach(cocktail => {
+      if (cocktail.creator != user._id) {
+        cocktailsShared.push(cocktail)
+      }
+    console.log('cocktailsShared', cocktailsShared)
+    })
+
+
     const final = await shuffle(searchHistory);
 
-  res.render('cocktail/search-cocktail', { page, session: req.session.user || undefined, cocktailsApi:  final })
+  res.render('cocktail/search-cocktail', { user , page, session: req.session.user || undefined, cocktailsApi:  final , cocktailsDb: allCocktails })
 
   } catch(error) {
       console.error(error);
@@ -180,16 +190,25 @@ router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
 
 
 router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, async (req, res) => {
-  
+  const body = req.body
   let img = ''
   if (!req.file) {
-    img = '';
+    switch (body.servingGlass){
+      case 'Martini' : img = '/images/martini.png' ; break;
+      case 'Tumbler' : img = '/images/tumbler.png' ; break;
+      case 'Nick N` Nora' : img = '/images/nickNnora2.png' ; break;
+      case 'Highball' : img = '/images/highball.png' ; break;
+      case 'Coupette': img = '/images/coupette.png' ; break;
+      case 'Other' : img = '/images/other-cocktail.png' ; break;
+    }
   } else {
     img = req.file.path;
   }
 
+  
+
   await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
-    ...req.body,
+    ...req.body, 
     ingredients: req.body.ingredients.split(' '),
     image : img ,
   })
@@ -233,4 +252,17 @@ router.get('/allcocktails', isLoggedIn, async (req, res) => {
   cocktails = drinksApi
   //console.log(cocktails)   
   res.render('cocktail/display-cocktails', { cocktails })
+})
+
+router.get("/remove/:name", async (req, res) => {
+  const id = req.session.userId;
+  const name = req.params.name;
+  try {
+    await User.findByIdAndUpdate(id, { $pull: { favourites : name } }, {new: true})
+    console.log(name)
+    res.redirect('/user/profile')
+  //  ($pull: {favourites : name })
+  } catch (error) {
+    console.log(error);
+   }
 })

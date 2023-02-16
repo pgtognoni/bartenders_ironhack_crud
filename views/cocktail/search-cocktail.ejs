@@ -7,17 +7,13 @@
     <button type="submit" class="search-btn">Go</button>
   </form>
 </div>
-<% if (cocktailsApi.length != 0) %> <% cocktailsApi.forEach(cocktail => { %>
-  <div style="border: 1px solid black; margin: 1rem; padding: 1rem">
-    <h2>Cocktail Name:<%=cocktail.name%></h2>
-    <h2>Instructions: <%=cocktail.instructions%></h2>
-    <ul> Ingredients:
-      <% cocktail.ingredients.forEach(ingredient => { %>
-      <li><%= ingredient %></li>
-      <% }) %>
-      </ul>
-      <a href="/cocktail/<%- cocktail.name %>/save">Save the recipe</a>
-
+<div class="cocktails-profile-display">
+  <div class='user-cocktails'>
+    <% if (cocktailsDb.length != 0) %> <% cocktailsDb.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
   </div>
-<% }) %>
+
+  <div class="api-cocktails" >
+    <% if (cocktailsApi.length != 0) %>  <% cocktailsApi.forEach((cocktail) => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
+  </div>
+</div>  
 </div>
