@@ -18,6 +18,8 @@ router.get('/create', isLoggedIn, (req, res) => {
 router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res) => {
   const page = req.url.split('/')[1];
   const body = req.body
+  console.log(body);
+
   let img = ''
   if (!req.file) {
     img = '';
@@ -25,6 +27,11 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
     img = req.file.path;
   }
 
+  let ingredients = null;
+  if (body.ingredients.trim().length > 0) {
+    ingredients = body.ingredients.trim().split(',')
+  }
+  console.log('ingredients: ', ingredients);
   switch (body.servingGlass){
     case 'Martini' : img = '/images/martini.png' ; break;
     case 'Tumbler' : img = '/images/tumbler.png' ; break;
@@ -33,32 +40,37 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
     case 'Coupette': img = '/images/coupette.png' ; break;
     case 'Other' : img = '/images/other-cocktail.png' ; break;
   }
+  try {
     const cocktailCreated = await Cocktail.create({
-    ...body, 
-    image : img ,
-    creator: req.session.userId,
-    ingredients: body.ingredients.split(' ')
-  })
+      ...body, 
+      image : img ,
+      creator: req.session.userId,
+      ingredients: ingredients
+    })
 
-  const cocktailId = cocktailCreated._id
-  const userId = req.session.userId
-  const userUpdate = await User.findOneAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
-  //console.log(userUpdate)
-  res.render('cocktail/new-cocktail', { page, cocktail : cocktailCreated || undefined, update: true, session: req.session.user || undefined })
+    const cocktailId = cocktailCreated._id
+    const userId = req.session.userId
+    const userUpdate = await User.findOneAndUpdate( userId, { $push: { creations : cocktailId } }, {new: true})
+    res.redirect('/user/profile')
+  } catch (error) {
+    console.log(error.name)
+    if (error.code === 11000) {
+        let key = 'name'
+        let errorMessage = 'Name already exists'; 
+        res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined })
+      } else {
+        if (error.name === 'ValidationError') {
+            const key = Object.keys(error.errors)[0];
+            let errorMessage = error.errors[key].message
+            console.error(errorMessage);
+            res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined })
+          } else {
+            console.error(error);
+            res.render('cocktail/new-cocktail', {page, error, cocktail : body || undefined, update: true, session: req.session.user || undefined})
+        }
+    }
+}
 })
-
-/* GET all cocktails */ 
-
-//  router.get('/creations', isLoggedIn, async (req, res) => {
-//   const page = req.url.split('/')[1];
-//   try {
-//     //const allCocktails = await Cocktail.find()
-//     console.log('All cocktails :', allCocktails)
-//     res.render('cocktail/all-cocktails', { page, cocktails : allCocktails, session: req.session.user || undefined })
-//   } catch (error) {
-//     console.log('Route to all recipes', error)
-//   }
-// })
 
  /* Search for a cocktail recipe in local DB */
 
