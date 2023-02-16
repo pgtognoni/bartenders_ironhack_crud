@@ -210,7 +210,7 @@ router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, asy
     ingredients = body.ingredients.trim().split(',')
   }
   
-  // try {
+  try {
   //   const cocktail = await Cocktail.findById(req.params.cocktailId);
   //   if (cocktail.name == req.body.name) {
   //     delete req.body.name
