@@ -72,10 +72,6 @@ router.post('/login', async (req, res) => {
             console.error(error);
             res.render('user/login', {page, error, username, session: req.session.user || undefined})
     }
-//     } catch (error) {
-//         console.error(error);
-//         res.render('user/login', { error, username, session: req.session.user || undefined, page}); 
-//     }
 })
 
 //User Profile Routes

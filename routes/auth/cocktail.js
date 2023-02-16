@@ -18,7 +18,6 @@ router.get('/create', isLoggedIn, (req, res) => {
 router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res) => {
   const page = req.url.split('/')[1];
   const body = req.body
-  console.log(body);
 
   let img = ''
   if (!req.file) {
@@ -39,7 +38,7 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
   if (body.ingredients.trim().length > 0) {
     ingredients = body.ingredients.trim().split(',')
   }
-  console.log('ingredients: ', ingredients);
+
   try {
     const cocktailCreated = await Cocktail.create({
       ...body, 
@@ -204,14 +203,17 @@ router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, asy
   } else {
     img = req.file.path;
   }
-
+  let ingredients = null;
+  if (body.ingredients.trim().length > 0) {
+    ingredients = body.ingredients.trim().split(',')
+  }
   
 
   await Cocktail.findByIdAndUpdate(req.params.cocktailId, {
     ...req.body, 
-    ingredients: req.body.ingredients.split(' '),
+    ingredients: ingredients,
     image : img ,
-  })
+  }, { runValidators: true })
   res.redirect('/user/profile')
 })
 
