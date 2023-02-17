@@ -21,10 +21,10 @@
   --dark-blue: #06365f;
   --light-blue: #3e9be8;
   --nav-bg: #161618;
-  --btn-cancel: #f22424;
+  --btn-cancel: #da2020;
   --bg-search: #3b3734;
-  --green1: #1eba79;
-  --green2: rgb(28, 201, 91);
+  --green1: #17b473;
+  --green2: rgb(24, 186, 84);
   --index-btn: linear-gradient(var(--green1), var(--green2));
   --modal-container: rgba(55, 55, 55, 0.273);
 }
@@ -193,11 +193,12 @@ ul {
 }
 
 .seccion-container {
-  padding: 4rem 2rem;
+  padding: 3.5rem 0rem;
   height: 100%;
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
+  gap: 2rem;
 }
 @media screen and (max-width: 321px){
   .seccion-container {
@@ -472,10 +473,10 @@ select:-webkit-autofill:focus {
   align-items: start;
   padding: 10%;
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   background-image: url("../images/bartender1.png");
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: 65%;
   background-position: right 3%;
 }
 
@@ -536,7 +537,6 @@ select:-webkit-autofill:focus {
     margin-right: .2rem;
     vertical-align: -.15rem;
   }
-
 }
 
 @media screen and (max-width: 321px) {
@@ -554,7 +554,6 @@ select:-webkit-autofill:focus {
   .col-2-index {
     margin-right: 0rem;
   }
-  
 }
 
 .in-left {
@@ -592,10 +591,13 @@ select:-webkit-autofill:focus {
 .about-text {
   color: inherit;
   text-align: right;
-  line-height: 1.5;
-  font-size: 1.5rem;
-  width: 55%;
+  line-height: 2;
+  font-size: 1rem;
+  font-weight: 500;
+  padding-right: 2rem;
+  width: 45%;
   align-self: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 .about-container {
@@ -618,8 +620,18 @@ select:-webkit-autofill:focus {
   opacity: 1;
   transition: opacity .5s ease-in;
 }
+@media screen and (max-width: 769px) {
+  .about-text {
+    width: 80%;
+  }
+}
 
-
+@media screen and (max-width: 321px) {
+  .about-text {
+    width: 100%;
+  }
+  
+}
 /****** SIGNUP  LOGIN ******/
 /****** SIGNUP  LOGIN ******/
 /****** SIGNUP  LOGIN ******/
@@ -638,9 +650,9 @@ select:-webkit-autofill:focus {
   z-index: -1;
   position: absolute;
   top: 1rem;
-  left: 7rem;
+  left: 5rem;
   opacity: 2;
-  width: 50%;
+  width: 40%;
 }
 
 @media screen and (max-width: 1024px) {
@@ -664,7 +676,7 @@ select:-webkit-autofill:focus {
 .login-container {
   background-image: url("../images/bartender2.png");
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: 60%;
   background-position: right 3% top 75%;
   width: 100%;
   height: 100vh;
@@ -1294,7 +1306,7 @@ label[for='shared'] select {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
 }
 .recipe-card {
@@ -1327,7 +1339,7 @@ label[for='shared'] select {
 }
 
 .card-body {
-  padding: .5rem;
+  padding: 0rem 0;
   display: flex;
 }
 
@@ -1402,4 +1414,11 @@ label[for='shared'] select {
   font-size: 1rem;
   margin-bottom: .5rem;
   padding: 0;
+}
+
+.recipe-card .edit-btn {
+  background-color: var(--dark-blue)
+}
+.recipe-card .btn-delete {
+  background-color: var(--btn-cancel);
 }
