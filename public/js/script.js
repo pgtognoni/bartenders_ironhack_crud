@@ -16,14 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
   //*** WINDOW EVENTS ***//
   
   window.onscroll = () => {
-    
+    const windowY = window.scrollY + window.innerHeight;
     const about = document.getElementById('about')
     const elementTop = about.getBoundingClientRect().top;
-    const windowY = window.scrollY + window.innerHeight;
     const elementHeight = about.offsetHeight;
-    const footerTop = footer.getBoundingClientRect().top;
         
-  
     //** SHOW ABOUT TEXT ON SCROLL **/
     if (windowY - elementHeight/2 > elementTop) {
       console.log('show');
@@ -34,6 +31,25 @@ document.addEventListener("DOMContentLoaded", () => {
       about.classList.remove('in-right');
     }
   }
+
+  // document.getElementById('day-style').addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   const root = document.querySelector(':root')
+  //   root.style.setProperty('--background-black', '#fff')
+  //   root.style.setProperty('--nav-bg', '#fafafa')
+  //   root.style.setProperty('--bg-search', '#f4f4f4')
+  //   root.style.setProperty('--text-white', '#3c3a39')
+  //   root.style.setProperty('--bg-recipe', '#fafafa')
+  // })
+
+  // document.getElementById('night-style').addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   const root = document.querySelector(':root')
+  //   root.style.setProperty('--background-black', '#212121')
+  //   root.style.setProperty('--nav-bg', '#161618')
+  //   root.style.setProperty('--bg-search', '#3b3734')
+  //   root.style.setProperty('--text-white', '#c9c9c9')
+  // })
 
   console.log("bartender_crud JS imported successfully!");
 

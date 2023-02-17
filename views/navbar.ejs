@@ -10,7 +10,12 @@
         <a href='/'><i class="fa-solid fa-house home-icon"></i></a>
     <% } %>
     <% if (typeof session !== 'undefined') { %>
-        <a href="/cocktail/create"><i class="fa-solid fa-martini-glass-citrus martini"></i><a href="/cocktail/create">Cocktail Builder</a>
+        <a href="/cocktail/create" class="create-cocktail">
+            <div class="martini-container">
+                <img src="/images/martiniGlassShape.png" alt="martini glass background" class="martini-login-img">
+             </div>
+                    <!-- <i class="fa-solid fa-martini-glass-citrus martini"></i> -->
+        Cocktail Builder</a>
     <% } %>    
 </div>
 <div class="nav-col-3">
@@ -30,6 +35,8 @@
             <% } %>
             >About</a></li>
         <% } %>
+        <!-- <li class="navbar-link"><button id="night-style"><i class="fa-solid fa-moon"></i></button></li>
+        <li class="navbar-link"><button id="day-style"><i class="fa-regular fa-sun"></i></button></li> -->
     </ul>
 </div>  
 </div> 

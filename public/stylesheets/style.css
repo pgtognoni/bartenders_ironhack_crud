@@ -7,6 +7,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* --bg-search: #f4f4f4; */
+
 }
 
 :root {
@@ -14,7 +16,7 @@
   --btn-index: #4ca9e3;
   --text-white: #dadada;
   --box-container: rgb(241, 241, 241);
-  --box-shadow: rgba(211, 237, 241, 0.5);
+  --box-shadow: rgba(220, 236, 239, 0.5);
   --box-shadow-inset: rgba(223, 222, 222, 0.5);
   --background-black: #212121;
   --input-shadow: rgba(168, 168, 168, 0.414);
@@ -27,6 +29,9 @@
   --green2: rgb(24, 186, 84);
   --index-btn: linear-gradient(var(--green1), var(--green2));
   --modal-container: rgba(55, 55, 55, 0.273);
+  --btn-text: #dadada;
+  --index-title: #dadada;
+  --bg-recipe: black;
 }
 
 body {
@@ -46,6 +51,10 @@ a:active {
   color: inherit;
 }
 
+a.edit-btn {
+  color: var(--btn-text)
+}
+
 ul {
   list-style: none !important;
 }
@@ -56,10 +65,9 @@ ul {
 
 .index-btn {
   background: var(--index-btn);
-  text-shadow: 1px 0 1px var(--light-blue);
   letter-spacing: 1px;
   display: flex;
-  color: var(--text-white) !important;
+  color: var(--btn-text) !important;
   font-size: 1.3rem;
   font-weight: 700;
   justify-content: center;
@@ -78,7 +86,6 @@ ul {
 
 .btn-signup {
   background: linear-gradient(#38afffe9, #15b9ffeb);
-  text-shadow: 1px 0 1px var(--dark-blue);
 }
 
 @media screen and (max-width: 321px) {
@@ -102,7 +109,7 @@ ul {
 .edit-btn {
   cursor: pointer;
   background-color: var(--light-blue);
-  color: var(--text-white);
+  color: var(--btn-text);
   padding: .75rem .8rem;
   border-radius: 4px;
 }
@@ -114,7 +121,7 @@ ul {
 .cancel-edit {
   cursor: pointer;
   background-color: var(--btn-cancel);
-  color: var(--text-white);
+  color: var(--btn-text);
   padding: .7rem 1rem;
   border-radius: 4px;
   font-size: 1.3rem;
@@ -164,7 +171,7 @@ ul {
 }
 .btn-delete {
   background-color: var(--btn-cancel);
-  color: var(--text-white);
+  color: var(--btn-text);
   border: none;
 }
 
@@ -193,12 +200,12 @@ ul {
 }
 
 .seccion-container {
-  padding: 3.5rem 0rem;
+  padding: 5rem 0rem 0;
   height: 100%;
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1rem;
 }
 @media screen and (max-width: 321px){
   .seccion-container {
@@ -462,6 +469,41 @@ select:-webkit-autofill:focus {
   color: inherit;
 }
 
+
+.martini-container {
+  width: 6%;
+  display: inline-block;
+  margin-right: -8px;
+}
+
+.martini-login-img {
+  background: linear-gradient(245deg, #f22424 15%, #c905ff 45%, #3d99ea 55%, #00f7d6 75%);
+  background-size: 200% 200%;
+  animation: movingBG 10s ease infinite;
+  width: 55%;
+}
+
+.create-cocktail {
+  background: linear-gradient(245deg, #f22424 15%, #c905ff 45%, #3d99ea 55%, #00f7d6 75%);
+  background-size: 200% 200%;
+  animation: movingBG 10s ease infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent !important;
+}
+
+@keyframes movingBG {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0 50%;
+  }
+}
+
 /****** INDEX ******/
 /****** INDEX ******/
 /****** INDEX ******/
@@ -471,12 +513,12 @@ select:-webkit-autofill:focus {
   grid-template-columns: 1fr 2fr;
   justify-content: center;
   align-items: start;
-  padding: 10%;
+  padding: 0% 10%;
   width: 100%;
   height: 100vh;
-  background-image: url("../images/bartender1.png");
+  background-image: url("../images/bartender3.png");
   background-repeat: no-repeat;
-  background-size: 65%;
+  background-size: 85%;
   background-position: right 3%;
 }
 
@@ -499,7 +541,7 @@ select:-webkit-autofill:focus {
   font-family: 'Russo One', 'Heebo', sans-serif;
   font-size: 5rem;
   letter-spacing: 3px;
-  color: var(--text-white);
+  color: var(--index-title);
 }
 
 .index-title span {
@@ -601,7 +643,7 @@ select:-webkit-autofill:focus {
 }
 
 .about-container {
-  margin-top: 5rem;
+  margin-top: 2rem;
   width: 100%;
   height: 90vh;
   display: flex;
@@ -635,43 +677,6 @@ select:-webkit-autofill:focus {
 /****** SIGNUP  LOGIN ******/
 /****** SIGNUP  LOGIN ******/
 /****** SIGNUP  LOGIN ******/
-
-.martini-container {
-  position: absolute;
-  left: 0;
-  top: 5rem;
-  width: 50%;
-}
-
-.martini-login-img {
-  background: linear-gradient(245deg, #f22424 15%, #06365f,#4b89da 55%, #00f773 75%);
-  background-size: 200% 200%;
-  animation: movingBG 15s ease infinite;
-  z-index: -1;
-  position: absolute;
-  top: 1rem;
-  left: 5rem;
-  opacity: 2;
-  width: 40%;
-}
-
-@media screen and (max-width: 1024px) {
-  .martini-login-img {
-    left: 1rem;  
-  }
-}
-
-@keyframes movingBG {
-  0% {
-    background-position: 0 50%;
-  }
-  50% {
-      background-position: 100% 50%;
-  }
-  100% {
-      background-position: 0 50%;
-  }
-}
 
 .login-container {
   background-image: url("../images/bartender2.png");
@@ -1322,13 +1327,13 @@ label[for='shared'] select {
 }
 
 .card-head {
-  background-color: black;
+  background-color: var(--bg-recipe);
   width: 100%;
   padding: .6rem;
 }
 
 .card-footer {
-  background-color: black;
+  background-color: var(--bg-recipe);
   width: 100%;
   padding: .7rem;
 }
