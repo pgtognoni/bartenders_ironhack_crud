@@ -1121,6 +1121,8 @@ label[for='age'] input {
 
 .create-seccion {
   height: 100%;
+  width: 90%;
+  margin: auto
 }
 
 .cocktail-form button,
