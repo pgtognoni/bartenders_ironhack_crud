@@ -1,0 +1,15 @@
+<%- include('../navbar.ejs'), { session } %>
+<div class="seccion-container column-center ">
+<div class="search-container"> 
+  <form action="/cocktail/search" method="POST"  class="search-form" >
+    <label for="cocktail"><i class="fa-solid fa-magnifying-glass icon-search"></i>
+    <input oninput="this.size = this.value.length" type="text" placeholder="Search for a cocktail..." name="cocktail"></label>
+    <button type="submit" class="search-btn">Go</button>
+  </form>
+</div>
+<div class="cocktails-profile-display">
+  <div class='cocktails-container'>
+    <% if (cocktailsApi.length != 0) %>  <% cocktailsApi.forEach((cocktail) => { %> <%- include('../partials/recipe-card', {cocktail , session }) %> <% }) %>
+  </div>
+</div>  
+</div>

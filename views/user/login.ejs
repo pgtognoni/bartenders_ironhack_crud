@@ -1,11 +1,21 @@
-<h1>LogIn</h1>
-<form action="/user/login" method="POST" class="signup-form">
-    <label for="username">Username: 
-        <input type="text" name="username" id="username" required <% if (typeof error !== 'undefined') { %> value="<%= username %>"<% } %>>
-    </label>
-    <label for="password">Password:
-        <input type="password" name="password" id="password" required>
-    </label>
-    <button type="submit">LogIn</button>
-    <% if (typeof error !== 'undefined')  { %> <p class="error-message"><%= error.message %></p><% } %>
-</form>
+<%- include('../navbar.ejs'), { session } %>
+<div class="seccion-container column-center login-container">
+    <!-- <div class="martini-container">
+       <img src="/images/martiniGlassShape.png" alt="martini glass background" class="martini-login-img">
+    </div> -->
+    <div class="box-container column-center signup-container">
+    <h1 class="box-title">LogIn</h1>
+    <form action="/user/login" method="POST" class="signup-form column-center">
+        <label for="username">Username: 
+            <input class="signup-input" type="text" name="username" id="username" required <% if (typeof error !== 'undefined') { %> value="<%= username %>"<% } %>>
+            <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'username') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+        </label>
+        <label for="password">Password:
+            <input class="signup-input" type="password" name="password" id="password" required>
+            <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'password') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+        </label>
+        <button type="submit" class="index-btn btn-login btn-box">Log In</button>
+        <% if (typeof error !== 'undefined')  { %> <p class="error-message"><%= error.message %></p><% } %>
+    </form>
+    </div>
+</div>

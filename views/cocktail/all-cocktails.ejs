@@ -1,0 +1,8 @@
+<%- include('../navbar.ejs'), { session } %>
+<div class="seccion-container column-center">
+
+<h1>Cocktails personal database</h1>
+
+<% cocktails.forEach(cocktail => { %> <%- include('../partials/recipe-card', {cocktail}) %> <% }) %>
+
+</div>

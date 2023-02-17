@@ -17,7 +17,6 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
       validate: [validateEmail, 'Please fill a valid email address'],
@@ -35,7 +34,7 @@ const userSchema = new Schema(
     },
     image: {
       type: String,
-      default: 'https://lh3.googleusercontent.com/pw/AMWts8Bjl2I6k3z09wKRYTRAQebxdcAqwkIl_iIKhLisSH7eiSejcDhipzS6klL6TXS-n1O0VGuTK4no0b9hVMpQ4blP6AJIfhHamIlEuAXNlvb8Zy4J9TuTPKvuQN2Jjv9EY8SWP5JJ50nOY_z3oEI6YDf-=w260-h230-no?authuser=0'
+      default: '/images/camera.png'
     },
     city: {
       type: String,
@@ -47,10 +46,12 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    favorites: [{
+    creations: [{
       type: Schema.Types.ObjectId,
       ref: "Cocktail"
-    }]
+    }],
+    favourites: [String],
+    searchHistory: {type: [String] , default: ['martini', 'negroni', 'margarita', 'whiskey']}
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    

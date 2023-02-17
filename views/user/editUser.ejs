@@ -1,0 +1,82 @@
+<%- include('../navbar.ejs'), { session } %>
+<div class="seccion-container column-center">
+
+<div id="profile-container" class="column-center" >
+    <form action="/user/editUser" method="POST" enctype="multipart/form-data" class="signup-form profile-form box-container">
+    <a href="/user/profile" class="close-edit"><i class="fa-solid fa-xmark"></i></a>
+    <div class="profile-title">
+        <button data-name="image" id="image-profile" class="image-profile-btn edit prevent"><img class="image-profile-edit" src="<%= user.image %>" alt="edit-profile-image"></button> 
+        <label for="username" class="edit-username">
+            <button data-name="username" class="edit-username-btn edit prevent"><h1 data-value="username"><%= user.username %></h1></button>
+            <h1 class="h1-profile"><input oninput="this.size = this.value.length" type="text" name="username" id="username" value="<%= user.username %>"></h1>
+            <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'username') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+        </label>
+        <div class="btn-edit-container">
+            <button id="edit-btn" class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button id="cancel-edit" class="cancel-edit"><i class="fa-solid fa-xmark"></i></i></button>
+         </div>
+    </div>
+    <div class="profile-body">
+        <label for="email">
+            <p>Email: </p><button data-name="email" class="edit prevent" ><p class="edit-text" data-value="email"><%= user.email %></p></button>
+            <input oninput="this.size = this.value.length" type="email" name="email" id="email" value="<%= user.email %>">
+            <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'email') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+        </label>
+        <label for="age">
+            <p>Age: </p><button data-name="age" class="edit prevent"><p class="edit-text" data-value="age"><%= user.age %></p></button>
+            <input oninput="this.size = this.value.length" type="number" name="age" id="age" value="<%= user.age %>">
+            <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key == 'age') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+        </label>
+        <label for="occupation">
+            <p>Occupation: </p><button data-name="occupation" class="edit prevent"><p class="edit-text" data-value="occupation"><span class="text-transparent">.</span><%= user.occupation %></p></button>
+            <select name="occupation" id="occupation">
+                <option name="occupation" id="bartender" value="bartender"> bartender
+                <option name="occupation" id="bartender" value="barmanager"> barmanager
+                <option name="occupation" id="bartender" value="barback"> barback
+                <option name="occupation" id="bartender" value="owner"> owner
+                <option name="occupation" id="bartender" value="client"> client
+                <option name="occupation" id="bartender" value="student"> student
+                <option name="occupation" id="bartender" value="other"> other
+            </select>
+        </label>
+        <label for="city">
+            <p>City: </p><button data-name="city" class="edit prevent"><span class="text-transparent">.</span><p  class="edit-text" data-value="city"><%= user.city %></p> </button>
+            <input oninput="this.size = this.value.length" type="text" name="city" id="city" value="<%= user.city %>">
+        </label>
+        <label for="bio" class="label-bio">
+            <p>Add Bio: </p><button data-name="bio" class="edit prevent"><span class="text-transparent">.</span><p  data-value="bio"><%= user.bio %></p></button>
+            <textarea cols="40" rows="6" type="text" name="bio" id="bio" value="<%= user.bio %>"></textarea>
+        </label>
+    </div>
+    <div class="btn-container">
+        <button id="delete" class="btn-edit btn-delete">DELETE</button>
+        <button type="submit" id="save-changes" class="btn-edit btn-box index-btn">SAVE</button>
+    </div>
+    <% if (typeof errorMessage !== 'undefined' && typeof key !== 'undefined' && key !== 'age' && key !== 'username' && key !== 'email') { %> <p class="error-message"><%= errorMessage %></p><% } %>
+</form>
+</div>
+</div>
+<div class="modal-container" id="delete-modal">
+    <div class="modal column-center">
+        <form action="/user/delete" method="GET" class="signup-form profile-form box-container">
+            <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h2>DELETE PROFILE</h2>
+            <div class="btn-container">
+                <button class="btn-edit btn-delete">DELETE</button>
+                <button id="close-modal" class="login-btn btn-edit btn-box index-btn login-btn">CANCEL</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-container" id="image-modal">
+<div class="modal column-center">
+    <form action="/user/editUser" method="POST" enctype="multipart/form-data" class="signup-form profile-form box-container">
+        <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+        <div class="btn-container">
+                <button id="close-modal" class="btn-edit btn-delete">CANCEL</button>
+                <button class="login-btn btn-edit btn-box index-btn login-btn" type="submit">SAVE</button> 
+        </div>
+    </form>
+</div>
+</div>

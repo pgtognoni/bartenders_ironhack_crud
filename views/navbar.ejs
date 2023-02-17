@@ -1,0 +1,42 @@
+<div id="nav-bar" 
+<% if (typeof session !== 'undefined') { %>    
+    class="nav-bar-container"
+<% } else { %>
+    class="nav-bar-container  in-top"
+<% } %>
+>
+<div class="nav-col-1">
+    <% if (page !== "") { %>
+        <a href='/'><i class="fa-solid fa-house home-icon"></i></a>
+    <% } %>
+    <% if (typeof session !== 'undefined') { %>
+        <a href="/cocktail/create" class="create-cocktail">
+            <div class="martini-container">
+                <img src="/images/martiniShapeNav.png" alt="martini glass background" class="martini-login-img">
+             </div>
+                    <!-- <i class="fa-solid fa-martini-glass-citrus martini"></i> -->
+        Cocktail Builder</a>
+    <% } %>    
+</div>
+<div class="nav-col-3">
+    <ul class=" navbar-ul">
+        <% if (typeof session !== 'undefined') { %>
+        <li class="navbar-link"><a href="/cocktail/cocktails-search"><i class="fa-solid fa-magnifying-glass form-search"></i></a></li>
+        <li class="navbar-link"><a href="/user/profile"><i class="fa-solid fa-user" class="user-icon"></i></a></li>
+        <li class="navbar-link"><a href="/user/logout">LogOut</a></li>
+        <% } else if (typeof session === 'undefined') { %>
+        <li class="navbar-link"><a href="/user/login">Log In</a></li>
+        <li class="navbar-link"><a href="/user/signup">Register</a></li>
+        <li class="navbar-link"><a 
+            <% if (page !== "") { %>
+                href="/#about"
+            <% } else {%>
+                href="#about"
+            <% } %>
+            >About</a></li>
+        <% } %>
+        <!-- <li class="navbar-link"><button id="night-style"><i class="fa-solid fa-moon"></i></button></li>
+        <li class="navbar-link"><button id="day-style"><i class="fa-regular fa-sun"></i></button></li> -->
+    </ul>
+</div>  
+</div> 
