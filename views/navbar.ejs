@@ -35,20 +35,26 @@
             <% } %>
             >About</a></li>
         <% } %>
-        <li class="navbar-link"><a href="/setNight" id="night-style"        
+    </ul>
+    <div class="theme-container">
+        <i class="fa-solid fa-moon"></i>
+        <div class="toogle-theme">
+            <a href="/setNight" id="night-style"        
             <% if (typeof theme == 'undefined' || theme == 'night' ) { %>
                 class="color-shift active"
             <% } else {%>
                 class="color-shift"
             <% } %>
-            ><i class="fa-solid fa-moon"></i></a></li>
-        <li class="navbar-link"><a href="/setDay" id="day-style" 
+            ></a>
+            <a href="/setDay" id="day-style" 
             <% if (theme == 'day' ) { %>
                 class="color-shift active"
             <% } else {%>
                 class="color-shift"
             <% } %>
-            ><i class="fa-regular fa-sun"></i></a></li>
-    </ul>
+            ></a>
+        </div>
+        <i class="fa-regular fa-sun"></i>
+    </div>
 </div>  
 </div> 

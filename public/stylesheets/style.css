@@ -441,6 +441,9 @@ select:-webkit-autofill:focus {
 }
 
 .nav-col-3 {
+  gap: 1rem;
+  display: flex;
+  align-items: center;
   max-width: min-content;
   min-width: max-content;
 }
@@ -502,6 +505,24 @@ select:-webkit-autofill:focus {
       background-position: 0 50%;
   }
 }
+.theme-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+}
+
+.toogle-theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background-color: var(--input-shadow);
+  border-radius: 40%;
+  padding: 1px;
+  box-shadow: inset 1px 1px 5px rgba(168, 168, 168, 0.414),
+  inset -1px -1px 5px rgba(168, 168, 168, 0.414);
+}
 
 .color-shift {
   cursor: pointer;
@@ -512,13 +533,14 @@ select:-webkit-autofill:focus {
   background: none;
   box-shadow: none;
   color: inherit;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  padding: .3rem .3rem;
 }
 
 .color-shift.active {
   background-color: var(--display);
-  padding: .2rem .3rem;
-  border-radius: 3px;
-  color: var(--dark-blue)
 }
 
 /****** INDEX ******/

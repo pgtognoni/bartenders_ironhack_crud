@@ -15,7 +15,6 @@ const setDay = () =>{
 
   const create = document.getElementById('create-day')
   if(create) {
-    create.style.setProperty('color', '#3c3a39', 'important')
     create.classList.remove('hide')
   }
   const night = document.getElementById('create-night')
