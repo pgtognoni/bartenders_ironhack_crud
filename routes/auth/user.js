@@ -5,13 +5,12 @@ const { isLoggedIn } = require('../../middlewares/islogged');
 const axios = require('axios');
 const fileUploader = require('../../config/cloudinary.config')
 
-
 //SigUp Routes for User
 
 
 router.get("/signup", (req, res) => {
     const page = req.url.split('/')[1];
-    res.render('user/signup', { session: req.session.user || undefined, page})
+    res.render('user/signup', { session: req.session.user || undefined, page, theme: req.cookies.theme || undefined})
 })
 
 router.post('/signup', async (req, res) => {
@@ -34,20 +33,21 @@ router.post('/signup', async (req, res) => {
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
-            res.render('user/signup', {page, errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/signup', {page, errorMessage, key, user, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
         } else {
         const key = Object.keys(error.errors)[0];
         let errorMessage = error.errors[key].message
         console.error(errorMessage);
-        res.render('user/signup', {page, errorMessage, key, user, session: req.session.user || undefined})
+        res.render('user/signup', {page, errorMessage, key, user, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
         }
     }
 })
 
 //Login Routes for User
 router.get("/login", (req, res) => {
+
     const page = req.url.split('/')[1];
-    res.render('user/login', { session: req.session.user || undefined, page})
+    res.render('user/login', { session: req.session.user || undefined, page, theme: req.cookies.theme || undefined})
 })
 
 router.post('/login', async (req, res) => {
@@ -70,7 +70,7 @@ router.post('/login', async (req, res) => {
         }
     } catch (error) {
             console.error(error);
-            res.render('user/login', {page, error, username, session: req.session.user || undefined})
+            res.render('user/login', {page, error, username, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
     }
 })
 
@@ -102,8 +102,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
             })
             .catch((err) => console.log(err))   
         }))
-        console.log(user)
-        res.render('user/profile', { user, session: req.session.user || undefined, cocktailsApi: favourites, page })
+        res.render('user/profile', { user, session: req.session.user || undefined, cocktailsApi: favourites, page, theme: req.cookies.theme || undefined })
     } catch(error) {
         console.error(error);
     }
@@ -115,7 +114,7 @@ router.get("/editUser", isLoggedIn, async (req, res) => {
     const page = req.url.split('/')[1];
     try {
         const user = await User.findById(req.session.userId)
-        res.render('user/editUser', { user, session: req.session.user || undefined, page })
+        res.render('user/editUser', { user, session: req.session.user || undefined, page, theme: req.cookies.theme || undefined })
     } catch(error) {
         console.error(error);
     }
@@ -141,16 +140,16 @@ router.post('/editUser', fileUploader.single('image'), isLoggedIn, async (req, r
         if (error.code === 11000) {
             let key = 'username'
             let errorMessage = 'User name already exists'
-            res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
+            res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
         } else {
             if (error.name === 'ValidationError') {
                 const key = Object.keys(error.errors)[0];
                 let errorMessage = error.errors[key].message
                 console.error(errorMessage);
-                res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined})
+                res.render('user/editUser', {page, errorMessage, key, user, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
             } else {
                 console.error(error);
-                res.render('user/editUser', {page, error, user, session: req.session.user || undefined})
+                res.render('user/editUser', {page, error, user, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
             }
         }
     }
@@ -161,6 +160,7 @@ router.get("/delete", isLoggedIn, async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.session.userId)
         req.session.destroy();
+        res.clearCookie('theme')
         res.redirect('/')
     } catch(error) {
         console.error(error);
@@ -170,6 +170,7 @@ router.get("/delete", isLoggedIn, async (req, res) => {
 //Logout
 router.get("/logout", isLoggedIn, (req, res) => {
     req.session.destroy();
+    res.clearCookie('theme')
     res.redirect('/')
 })
 

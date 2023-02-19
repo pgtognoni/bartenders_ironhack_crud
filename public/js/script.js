@@ -1,6 +1,55 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
-document.addEventListener("DOMContentLoaded", () => {
+
+const setDay = () =>{
+  document.getElementById('night-style').classList.remove('active');
+  document.getElementById('day-style').classList.add('active');
+  document.getElementById('nav-bar').style.setProperty('border-bottom', '2px solid var(--input-shadow)')
+  document.getElementById('footer').style.setProperty('border-top', '2px solid var(--input-shadow)')
+  const root = document.querySelector(':root')
+  root.style.setProperty('--background-black', '#fff')
+  root.style.setProperty('--nav-bg', '#fafafa')
+  root.style.setProperty('--bg-search', '#f4f4f4')
+  root.style.setProperty('--text-white', '#3c3a39')
+  root.style.setProperty('--bg-recipe', '#fafafa')
+  root.style.setProperty('--box-container', '#fff')
+
+  const create = document.getElementById('create-day')
+  if(create) {
+    create.style.setProperty('color', '#3c3a39', 'important')
+    create.classList.remove('hide')
+  }
+  const night = document.getElementById('create-night')
+  if(night) { 
+    const night = document.getElementById('create-night')
+    night.style.display = 'none';
+  }
+
+}
+
+const setNight = () => {
+  const root = document.querySelector(':root')
+  document.getElementById('night-style').classList.add('active');
+  document.getElementById('day-style').classList.remove('active');
+  root.style.setProperty('--background-black', '#212121')
+  root.style.setProperty('--nav-bg', '#161618')
+  root.style.setProperty('--bg-search', '#3b3734')
+  root.style.setProperty('--text-white', '#c9c9c9')
+  root.style.setProperty('--bg-recipe', 'black')
+  document.getElementById('nav-bar').style.setProperty('border-bottom', 'none')
+  document.getElementById('footer').style.setProperty('border-top', 'none')
+    const create = document.getElementById('create-day')
+    if(create) {
+    create.classList.add('hide')
+    }
+    const night = document.getElementById('create-night')
+    if(night) { 
+      night.style.display = 'inline-block';
+    }
+}
+
   
+  document.addEventListener("DOMContentLoaded", () => {
+    
   //*** FOOTER POSITIONING ***//
   const footer = document.getElementById("footer");
   const footerHeight = footer.offsetHeight;
@@ -15,6 +64,14 @@ document.addEventListener("DOMContentLoaded", () => {
   //*** WINDOW EVENTS ***//
   //*** WINDOW EVENTS ***//
   
+  const night = document.getElementById('night-style');
+
+  if(night.classList.contains('active')) {
+    setNight();
+  } else {
+    setDay();
+  }
+
   window.onscroll = () => {
     const windowY = window.scrollY + window.innerHeight;
     const about = document.getElementById('about')
@@ -32,24 +89,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // document.getElementById('day-style').addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   const root = document.querySelector(':root')
-  //   root.style.setProperty('--background-black', '#fff')
-  //   root.style.setProperty('--nav-bg', '#fafafa')
-  //   root.style.setProperty('--bg-search', '#f4f4f4')
-  //   root.style.setProperty('--text-white', '#3c3a39')
-  //   root.style.setProperty('--bg-recipe', '#fafafa')
-  // })
+  document.getElementById('day-style').addEventListener('click', (e) => {
+    setDay()
+  })
 
-  // document.getElementById('night-style').addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   const root = document.querySelector(':root')
-  //   root.style.setProperty('--background-black', '#212121')
-  //   root.style.setProperty('--nav-bg', '#161618')
-  //   root.style.setProperty('--bg-search', '#3b3734')
-  //   root.style.setProperty('--text-white', '#c9c9c9')
-  // })
+  document.getElementById('night-style').addEventListener('click', (e) => {
+    setNight();
+  })
+
 
   console.log("bartender_crud JS imported successfully!");
 
@@ -152,4 +199,3 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
 });
-

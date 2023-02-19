@@ -24,6 +24,12 @@ require('./config/session')(app)
 const capitalize = require('./utils/capitalize')
 const projectName = 'bartender_crud'
 
+// cookie parser
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+
+// app.locals.stateDisplay = stateDisplay;
+
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`
 
 // 👇 Start handling routes here

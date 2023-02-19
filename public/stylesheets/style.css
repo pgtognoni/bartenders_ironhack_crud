@@ -7,8 +7,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* --bg-search: #f4f4f4; */
-
 }
 
 :root {
@@ -32,6 +30,7 @@
   --btn-text: #dadada;
   --index-title: #dadada;
   --bg-recipe: black;
+  --display: #ffa857;
 }
 
 body {
@@ -200,7 +199,7 @@ ul {
 }
 
 .seccion-container {
-  padding: 5rem 0rem 0;
+  padding: 7rem 0rem 0;
   height: 100%;
   position: relative;
   display: grid;
@@ -502,6 +501,24 @@ select:-webkit-autofill:focus {
   100% {
       background-position: 0 50%;
   }
+}
+
+.color-shift {
+  cursor: pointer;
+}
+
+.color-shift {
+  border: none;
+  background: none;
+  box-shadow: none;
+  color: inherit;
+}
+
+.color-shift.active {
+  background-color: var(--display);
+  padding: .2rem .3rem;
+  border-radius: 3px;
+  color: var(--dark-blue)
 }
 
 /****** INDEX ******/

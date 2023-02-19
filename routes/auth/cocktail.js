@@ -12,7 +12,7 @@ const { isLoggedIn } = require('../../middlewares/islogged');
 router.get('/create', isLoggedIn, (req, res) => {
   const page = req.url.split('/')[1];
 
-  res.render('cocktail/new-cocktail', { page, update: false, session: req.session.user || undefined })
+  res.render('cocktail/new-cocktail', { page, update: false, session: req.session.user || undefined, theme: req.cookies.theme || undefined })
 })
 
 router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res) => {
@@ -57,16 +57,16 @@ router.post('/create', fileUploader.single('image'), isLoggedIn ,async (req, res
     if (error.code === 11000) {
         let key = 'name'
         let errorMessage = 'Name already exists'; 
-        res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined })
+        res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined, theme: req.cookies.theme || undefined })
       } else {
         if (error.name === 'ValidationError') {
             const key = Object.keys(error.errors)[0];
             let errorMessage = error.errors[key].message
             console.error(errorMessage);
-            res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined })
+            res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : body || undefined, update: true, session: req.session.user || undefined, theme: req.cookies.theme || undefined })
           } else {
             console.error(error);
-            res.render('cocktail/new-cocktail', {page, error, cocktail : body || undefined, update: true, session: req.session.user || undefined})
+            res.render('cocktail/new-cocktail', {page, error, cocktail : body || undefined, update: true, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
         }
     }
 }
@@ -122,7 +122,7 @@ router.get('/cocktails-search', isLoggedIn , async (req, res) => {
 
     const final = await shuffle(searchHistory);
 
-  res.render('cocktail/search-cocktail', { user , page, session: req.session.user || undefined, cocktailsApi:  final })
+  res.render('cocktail/search-cocktail', { user , page, session: req.session.user || undefined, cocktailsApi:  final, theme: req.cookies.theme || undefined })
 
   } catch(error) {
       console.error(error);
@@ -161,7 +161,7 @@ router.post('/search', isLoggedIn, async (req, res) => {
       }
     }
 
-    res.render('cocktail/search-results', { page, cocktailsDb: cocktailsFound, cocktailsApi : drinksApi, session: req.session.user || undefined})
+    res.render('cocktail/search-results', { page, cocktailsDb: cocktailsFound, cocktailsApi : drinksApi, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
 
   } catch (error) {
     console.error(error);
@@ -177,7 +177,7 @@ router.get('/:cocktailId/modify', isLoggedIn, async (req, res) => {
   console.log(page)
   const cocktail = await Cocktail.findById(req.params.cocktailId)
   
-  res.render('cocktail/new-cocktail', { page, cocktail, update: true, session: req.session.user || undefined })
+  res.render('cocktail/new-cocktail', { page, cocktail, update: true, session: req.session.user || undefined, theme: req.cookies.theme || undefined })
 }) 
 
 
@@ -215,16 +215,16 @@ router.post('/:cocktailId/modify', fileUploader.single('image'), isLoggedIn, asy
     if (error.code === 11000) {
         let key = 'name'
         let errorMessage = 'Name already exists'; 
-        res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : req.body || undefined, update: true, session: req.session.user || undefined })
+        res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : req.body || undefined, update: true, session: req.session.user || undefined, theme: req.cookies.theme || undefined })
       } else {
         if (error.name === 'ValidationError') {
             const key = Object.keys(error.errors)[0];
             let errorMessage = error.errors[key].message
             console.error(errorMessage);
-            res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : req.body || undefined, update: true, session: req.session.user || undefined })
+            res.render('cocktail/new-cocktail', { page, errorMessage, key, cocktail : req.body || undefined, update: true, session: req.session.user || undefined, theme: req.cookies.theme || undefined })
           } else {
             console.error(error);
-            res.render('cocktail/new-cocktail', {page, error, cocktail : req.body || undefined, update: true, session: req.session.user || undefined})
+            res.render('cocktail/new-cocktail', {page, error, cocktail : req.body || undefined, update: true, session: req.session.user || undefined, theme: req.cookies.theme || undefined})
         }
     }
   }

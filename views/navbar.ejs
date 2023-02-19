@@ -10,12 +10,12 @@
         <a href='/'><i class="fa-solid fa-house home-icon"></i></a>
     <% } %>
     <% if (typeof session !== 'undefined') { %>
-        <a href="/cocktail/create" class="create-cocktail">
+        <a href="/cocktail/create" class="create-cocktail" id="create-night">
             <div class="martini-container">
                 <img src="/images/martiniShapeNav.png" alt="martini glass background" class="martini-login-img">
              </div>
-                    <!-- <i class="fa-solid fa-martini-glass-citrus martini"></i> -->
         Cocktail Builder</a>
+        <a href="/cocktail/create" class="create-cocktail" id="create-day"><i class="fa-solid fa-martini-glass-citrus martini"></i>Cocktail Builder</a>
     <% } %>    
 </div>
 <div class="nav-col-3">
@@ -35,8 +35,20 @@
             <% } %>
             >About</a></li>
         <% } %>
-        <!-- <li class="navbar-link"><button id="night-style"><i class="fa-solid fa-moon"></i></button></li>
-        <li class="navbar-link"><button id="day-style"><i class="fa-regular fa-sun"></i></button></li> -->
+        <li class="navbar-link"><a href="/setNight" id="night-style"        
+            <% if (typeof theme == 'undefined' || theme == 'night' ) { %>
+                class="color-shift active"
+            <% } else {%>
+                class="color-shift"
+            <% } %>
+            ><i class="fa-solid fa-moon"></i></a></li>
+        <li class="navbar-link"><a href="/setDay" id="day-style" 
+            <% if (theme == 'day' ) { %>
+                class="color-shift active"
+            <% } else {%>
+                class="color-shift"
+            <% } %>
+            ><i class="fa-regular fa-sun"></i></a></li>
     </ul>
 </div>  
 </div> 
